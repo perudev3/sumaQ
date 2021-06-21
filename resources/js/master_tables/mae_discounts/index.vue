@@ -18,6 +18,7 @@
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
+							  <th>Nombre del descuento</th>
 	                          <th>Porcentaje</th>
 	                          <th>Fecha de Inicio</th>
 	                          <th>Fecha de Conclusión</th>
@@ -27,6 +28,9 @@
 	                      </thead>
 	                      <tbody>
 	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
+							  <td data-title="Nombre del Descuento">
+	                            <h3>{{data.discounts_name}}</h3>
+	                          </td>
 	                          <td data-title="Porcentaje">
 	                            <h3>{{data.discounts_porcentaje}}</h3>
 	                          </td>

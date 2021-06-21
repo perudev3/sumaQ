@@ -3889,9 +3889,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      discounts_name: '',
       discounts_porcentaje: '',
       discounts_start_date: '',
       discounts_end_date: '',
@@ -3903,6 +3907,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var data = new FormData();
+      data.append("discounts_name", this.discounts_name);
       data.append("discounts_porcentaje", this.discounts_porcentaje);
       data.append("discounts_start_date", this.discounts_start_date);
       data.append("discounts_end_date", this.discounts_end_date);
@@ -3945,6 +3950,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -5204,6 +5213,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             type: 'success',
             confirmButtonText: 'OK'
           });
+          localStorage.clear();
 
           _this.$router.replace('/purchase_orders/lista');
         } else {
@@ -5549,7 +5559,7 @@ __webpack_require__.r(__webpack_exports__);
     ActualizarPedido: function ActualizarPedido() {
       var _this = this;
 
-      axios.post('/post_order', {
+      axios.post('/post_pedido', {
         'purchase_orders_id': this.purchase_orders_id,
         'purchase_orders_complain': this.purchase_orders_complain,
         'data_order_details': this.data_order
@@ -6380,6 +6390,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -6446,7 +6460,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    vue2Dropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   data: function data() {
     return {
       data_category: [],
@@ -6462,10 +6487,32 @@ __webpack_require__.r(__webpack_exports__);
       products_price: '',
       products_net_price: '',
       discounts_id: '',
-      products_is_active: ''
+      products_is_active: '',
+      products_image_url: '',
+      dropzoneOptions: {
+        url: 'empresa/producto',
+        thumbnailWidth: 150,
+        maxFilesize: 1.5,
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        maxFiles: 1,
+        uploadMultiple: true
+      }
     };
   },
   methods: {
+    maxFilesAlert: function maxFilesAlert(file) {
+      Swal.fire({
+        title: 'No permitido',
+        text: 'Solo se permiten 1 archivos',
+        type: 'error',
+        confirmButtonText: 'OK'
+      });
+      this.$refs.categories_image_url.removeFile(file);
+    },
     GetCategories: function GetCategories() {
       var me = this;
       axios.get('/get_categories').then(function (response) {
@@ -6493,7 +6540,17 @@ __webpack_require__.r(__webpack_exports__);
     PostProducts: function PostProducts() {
       var _this = this;
 
+      this.$refs.products_image_url.processQueue();
+      var images = this.$refs.products_image_url.getAcceptedFiles();
+      var index = 0;
+      var files = [];
       var data = new FormData();
+
+      for (var i = 0; i < images.length; i++) {
+        var file = images[i];
+        data.append('products_image_url[' + i + ']', file);
+      }
+
       data.append("products_name", this.products_name);
       data.append("collections_id", this.collection_id);
       data.append("category_id", this.category_id);
@@ -6554,6 +6611,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -45404,6 +45464,33 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
+                            value: _vm.discounts_name,
+                            expression: "discounts_name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Nombre del descuento"
+                        },
+                        domProps: { value: _vm.discounts_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.discounts_name = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
                             value: _vm.discounts_porcentaje,
                             expression: "discounts_porcentaje"
                           }
@@ -45604,6 +45691,20 @@ var render = function() {
                                 "tr",
                                 { attrs: { "data-category": "packageone" } },
                                 [
+                                  _c(
+                                    "td",
+                                    {
+                                      attrs: {
+                                        "data-title": "Nombre del Descuento"
+                                      }
+                                    },
+                                    [
+                                      _c("h3", [
+                                        _vm._v(_vm._s(data.discounts_name))
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
                                   _c(
                                     "td",
                                     { attrs: { "data-title": "Porcentaje" } },
@@ -45892,6 +45993,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", [_vm._v("Nombre del descuento")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Porcentaje")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de Inicio")]),
@@ -50060,6 +50163,24 @@ var render = function() {
                   _vm._m(0),
                   _vm._v(" "),
                   _c("div", { staticClass: "tg-dashboardholder" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("vue2Dropzone", {
+                          ref: "products_image_url",
+                          attrs: {
+                            id: "dropzone",
+                            options: _vm.dropzoneOptions
+                          },
+                          on: {
+                            "vdropzone-max-files-exceeded": _vm.maxFilesAlert
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("input", {
                         directives: [
@@ -50147,7 +50268,7 @@ var render = function() {
                               key: datacategory.categories_id,
                               domProps: { value: datacategory.categories_id }
                             },
-                            [_vm._v(_vm._s(datacategory.categories_name) + "}")]
+                            [_vm._v(_vm._s(datacategory.categories_name))]
                           )
                         }),
                         0
@@ -50235,11 +50356,7 @@ var render = function() {
                               key: datadiscount.discounts_id,
                               domProps: { value: datadiscount.discounts_id }
                             },
-                            [
-                              _vm._v(
-                                _vm._s(datadiscount.discounts_porcentaje) + "%"
-                              )
-                            ]
+                            [_vm._v(_vm._s(datadiscount.discounts_name))]
                           )
                         }),
                         0
@@ -50489,6 +50606,20 @@ var render = function() {
                                       _c("h3", [
                                         _vm._v(_vm._s(data.products_name))
                                       ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { attrs: { "data-title": "Foto" } },
+                                    [
+                                      _c("img", {
+                                        attrs: {
+                                          src:
+                                            "/img_products/" +
+                                            data.products_image_url
+                                        }
+                                      })
                                     ]
                                   ),
                                   _vm._v(" "),

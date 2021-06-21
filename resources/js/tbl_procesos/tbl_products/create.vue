@@ -10,6 +10,12 @@
                   <h2>Registrar Productos</h2>
                 </div>
                 <div class="tg-dashboardholder">
+                    <div class="form-group">
+                        <vue2Dropzone ref="products_image_url" id="dropzone"
+                            v-on:vdropzone-max-files-exceeded="maxFilesAlert"
+                            :options="dropzoneOptions">
+                        </vue2Dropzone>
+                  </div>
                   <div class="form-group">
                       <input type="text"  v-model="products_name" class="form-control" placeholder="Nombre del Producto">
                   </div>
@@ -18,7 +24,7 @@
                   </div>
                   <div class="form-group">
                      <select class="form-control" v-model="category_id">
-                         <option v-for="datacategory in data_category" :key="datacategory.categories_id" :value="datacategory.categories_id">{{datacategory.categories_name}}}</option>
+                         <option v-for="datacategory in data_category" :key="datacategory.categories_id" :value="datacategory.categories_id">{{datacategory.categories_name}}</option>
                      </select>
                   </div>
                   <div class="form-group">
@@ -28,7 +34,7 @@
                   </div>
                   <div class="form-group">
                      <select class="form-control" v-model="discounts_id">
-                         <option v-for="datadiscount in data_discounts" :key="datadiscount.discounts_id" :value="datadiscount.discounts_id">{{datadiscount.discounts_porcentaje}}%</option>
+                         <option v-for="datadiscount in data_discounts" :key="datadiscount.discounts_id" :value="datadiscount.discounts_id">{{datadiscount.discounts_name}}</option>
                      </select>
                   </div>
                   <div class="form-group">
@@ -66,7 +72,14 @@
 
 <script>
 
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
 export default {
+
+  components: {
+       vue2Dropzone
+  },
 
   data:function(){
       return {
@@ -85,12 +98,34 @@ export default {
         products_net_price:'',
         discounts_id:'',
         products_is_active:'',
+        products_image_url:'',
+
+        dropzoneOptions: {
+                    url: 'empresa/producto',
+                    thumbnailWidth: 150,
+                    maxFilesize: 1.5,
+                    addRemoveLinks : true,
+                    autoProcessQueue:false,
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    maxFiles:1,
+                    uploadMultiple: true,
+        },
 
       }
   },
 
 
   methods:{
+
+        maxFilesAlert(file){
+                Swal.fire({
+                    title: 'No permitido',
+                    text: 'Solo se permiten 1 archivos',
+                    type: 'error',
+                    confirmButtonText: 'OK'
+                })
+               this.$refs.categories_image_url.removeFile(file);
+        },
 
         GetCategories(){
               let me=this;
@@ -121,7 +156,17 @@ export default {
         },
 
         PostProducts(){
+                this.$refs.products_image_url.processQueue();
+                let images  = this.$refs.products_image_url.getAcceptedFiles();
+                let index = 0;
+                let files  = []
                 let  data = new FormData()
+
+                for( let i = 0; i < images.length; i++ ){
+                    let file = images[i];
+                    data.append('products_image_url[' + i + ']', file);
+                }
+
                 data.append("products_name", this.products_name)
                 data.append("collections_id", this.collection_id)
                 data.append("category_id", this.category_id)

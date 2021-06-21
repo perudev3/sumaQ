@@ -19,6 +19,7 @@ class DiscountController extends Controller
         $user=\Auth::user();
        
         $discount=mae_discounts::create([
+            'discounts_name' => $request['discounts_name'],
             'discounts_porcentaje' => $request['discounts_porcentaje'],
             'discounts_start_date' => $request['discounts_start_date'],
             'discounts_end_date' => $request['discounts_end_date'],

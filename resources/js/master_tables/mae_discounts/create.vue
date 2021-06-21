@@ -11,6 +11,9 @@
                 </div>
                 <div class="card-body tg-dashboardholder">
                   <div class="form-group">
+                      <input type="text"  v-model="discounts_name" class="form-control" placeholder="Nombre del descuento">
+                  </div>
+                  <div class="form-group">
                       <input type="number"  v-model="discounts_porcentaje" class="form-control" placeholder="tasa de porcentaje">
                   </div>
                   <div class="form-group">
@@ -46,6 +49,7 @@ export default {
 
   data:function(){
       return {
+        discounts_name:'',
         discounts_porcentaje:'',
         discounts_start_date:'',
         discounts_end_date:'',
@@ -59,6 +63,7 @@ export default {
         PostDiscount(){
 
                 let  data = new FormData()
+                data.append("discounts_name", this.discounts_name)
                 data.append("discounts_porcentaje", this.discounts_porcentaje)
                 data.append("discounts_start_date", this.discounts_start_date)
                 data.append("discounts_end_date", this.discounts_end_date)

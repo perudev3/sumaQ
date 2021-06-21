@@ -293,7 +293,7 @@ export default {
         },
 
         ActualizarPedido(){
-            axios.post('/post_order', {
+            axios.post('/post_pedido', {
                   'purchase_orders_id':this.purchase_orders_id,
                   'purchase_orders_complain':this.purchase_orders_complain,
                   'data_order_details':this.data_order

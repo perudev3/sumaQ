@@ -15,6 +15,7 @@ class CreateMaeDiscountsTable extends Migration
     {
         Schema::create('mae_discounts', function (Blueprint $table) {
             $table->increments('discounts_id');
+            $table->string('discounts_name')->nullable();
             $table->integer('discounts_porcentaje')->nullable();
             $table->date('discounts_start_date')->nullable();
             $table->date('discounts_end_date')->nullable();

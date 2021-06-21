@@ -36,6 +36,9 @@
 	                          <td data-title="Nombre">
 	                            <h3>{{data.products_name}}</h3>
 	                          </td>
+							  <td data-title="Foto">
+							  	<img :src="'/img_products/'+data.products_image_url" />
+							</td>
 	                          <td data-title="Coleccion">
 	                            <h3>{{data.collections_name}}</h3>
 	                          </td>

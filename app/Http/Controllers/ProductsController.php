@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\tbl_products;
 use App\mae_category;
 use App\mae_materials;
@@ -14,16 +15,16 @@ class ProductsController extends Controller
     public function GetProducts()
     {        
         return  \DB::table('tbl_products')
-                    ->select('tbl_products.*', 'mae_collections.*','mae_materials.*', 'mae_categories.*', 'mae_discounts.*')
+                    ->select('tbl_products.*', 'mae_collections.*','mae_materials.*', 'mae_categories.*')
                     ->join('mae_collections','mae_collections.collections_id', '=', 'tbl_products.collections_id')
                     ->join('mae_materials','mae_materials.materials_id', '=', 'tbl_products.material_id')
                     ->join('mae_categories','mae_categories.categories_id', '=', 'tbl_products.category_id')
-                    ->join('mae_discounts','mae_discounts.discounts_id', '=', 'tbl_products.discounts_id')
                     ->get();
     }
 
     public function PostProducts(Request $request)
     {
+        $images = $request->file('products_image_url');
         if ($request['discounts_id'] == true) {
             $porcentaje=mae_discounts::where('discounts_id', $request['discounts_id'])->first();
             $desc = ($request['products_price']*$porcentaje->discounts_porcentaje)/100;
@@ -43,6 +44,21 @@ class ProductsController extends Controller
     
             ]);
 
+            $cont = 0;
+            foreach($images as $img){
+
+                $custom_name = 'products-'.'-'.\Str::uuid()->toString().'.'.$img->getClientOriginalExtension();
+                if  ($cont === 0){
+                    $products->products_image_url = $custom_name;
+                }else{
+                    break;
+                }
+                $img->move(public_path().'/img_products',$custom_name);
+                $products->update();
+                $cont++;
+            }
+    
+
             if ($products==true) {
                 return ['status'=>'success' , 'message'=>'Producto Registrado'];
             }
@@ -58,6 +74,20 @@ class ProductsController extends Controller
                 'products_price' => $request['products_price'],
                 'products_is_active'=> $request['products_is_active'],    
             ]);
+
+            $cont = 0;
+            foreach($images as $img){
+
+                $custom_name = 'products-'.'-'.Str::uuid()->toString().'.'.$img->getClientOriginalExtension();
+                if  ($cont === 0){
+                    $products->products_image_url = $custom_name;
+                }else{
+                    break;
+                }
+                $img->move(public_path().'/img_products',$custom_name);
+                $products->update();
+                $cont++;
+            }
 
             if ($products==true) {
                 return ['status'=>'success' , 'message'=>'Producto Registrado'];

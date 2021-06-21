@@ -104,4 +104,4 @@ Route::get('/get_purchaseorder', 'ControllerPurchase_Orders@GetPurchaseOrder');
 Route::post('/post_confirm_order', 'ControllerPurchase_Orders@Confirm_Order');
 Route::post('/post_recibido_order', 'ControllerPurchase_Orders@Recibido_Order');
 Route::post('/get_pedidos', 'ControllerPurchase_Orders@GetPedidos');
-Route::post('/post_order', 'ControllerPurchase_Orders@UpdatePedido');
+Route::post('/post_pedido', 'ControllerPurchase_Orders@UpdatePedido');

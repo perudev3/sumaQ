@@ -251,6 +251,7 @@ export default {
                               type: 'success',
                               confirmButtonText: 'OK'
                             });
+                            localStorage.clear();
                             this.$router.replace('/purchase_orders/lista');
                         }else{
                             Swal.fire({
