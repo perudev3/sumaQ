@@ -4100,6 +4100,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.get('/get_discount').then(function (response) {
         me.data_discounts = response.data;
+        console.log(me.data_discounts);
       });
     },
     changePage: function changePage(page) {
@@ -4154,18 +4155,16 @@ __webpack_require__.r(__webpack_exports__);
       return this.pagination.currentPage;
     },
     searchInUsers: function searchInUsers() {
-      var _this = this;
-
       var me = this;
-      /*me.libros.filter(function(libro){ 
-        console.log(libro.libro_nombre.toLowerCase());
-      });*/
+      /*  me.data_discounts.filter(function(desc){ 
+         console.log(desc.discounts_id.toLowerCase());
+       }); */
 
       if (this.search.length > 0) {
         this.pagination.from = (this.pagination.currentPage - 1) * this.pagination.perPage;
         this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
         this.pagination.total = me.data_discounts.filter(function (disc) {
-          return disc.discounts_porcentaje.toLowerCase().includes(_this.search.toLowerCase());
+          return disc.discounts_porcentaje;
         }).length;
       } else {
         this.pagination.from = (this.pagination.currentPage - 1) * this.pagination.perPage;
@@ -4174,7 +4173,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return me.data_discounts.filter(function (disc) {
-        return disc.discounts_porcentaje.toLowerCase().includes(_this.search.toLowerCase());
+        return disc.discounts_porcentaje;
       }).slice(this.pagination.from, this.pagination.to);
     }
   },
@@ -5112,9 +5111,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
   components: {
     Autocomplete: _trevoreyre_autocomplete_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -5124,9 +5135,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return _ref = {
       products_id: '',
       providers_id: '',
-      purchase_orders_solicited_by: '',
+      purchase_orders_solicited_by: this.user['id'],
       purchase_orders_solicited_date: ''
-    }, _defineProperty(_ref, "providers_id", ''), _defineProperty(_ref, "preview_arrival_date", ''), _defineProperty(_ref, "purchase_orders_confirmed_by", ''), _defineProperty(_ref, "purchase_orders_confirmed_at", ''), _defineProperty(_ref, "purchase_orders_received_by", ''), _defineProperty(_ref, "purchase_orders_arrived_at", ''), _defineProperty(_ref, "purchase_orders_observation", ''), _defineProperty(_ref, "purchase_orders_is_ok", ''), _defineProperty(_ref, "purchase_orders_complain", ''), _defineProperty(_ref, "purchase_orders_total_price", ''), _defineProperty(_ref, "total_products", ''), _defineProperty(_ref, "hoy", new Date()), _defineProperty(_ref, "fecha", ''), _defineProperty(_ref, "data_order", []), _defineProperty(_ref, "neworder", null), _ref;
+    }, _defineProperty(_ref, "providers_id", ''), _defineProperty(_ref, "preview_arrival_date", ''), _defineProperty(_ref, "purchase_orders_confirmed_by", this.user['id']), _defineProperty(_ref, "purchase_orders_confirmed_at", this.user['id']), _defineProperty(_ref, "purchase_orders_received_by", this.user['id']), _defineProperty(_ref, "purchase_orders_arrived_at", this.user['id']), _defineProperty(_ref, "purchase_orders_observation", ''), _defineProperty(_ref, "purchase_orders_is_ok", []), _defineProperty(_ref, "purchase_orders_complain", ''), _defineProperty(_ref, "purchase_orders_total_price", ''), _defineProperty(_ref, "total_products", ''), _defineProperty(_ref, "hoy", new Date()), _defineProperty(_ref, "fecha", ''), _defineProperty(_ref, "data_order", []), _defineProperty(_ref, "neworder", null), _defineProperty(_ref, "status_product", [{
+      id: '0',
+      name: 'no'
+    }, {
+      id: '1',
+      name: 'si'
+    }]), _ref;
   },
   computed: {
     Total: function Total() {
@@ -5164,6 +5181,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (!this.neworder) return;
       this.data_order.push(this.neworder);
       this.neworder = '';
+      this.saveOrder();
+    },
+    removeOrder: function removeOrder(x) {
+      this.data_order.splice(x, 1);
       this.saveOrder();
     },
     saveOrder: function saveOrder() {
@@ -6060,9 +6081,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6111,14 +6129,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var data = new FormData();
-      data.append("products_name", this.providers_name);
+      data.append("products_name", this.products_name);
       data.append("collections_id", this.collection_id);
       data.append("category_id", this.category_id);
       data.append("materials_id", this.material_id);
       data.append("products_caracts", this.products_caracts);
       data.append("products_size", this.products_size);
       data.append("products_price", this.products_price);
-      data.append("products_net_price", this.products_net_price);
       data.append("discounts_id", this.discounts_id);
       data.append("products_is_active", this.products_is_active);
       axios.post('/post_products', data, {
@@ -47093,39 +47110,26 @@ var render = function() {
                       _c("div", { staticClass: "tg-dashboardholder" }, [
                         _c("div", { staticClass: "row" }, [
                           _c("div", { staticClass: "col-md-4" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.purchase_orders_solicited_by,
-                                  expression: "purchase_orders_solicited_by"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                placeholder: "Compra solicita por..."
-                              },
-                              domProps: {
-                                value: _vm.purchase_orders_solicited_by
-                              },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.purchase_orders_solicited_by =
-                                    $event.target.value
-                                }
-                              }
-                            })
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [
+                                _vm._v("Orden de compra solicitada por:")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.user["name"] }
+                              })
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-4" }, [
-                            _c("label", [
-                              _vm._v("Fecha de Solicitud: "),
-                              _c("b", [_vm._v(" " + _vm._s(_vm.fecha) + " ")])
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [_vm._v("Fecha de solicitud:")]),
+                              _vm._v(" "),
+                              _c("label", [
+                                _c("b", [_vm._v(" " + _vm._s(_vm.fecha) + " ")])
+                              ])
                             ])
                           ]),
                           _vm._v(" "),
@@ -47151,90 +47155,62 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "row" }, [
                           _c("div", { staticClass: "col-md-4" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.preview_arrival_date,
-                                  expression: "preview_arrival_date"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "date",
-                                placeholder: "Fecha de llegada de la orden"
-                              },
-                              domProps: { value: _vm.preview_arrival_date },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [
+                                _vm._v("Fecha de llegada de la Orden:")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.preview_arrival_date,
+                                    expression: "preview_arrival_date"
                                   }
-                                  _vm.preview_arrival_date = $event.target.value
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "date" },
+                                domProps: { value: _vm.preview_arrival_date },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.preview_arrival_date =
+                                      $event.target.value
+                                  }
                                 }
-                              }
-                            })
+                              })
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-4" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.purchase_orders_confirmed_by,
-                                  expression: "purchase_orders_confirmed_by"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                placeholder: "Compra confirmada por..."
-                              },
-                              domProps: {
-                                value: _vm.purchase_orders_confirmed_by
-                              },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.purchase_orders_confirmed_by =
-                                    $event.target.value
-                                }
-                              }
-                            })
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [
+                                _vm._v("Orden de compra confirmada por:")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.user["name"] }
+                              })
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-4" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.purchase_orders_received_by,
-                                  expression: "purchase_orders_received_by"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                placeholder: "Compra sera recibidad por...."
-                              },
-                              domProps: {
-                                value: _vm.purchase_orders_received_by
-                              },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.purchase_orders_received_by =
-                                    $event.target.value
-                                }
-                              }
-                            })
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [
+                                _vm._v("Orden de compra recibida por :")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.user["name"] }
+                              })
+                            ])
                           ])
                         ]),
                         _c("br"),
@@ -47276,113 +47252,82 @@ var render = function() {
                                 _vm._v(" ¿Todo bien con su compra? ")
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "row" }, [
-                                _c("div", { staticClass: "col-md-6" }, [
-                                  _c("div", { staticClass: "input-group" }, [
-                                    _c("label", [_vm._v("Si ")]),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.purchase_orders_is_ok,
-                                          expression: "purchase_orders_is_ok"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: { type: "checkbox", value: "1" },
-                                      domProps: {
-                                        checked: Array.isArray(
-                                          _vm.purchase_orders_is_ok
-                                        )
-                                          ? _vm._i(
-                                              _vm.purchase_orders_is_ok,
-                                              "1"
-                                            ) > -1
-                                          : _vm.purchase_orders_is_ok
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          var $$a = _vm.purchase_orders_is_ok,
-                                            $$el = $event.target,
-                                            $$c = $$el.checked ? true : false
-                                          if (Array.isArray($$a)) {
-                                            var $$v = "1",
-                                              $$i = _vm._i($$a, $$v)
-                                            if ($$el.checked) {
-                                              $$i < 0 &&
-                                                (_vm.purchase_orders_is_ok = $$a.concat(
-                                                  [$$v]
-                                                ))
-                                            } else {
-                                              $$i > -1 &&
-                                                (_vm.purchase_orders_is_ok = $$a
-                                                  .slice(0, $$i)
-                                                  .concat($$a.slice($$i + 1)))
+                              _c(
+                                "div",
+                                { staticClass: "row" },
+                                _vm._l(_vm.status_product, function(d) {
+                                  return _c(
+                                    "div",
+                                    { key: d.id, staticClass: "col-md-6" },
+                                    [
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-group" },
+                                        [
+                                          _c("label", [
+                                            _vm._v(_vm._s(d.name) + " ")
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  _vm.purchase_orders_is_ok,
+                                                expression:
+                                                  "purchase_orders_is_ok"
+                                              }
+                                            ],
+                                            attrs: { type: "checkbox" },
+                                            domProps: {
+                                              value: d.id,
+                                              checked: Array.isArray(
+                                                _vm.purchase_orders_is_ok
+                                              )
+                                                ? _vm._i(
+                                                    _vm.purchase_orders_is_ok,
+                                                    d.id
+                                                  ) > -1
+                                                : _vm.purchase_orders_is_ok
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                var $$a =
+                                                    _vm.purchase_orders_is_ok,
+                                                  $$el = $event.target,
+                                                  $$c = $$el.checked
+                                                    ? true
+                                                    : false
+                                                if (Array.isArray($$a)) {
+                                                  var $$v = d.id,
+                                                    $$i = _vm._i($$a, $$v)
+                                                  if ($$el.checked) {
+                                                    $$i < 0 &&
+                                                      (_vm.purchase_orders_is_ok = $$a.concat(
+                                                        [$$v]
+                                                      ))
+                                                  } else {
+                                                    $$i > -1 &&
+                                                      (_vm.purchase_orders_is_ok = $$a
+                                                        .slice(0, $$i)
+                                                        .concat(
+                                                          $$a.slice($$i + 1)
+                                                        ))
+                                                  }
+                                                } else {
+                                                  _vm.purchase_orders_is_ok = $$c
+                                                }
+                                              }
                                             }
-                                          } else {
-                                            _vm.purchase_orders_is_ok = $$c
-                                          }
-                                        }
-                                      }
-                                    })
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "col-md-6" }, [
-                                  _c("div", { staticClass: "input-group" }, [
-                                    _c("label", [_vm._v("No ")]),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.purchase_orders_is_ok,
-                                          expression: "purchase_orders_is_ok"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: { type: "checkbox", value: "0" },
-                                      domProps: {
-                                        checked: Array.isArray(
-                                          _vm.purchase_orders_is_ok
-                                        )
-                                          ? _vm._i(
-                                              _vm.purchase_orders_is_ok,
-                                              "0"
-                                            ) > -1
-                                          : _vm.purchase_orders_is_ok
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          var $$a = _vm.purchase_orders_is_ok,
-                                            $$el = $event.target,
-                                            $$c = $$el.checked ? true : false
-                                          if (Array.isArray($$a)) {
-                                            var $$v = "0",
-                                              $$i = _vm._i($$a, $$v)
-                                            if ($$el.checked) {
-                                              $$i < 0 &&
-                                                (_vm.purchase_orders_is_ok = $$a.concat(
-                                                  [$$v]
-                                                ))
-                                            } else {
-                                              $$i > -1 &&
-                                                (_vm.purchase_orders_is_ok = $$a
-                                                  .slice(0, $$i)
-                                                  .concat($$a.slice($$i + 1)))
-                                            }
-                                          } else {
-                                            _vm.purchase_orders_is_ok = $$c
-                                          }
-                                        }
-                                      }
-                                    })
-                                  ])
-                                ])
-                              ])
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              )
                             ])
                           ]),
                           _vm._v(" "),
@@ -47493,6 +47438,24 @@ var render = function() {
                                               ).toFixed(2)
                                             )
                                           )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c(
+                                            "button",
+                                            {
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.removeOrder(index)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fa fa-trash"
+                                              })
+                                            ]
+                                          )
                                         ])
                                       ])
                                     }),
@@ -47580,7 +47543,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Cantidad")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Sub-Monto")])
+        _c("td", [_vm._v("Sub-Monto")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   }
@@ -49327,33 +49292,6 @@ var render = function() {
                               return
                             }
                             _vm.products_price = $event.target.value
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.products_net_price,
-                            expression: "products_net_price"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Nuevo precio del Producto"
-                        },
-                        domProps: { value: _vm.products_net_price },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.products_net_price = $event.target.value
                           }
                         }
                       })

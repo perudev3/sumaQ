@@ -25,10 +25,16 @@
                         <div class="tg-dashboardholder">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" v-model="purchase_orders_solicited_by" placeholder="Compra solicita por...">
+                                    <div class="form-group">
+                                      <label>Orden de compra solicitada por:</label>      
+                                      <input type="text" class="form-control" disabled :value="user['name']">
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Fecha de Solicitud: <b> {{fecha}} </b></label>
+                                    <div class="form-group">
+                                      <label>Fecha de solicitud:</label>  
+                                      <label><b> {{fecha}} </b></label>
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <autocomplete :search="search_proveedor"
@@ -40,13 +46,22 @@
                             </div><br><br>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <input type="date" class="form-control" v-model="preview_arrival_date" placeholder="Fecha de llegada de la orden">
+                                  <div class="form-group">
+                                      <label>Fecha de llegada de la Orden:</label>  
+                                      <input type="date" class="form-control" v-model="preview_arrival_date">
+                                  </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" v-model="purchase_orders_confirmed_by" placeholder="Compra confirmada por...">
+                                  <div class="form-group">
+                                      <label>Orden de compra confirmada por:</label>  
+                                      <input type="text" class="form-control" disabled :value="user['name']">
+                                  </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" v-model="purchase_orders_received_by" placeholder="Compra sera recibidad por....">
+                                   <div class="form-group">
+                                      <label>Orden de compra recibida por :</label> 
+                                      <input type="text" class="form-control" disabled :value="user['name']">
+                                    </div>
                                 </div>
                             </div><br><br>
                             <div class="row">
@@ -57,18 +72,12 @@
                                     <div class="form-group">
                                         <label> ¿Todo bien con su compra? </label>
                                         <div class="row">
-                                          <div class="col-md-6">
+                                          <div class="col-md-6" v-for="d in status_product" :key="d.id">
                                             <div class="input-group">
-                                                <label >Si </label>
-                                                <input type="checkbox" value="1"  class="form-control" v-model="purchase_orders_is_ok"> 
+                                                <label >{{d.name}} </label>
+                                                <input type="checkbox" :value="d.id" v-model="purchase_orders_is_ok"> 
                                             </div>   
                                           </div >
-                                          <div class="col-md-6">       
-                                            <div class="input-group">
-                                                <label >No </label>
-                                                <input type="checkbox" value="0"  class="form-control" v-model="purchase_orders_is_ok"> 
-                                            </div>
-                                          </div>
                                         </div>                                                                             
                                     </div>
                                 </div>
@@ -93,6 +102,7 @@
                                               <td>Nombre del producto</td>
                                               <td>Cantidad</td>
                                               <td>Sub-Monto</td>
+                                              <td></td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -100,6 +110,7 @@
                                               <td>{{data.products_name}}</td>
                                               <td> <input type="text" class="form-control" v-model="data.total_products"> </td>
                                               <td>{{ parseFloat(data.products_price* data.total_products ).toFixed(2)}}</td>
+                                              <td> <button @click="removeOrder(index)"><i class="fa fa-trash"> </i></button></td>
                                             </tr>
                                             <tr>
                                               <td></td>
@@ -138,6 +149,8 @@ import '@trevoreyre/autocomplete-vue/dist/style.css'
 
 export default {
 
+    props:['user'],
+
     components: {
             Autocomplete
     },
@@ -146,16 +159,16 @@ export default {
       return {
         products_id:'',
         providers_id:'',
-        purchase_orders_solicited_by:'',
+        purchase_orders_solicited_by: this.user['id'],
         purchase_orders_solicited_date:'',
         providers_id:'',
         preview_arrival_date:'',
-        purchase_orders_confirmed_by:'',
-        purchase_orders_confirmed_at:'',
-        purchase_orders_received_by:'',
-        purchase_orders_arrived_at:'',
+        purchase_orders_confirmed_by:this.user['id'],
+        purchase_orders_confirmed_at:this.user['id'],
+        purchase_orders_received_by:this.user['id'],
+        purchase_orders_arrived_at:this.user['id'],
         purchase_orders_observation:'',
-        purchase_orders_is_ok:'',
+        purchase_orders_is_ok:[],
         purchase_orders_complain:'',
         purchase_orders_total_price:'',
         total_products:'',
@@ -163,6 +176,10 @@ export default {
         fecha:'',
         data_order:[],
         neworder: null,
+        status_product: [
+          { id: '0', name:'no' },
+          { id: '1', name:'si' }
+        ],
       }
   },
   computed:{
@@ -208,10 +225,17 @@ export default {
               this.saveOrder();
 			    },
 
+          removeOrder(x) {
+            this.data_order.splice(x, 1);
+            this.saveOrder();
+          },
+
           saveOrder() {
             let parsed = JSON.stringify(this.data_order);
             localStorage.setItem('data_order', parsed);
           },
+
+           
 
             /**Proveedor**/
                 search_proveedor(input) {

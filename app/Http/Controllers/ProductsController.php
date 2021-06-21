@@ -7,6 +7,7 @@ use App\tbl_products;
 use App\mae_category;
 use App\mae_materials;
 use App\mae_collections;
+use App\mae_discounts;
 
 class ProductsController extends Controller
 {
@@ -23,25 +24,49 @@ class ProductsController extends Controller
 
     public function PostProducts(Request $request)
     {
-        $products= tbl_products::create([
+        if ($request['discounts_id'] == true) {
+            $porcentaje=mae_discounts::where('discounts_id', $request['discounts_id'])->first();
+            $desc = ($request['products_price']*$porcentaje->discounts_porcentaje)/100;
+            $products_net_price = $request['products_price']-$desc;
 
-            'products_name' => $request['products_name'],
-            'collections_id' => $request['collections_id'],
-            'category_id' => $request['category_id'],
-            'material_id' => $request['materials_id'],
-            'products_caracts' => $request['products_caracts'],
-            'products_size' => $request['products_size'],
-            'products_price' => $request['products_price'],
-            'products_net_price' => $request['products_net_price'],
-            'discounts_id' => $request['discounts_id'],
-            'products_is_active'=> $request['products_is_active'],
+            $products= tbl_products::create([
+                'products_name' => $request['products_name'],
+                'collections_id' => $request['collections_id'],
+                'category_id' => $request['category_id'],
+                'material_id' => $request['materials_id'],
+                'products_caracts' => $request['products_caracts'],
+                'products_size' => $request['products_size'],
+                'products_price' => $request['products_price'],
+                'products_net_price' => $products_net_price,
+                'discounts_id' => $request['discounts_id'],
+                'products_is_active'=> $request['products_is_active'],
+    
+            ]);
 
-        ]);
+            if ($products==true) {
+                return ['status'=>'success' , 'message'=>'Producto Registrado'];
+            }
+        }else{
 
+            $products= tbl_products::create([
+                'products_name' => $request['products_name'],
+                'collections_id' => $request['collections_id'],
+                'category_id' => $request['category_id'],
+                'material_id' => $request['materials_id'],
+                'products_caracts' => $request['products_caracts'],
+                'products_size' => $request['products_size'],
+                'products_price' => $request['products_price'],
+                'products_is_active'=> $request['products_is_active'],    
+            ]);
 
-        if ($products) {
-            return ['success'=>'Producto Registrado'];
+            if ($products==true) {
+                return ['status'=>'success' , 'message'=>'Producto Registrado'];
+            }
         }
+        
+
+
+        
     }
 
     public function GenerateQR($id)

@@ -162,6 +162,7 @@ export default {
               let me=this;
               axios.get('/get_discount').then(function(response){
                 me.data_discounts = response.data;
+				console.log(me.data_discounts);
           });
         },
 
@@ -221,20 +222,20 @@ export default {
       searchInUsers(){
         let me =this;
 
-        /*me.libros.filter(function(libro){ 
-          console.log(libro.libro_nombre.toLowerCase());
-        });*/
+       /*  me.data_discounts.filter(function(desc){ 
+          console.log(desc.discounts_id.toLowerCase());
+        }); */
           if (this.search.length > 0){
               this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
               this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
-              this.pagination.total = me.data_discounts.filter((disc) => disc.discounts_porcentaje.toLowerCase().includes(this.search.toLowerCase())).length;
+              this.pagination.total = me.data_discounts.filter((disc) => disc.discounts_porcentaje).length;
           }else{
               this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
               this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
               this.pagination.total = me.data_discounts.length;
           }
-          return me.data_discounts.filter((disc) => disc.discounts_porcentaje.toLowerCase().includes(this.search.toLowerCase())).slice(this.pagination.from,this.pagination.to);
-      }
+          return me.data_discounts.filter((disc) => disc.discounts_porcentaje).slice(this.pagination.from,this.pagination.to);
+       }
   },
 
 

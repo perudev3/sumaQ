@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,7 +70,8 @@ Route::post('post_sucursal', 'SucursalController@PostSucursals');
 /***Providers***/
 Route::get('/provider',function(){
 	$name_view = 'PROVEEDOR';
-	return view('master_tables.mae_providers', compact('name_view'));
+	$user = \Auth::user();
+	return view('master_tables.mae_providers', compact('name_view', 'user'));
 })->name('provider');
 
 

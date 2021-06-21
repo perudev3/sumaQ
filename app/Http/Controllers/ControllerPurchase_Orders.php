@@ -26,9 +26,9 @@ class ControllerPurchase_Orders extends Controller
         $data_order= $request->data_order_details;
         $purchase_orders=tbl_purchase_orders::create([
             'purchase_orders_solicited_by'=> $request['purchase_orders_solicited_by'],
-            'purchase_orders_solicited_date'=> Carbon::parse($request['purchase_orders_solicited_date'])->format('d-m-Y'),
+            'purchase_orders_solicited_date'=> Carbon::parse($request['purchase_orders_solicited_date']),
             'providers_id'=> $request['providers_id'],
-            'preview_arrival_date'=> Carbon::parse($request['preview_arrival_date'])->format('d-m-Y'),
+            'preview_arrival_date'=> Carbon::parse($request['preview_arrival_date']),
             'purchase_orders_confirmed_by'=> $request['purchase_orders_confirmed_by'],
             'purchase_orders_received_by'=> $request['purchase_orders_received_by'],
             'purchase_orders_observation'=> $request['purchase_orders_observation'],
@@ -40,9 +40,9 @@ class ControllerPurchase_Orders extends Controller
         foreach($data_order as $data){ 
             $purchase_order_details=purchase_order_details::create([
                 'purchase_orders_id'=>$purchase_orders->purchase_orders_id,
-                'products_id'=>$data->products_id,
-                'total_products'=> $data->total_products,
-                'total_price'=>$data->products_price*$data->total_products,
+                'products_id'=>$data['products_id'],
+                'total_products'=> $data['total_products'],
+                'total_price'=>$data['products_price']*$data['total_products'],
             ]);
         }
         

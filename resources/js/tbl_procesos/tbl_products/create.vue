@@ -48,9 +48,6 @@
                   <div class="form-group">
                       <input v-model="products_price" class="form-control" placeholder="Precio del Producto"/>
                   </div>
-                  <div class="form-group">
-                      <input type="text"  v-model="products_net_price" class="form-control" placeholder="Nuevo precio del Producto">
-                  </div>
                 </div>
               </div>
             </div>
@@ -124,16 +121,14 @@ export default {
         },
 
         PostProducts(){
-
                 let  data = new FormData()
-                data.append("products_name", this.providers_name)
+                data.append("products_name", this.products_name)
                 data.append("collections_id", this.collection_id)
                 data.append("category_id", this.category_id)
                 data.append("materials_id", this.material_id)
                 data.append("products_caracts", this.products_caracts)
                 data.append("products_size", this.products_size)
                 data.append("products_price", this.products_price)
-                data.append("products_net_price", this.products_net_price)
                 data.append("discounts_id", this.discounts_id)
                 data.append("products_is_active", this.products_is_active)
                 axios.post('/post_products', data,{ headers: {'Content-Type': 'multipart/form-data'}})
