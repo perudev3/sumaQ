@@ -32,6 +32,16 @@ class ControllerPurchase_Orders extends Controller
                     ->get();
     }
 
+    public function GetPedidos(Request $request)
+    {
+        return  \DB::table('tbl_purchase_orders')
+                    ->select('purchase_order_details.*', 'tbl_purchase_orders.*', 'tbl_products.*')
+                    ->join('purchase_order_details','purchase_order_details.purchase_orders_id', '=', 'tbl_purchase_orders.purchase_orders_id')
+                    ->join('tbl_products','tbl_products.products_id', '=', 'purchase_order_details.products_id')
+                    ->where('purchase_order_details.purchase_orders_id', $request['purchase_orders_id'])
+                    ->get();
+    }
+
     public function CreateListOrder(Request $request)
     {
         $data_order= $request->data_order_details;
@@ -102,6 +112,23 @@ class ControllerPurchase_Orders extends Controller
 
         if ($tbl_inventories) {
             return ['status'=>'success'];
+        }
+    }
+
+    public function UpdatePedido(Request $request)
+    {
+        $data_order= $request->data_order_details;
+        foreach ($data_order as $data ) {
+            $response=purchase_order_details::where('purchase_orders_id', $request['purchase_orders_id'])->update([
+                'purchase_orders_complain' => $data['purchase_orders_complain'],
+                'products_id'=>$data['products_id'],
+                'total_products'=> $data['total_products'],
+                'total_price'=>$data['products_price']*$data['total_products'],
+            ]);
+        }
+
+        if ($response==true) {
+            return ['status' => 'success'];
         }
     }
 }

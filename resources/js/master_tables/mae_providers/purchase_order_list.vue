@@ -3,6 +3,52 @@
 	<main id="tg-main" class="tg-main tg-haslayout" style="background: #dbdbdb;">
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
+        <!--Modal-->
+			    <div  class="permiso" :class="{'mostrar' : modal}" style="overflow-y: auto;padding-top: 50px;">
+	            <div class="permiso-content">
+                      <div class="modal-header">
+                          <button @click="Cerrar"> X </button>
+                      </div>
+	                    <div class="modal-body">
+	                        <div class="row">
+                              <div class="form-group">
+                                <label>Porfavor, escriba su queja</label>
+                                <input type="text" class="form-control" v-model="purchase_orders_complain">
+                              </div>
+	                        </div>
+                          <div class="row">
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <tr>
+                                              <td>Nombre del producto</td>
+                                              <td>Cantidad</td>
+                                              <td>Sub-Monto</td>
+                                              <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(data, index) in data_order">
+                                              <td>{{data.products_name}}</td>
+                                              <td> <input type="text" class="form-control" v-model="data.total_products"> </td>
+                                              <td>{{ parseFloat(data.products_price* data.total_products ).toFixed(2)}}</td>
+                                              <td> <button ><i class="fa fa-trash"> </i></button></td>
+                                            </tr>
+                                            <tr>
+                                              <td></td>
+                                              <td>Total</td>
+                                              <td>{{ purchase_orders_total_price= parseFloat(Total_Pedidos).toFixed(2)}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                          </div>
+	                    </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" @click="ActualizarPedido">Guardar</button>
+                      </div>
+	            </div>            
+	        </div>
+        <!--Cerrar Modal-->
+
 				<ul class="nav nav-pills nav-wizard">
 						<li style="width:50%;">
 							<router-link to="/provider">
@@ -152,6 +198,10 @@ export default {
   data:function(){
       return {
         data_purchase_order:[],
+        data_order:[],
+        purchase_orders_complain:'',
+        purchase_orders_id:'',
+        modal:0,
         selectPerPage:10,
         search:'',
         pagination:{
@@ -168,9 +218,20 @@ export default {
       }
   },
 
-
   methods:{
 
+      ShowModal(purchase_orders_id){
+          let me=this;
+          axios.post('/get_pedidos',{ 'purchase_orders_id':purchase_orders_id }).then(function(response){
+                me.data_order = response.data;
+                me.purchase_orders_id=purchase_orders_id;
+                me.modal=1;
+          });
+      },
+
+      Cerrar(){
+        this.modal=0;
+      },
         //Paginacion vue//
         GetPurchaseOrder(){
               let me=this;
@@ -207,17 +268,15 @@ export default {
               showCancelButton: true,
               cancelButtonText: "No",
               confirmButtonText: "Si",
-              closeOnConfirm: false,
-              dangerMode: true,
             }).then(function(isConfirm) {
-              if (isConfirm) {
+              if (isConfirm.value) {
                 me.OK_confirm(purchase_orders_id);
                 Swal.fire({
                   title: 'Orden Confirmada',
                   icon: 'success'
                 });
               } else {
-                Swal.fire("Cancelled", "Your imaginary file is safe :)", "error");
+                 me.ShowModal(purchase_orders_id);
               }
             })
         },
@@ -231,14 +290,35 @@ export default {
                     me.GetPurchaseOrder();
                 }
             });
-        }
+        },
 
-        
+        ActualizarPedido(){
+            axios.post('/post_order', {
+                  'purchase_orders_id':this.purchase_orders_id,
+                  'purchase_orders_complain':this.purchase_orders_complain,
+                  'data_order_details':this.data_order
+                }).then(response => {
+                        if (response.data.status==='success') {
+                            this.modal=0;
+                        };
+                }).catch(function (error) {
+                    console.log(error);
+                });
+        }
         
 
   },
 
   computed:{
+
+      Total_Pedidos:function(){
+        var resultado=0.0;
+        for(var i=0;i<this.data_order.length;i++){
+          resultado= resultado+(this.data_order[i].products_price*this.data_order[i].total_products);
+        }
+        return resultado;
+      },
+
       getCurrentUsers(){
           this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
           this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
@@ -380,6 +460,43 @@ export default {
 .nav-pills.nav-wizard > li.active a {
   background-color: #428bca;
 }
+
+    .permiso.mostrar {
+      background-color: rgba(0,0,0,.5);
+      opacity: 1;
+      visibility: visible;
+  	}
+  	.permiso {
+      align-items: flex-start;
+      background-color: #fff;
+      display: flex !important;
+      height: 100vh;
+      justify-content: center;
+      left: 0;
+      opacity: 0;
+      position: fixed;
+      top: 0;
+      visibility: hidden;
+      width: 100%;
+      transition: all 0.40s cubic-bezier(0.39, 0.575, 0.565, 1);
+      z-index: 5000;
+  	}
+
+  	.permiso.mostrar .permiso-content {
+        opacity: 1;
+        transform: scale(1.1);
+        visibility: visible;
+    }
+    .permiso .permiso-content {
+        border-radius: 3px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        margin-top: 50px;
+        opacity: 0;
+        padding: 4px;
+        transform: scale(1);
+        transition: all .40s cubic-bezier(0.39, 0.575, 0.565, 1);
+        visibility: hidden;
+    }
 
 
 </style>

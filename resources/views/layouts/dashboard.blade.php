@@ -67,7 +67,7 @@
                     <div id="tg-verticalscrollbar" class="tg-verticalscrollbar" style="background-image: url(bg/bg-3.jpg);">
                         <strong class="tg-logo">
                             <a href="{{ url('/') }}">
-                                <img src="logo/negativo2.png">
+                                <img src="img/logo.jpeg">
                             </a>
                         </strong>
                         <div class="tg-user">                           
