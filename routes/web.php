@@ -100,3 +100,6 @@ Route::get('/sales/pedidos','SalesController@index')->name('/sales/pedidos');
 Route::get('/search_producto/{products_name}', 'ControllerPurchase_Orders@SearchProducto');
 Route::get('/search_proveedor/{providers_name}', 'ControllerPurchase_Orders@SearchProveedor');
 Route::post('/post_order', 'ControllerPurchase_Orders@CreateListOrder');
+Route::get('/get_purchaseorder', 'ControllerPurchase_Orders@GetPurchaseOrder');
+Route::post('/post_confirm_order', 'ControllerPurchase_Orders@Confirm_Order');
+Route::post('/post_recibido_order', 'ControllerPurchase_Orders@Recibido_Order');

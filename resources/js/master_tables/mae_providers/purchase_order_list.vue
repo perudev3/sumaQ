@@ -4,25 +4,25 @@
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
 				<ul class="nav nav-pills nav-wizard">
-						<li class="active" style="width:50%;">
+						<li style="width:50%;">
 							<router-link to="/provider">
 							Proveedores
 							</router-link>
 						</li>			
-            <li style="width:50%;">
+                        <li class="active" style="width:50%;">
 							<router-link to="/purchase_orders/lista">
 							Ordenes Solicitadas
 							</router-link>
-						</li>
+						</li>	
 				</ul>
 	          <div class="tg-formtheme tg-formdashboard">
 	            <fieldset>
 	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	                <div class="tg-dashboardbox" style="margin-top: 40px;">
 	                  <div class="tg-dashboardboxtitle">
-	                    <router-link to="/provider/create">
+	                    <router-link to="/purchase_orders/create">
 		                      <button class="btn btn-primary">
-		                          + Nuevo Proveedor
+		                          + Crear Orden
 		                      </button>
 		                  </router-link>
 	                  </div>
@@ -30,42 +30,35 @@
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
-	                          <th>Nombre</th>
-	                          <th>Numero</th>
-	                          <th>Dirección</th>
-	                          <th>Encargado</th>
-	                          <th>Mobile</th>
+	                          <th>Ordenado por:</th>
+	                          <th>Fecha orden realizada</th>
+	                          <th>Proveedor</th>
 	                          <th>Estado</th>
 	                          <th>Opciones</th>
 	                        </tr>
 	                      </thead>
 	                      <tbody>
-	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
-	                          <td data-title="Nombre">
+	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers" align="center">
+	                          <td data-title="Ordenado por:">
+	                            <h3>{{data.name}}</h3>
+	                          </td>
+	                          <td data-title="Fecha orden realizada">
+	                            <h3>{{data.purchase_orders_solicited_date}}</h3>
+	                          </td>
+	                          <td data-title="Proveedor">
 	                            <h3>{{data.providers_name}}</h3>
 	                          </td>
-	                          <td data-title="Numero">
-	                            <h3>{{data.providers_id_number}}</h3>
-	                          </td>
-	                          <td data-title="Dirección">
-	                            <h3>{{data.providers_address}}</h3>
-	                          </td>
-	                          <td data-title="Encargado">
-	                            <h3>{{data.providers_encargado}}</h3>
-	                          </td>
-	                          <td data-title="Mobile">
-	                            <h3>{{data.providers_mobile}}</h3>
-	                          </td>
-	                          <td data-title="Estado" v-if="data.providers_is_active==1">
-	                            <h3>Activo</h3>
-	                          </td>
-	                          <td data-title="Estado" v-if="data.providers_is_active==0">
-	                          	<h3>Inactivo</h3>
+	                          <td data-title="Estado">
+	                            <h3 v-if="data.purchase_orders_status==0" style="background: #73e873;">Solicitado</h3>
+                                <h3 v-if="data.purchase_orders_status==1" style="background: #ecd324;">Confirmado</h3>
+                                <h3 v-if="data.purchase_orders_status==2" style="background: #f05a5a;">Entregado</h3>
 	                          </td>
 	                          <td data-title="Opciones">
 	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" href="javascript:void(0);"><i class="fa fa-eye"></i></a>
-	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
+	                              <a class="tg-btnaction tg-btnactionview" v-if="data.purchase_orders_status==0"  @click="Confirmacion(data.purchase_orders_id)"><i class="fa fa-check"></i></a>
+                                <a class="tg-btnaction tg-btnactionview" v-if="data.purchase_orders_status==1" @click="Recibido(data.purchase_orders_id)"><i class="fa fa-check"></i></a>
+                                <a class="tg-btnaction tg-btnactionview" ><i class="fa fa-pencil"></i></a>
+	                              <a class="tg-btnaction tg-btnactiondelete" ><i class="fa fa-trash"></i></a>
 	                            </div>
 	                          </td>
 	                        </tr>
@@ -158,15 +151,7 @@ export default {
 
   data:function(){
       return {
-        data_provider:[],
-        categoriaproductos:[],
-        no_produto:'',
-        pt_producto:'',
-        qt_stock:'',  
-        search_no_producto:'', 
-        id_subcategoria:'',
-        permiso:0,
-
+        data_purchase_order:[],
         selectPerPage:10,
         search:'',
         pagination:{
@@ -187,10 +172,10 @@ export default {
   methods:{
 
         //Paginacion vue//
-        GetProviders(){
+        GetPurchaseOrder(){
               let me=this;
-              axios.get('/get_provider').then(function(response){
-                me.data_provider = response.data;
+              axios.get('/get_purchaseorder').then(function(response){
+                me.data_purchase_order = response.data;
           });
         },
 
@@ -203,6 +188,52 @@ export default {
             this.changePage(1);
         },
         //End Paginate//
+
+        OK_confirm(purchase_orders_id){
+            let me = this;
+            axios.post('/post_confirm_order',{ 'purchase_orders_id':purchase_orders_id }).then(function(response){
+                var confirm = response.data.status;
+                if(confirm){
+                    me.GetPurchaseOrder();
+                }
+            });
+        },
+
+        Confirmacion(purchase_orders_id){
+          let me = this;
+            Swal.fire({
+              title: "¿Todo bien con su orden?",
+              icon: "warning",
+              showCancelButton: true,
+              cancelButtonText: "No",
+              confirmButtonText: "Si",
+              closeOnConfirm: false,
+              dangerMode: true,
+            }).then(function(isConfirm) {
+              if (isConfirm) {
+                me.OK_confirm(purchase_orders_id);
+                Swal.fire({
+                  title: 'Orden Confirmada',
+                  icon: 'success'
+                });
+              } else {
+                Swal.fire("Cancelled", "Your imaginary file is safe :)", "error");
+              }
+            })
+        },
+
+
+        Recibido(purchase_orders_id){
+            let me = this;
+            axios.post('/post_recibido_order',{ 'purchase_orders_id':purchase_orders_id }).then(function(response){
+                var confirm = response.data.status;
+                if(confirm){
+                    me.GetPurchaseOrder();
+                }
+            });
+        }
+
+        
         
 
   },
@@ -211,7 +242,7 @@ export default {
       getCurrentUsers(){
           this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
           this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
-          return this.data_provider.slice(this.pagination.from,this.pagination.to);
+          return this.data_purchase_order.slice(this.pagination.from,this.pagination.to);
       },
       getLinksPages(){
         let cant = this.pagination.total / Number(this.pagination.perPage);
@@ -256,13 +287,13 @@ export default {
           if (this.search.length > 0){
               this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
               this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
-              this.pagination.total = me.data_provider.filter((prov) => prov.providers_name.toLowerCase().includes(this.search.toLowerCase())).length;
+              this.pagination.total = me.data_purchase_order.filter((purchase_order) => purchase_order.purchase_orders_id).length;
           }else{
               this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
               this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
-              this.pagination.total = me.data_provider.length;
+              this.pagination.total = me.data_purchase_order.length;
           }
-          return me.data_provider.filter((prov) => prov.providers_name.toLowerCase().includes(this.search.toLowerCase())).slice(this.pagination.from,this.pagination.to);
+          return me.data_purchase_order.filter((purchase_order) => purchase_order.purchase_orders_id).slice(this.pagination.from,this.pagination.to);
       }
   },
 
@@ -270,7 +301,7 @@ export default {
    mounted() {
             let self = this
             setTimeout(function(){
-              self.GetProviders();
+              self.GetPurchaseOrder();
             },2000);
 
   }

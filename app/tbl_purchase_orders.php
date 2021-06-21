@@ -10,6 +10,7 @@ class tbl_purchase_orders extends Model
 
     protected $fillable = [
         'purchase_orders_solicited_by',
+        'purchase_orders_status',
         'purchase_orders_solicited_date',
         'providers_id',
         'preview_arrival_date',

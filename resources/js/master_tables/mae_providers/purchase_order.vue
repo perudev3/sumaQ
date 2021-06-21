@@ -1,6 +1,6 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: #dbdbdb;">
 		<section class="tg-dbsectionspace tg-haslayout">
             <div class="row">
                 <ul class="nav nav-pills nav-wizard">
@@ -9,10 +9,10 @@
 							Proveedores
 							</router-link>
 						</li>					
-						<li  class="active" style="width: 50%;">
-							<router-link to="/purchase_orders">
-							Realizar Orden
-							</router-link>		
+						<li style="width:50%;">
+							<router-link to="/purchase_orders/lista">
+							Ordenes Solicitadas
+							</router-link>
 						</li>
 				</ul>
                 <div class="tg-formtheme tg-formdashboard">
@@ -37,52 +37,27 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <autocomplete :search="search_proveedor"
-                                                  placeholder="Nombre del Proveedor"
-                                                  :get-result-value="getResultValueProveedor"
-                                                  @submit="onSubmitProveedor"> 
-                                    </autocomplete>
+                                    <div class="form-group">
+                                      <label>Digite Nombre de Proveedor</label>
+                                      <autocomplete :search="search_proveedor"
+                                                    :get-result-value="getResultValueProveedor"
+                                                    @submit="onSubmitProveedor"> 
+                                      </autocomplete>
+                                    </div>
                                 </div>
                             </div><br><br>
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="form-group">
-                                      <label>Fecha de llegada de la Orden:</label>  
+                                      <label>Fecha de llegada prevista de la Orden:</label>  
                                       <input type="date" class="form-control" v-model="preview_arrival_date">
                                   </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                   <div class="form-group">
-                                      <label>Orden de compra confirmada por:</label>  
-                                      <input type="text" class="form-control" disabled :value="user['name']">
+                                      <label>Observaciones de la Compra:</label> 
+                                      <textarea  v-model="purchase_orders_observation" placeholder="Observaciones de la compra" class="form-control"></textarea>
                                   </div>
-                                </div>
-                                <div class="col-md-4">
-                                   <div class="form-group">
-                                      <label>Orden de compra recibida por :</label> 
-                                      <input type="text" class="form-control" disabled :value="user['name']">
-                                    </div>
-                                </div>
-                            </div><br><br>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <textarea  v-model="purchase_orders_observation" placeholder="Observaciones de la compra" class="form-control"></textarea>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label> ¿Todo bien con su compra? </label>
-                                        <div class="row">
-                                          <div class="col-md-6" v-for="d in status_product" :key="d.id">
-                                            <div class="input-group">
-                                                <label >{{d.name}} </label>
-                                                <input type="checkbox" :value="d.id" v-model="purchase_orders_is_ok"> 
-                                            </div>   
-                                          </div >
-                                        </div>                                                                             
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <textarea placeholder="Colocar su reclamo" class="form-control" v-model="purchase_orders_complain"></textarea>
                                 </div>
                             </div><br><br>
                             <div class="row">
@@ -123,18 +98,19 @@
                             </div>
                                                
                         </div>
+                        <div class="container-fluid" style="margin: 44px;">
+                            <div class="row">
+                                <button class="btn btn-primary" type="button" @click="PostProvider">Registrar</button>
+                                <router-link to="/provider">
+                                    <button class="btn btn-default" type="button">Cancelar</button>
+                                </router-link>                
+                            </div>
+                        </div> 
                     </div>
                     </div>
                 </fieldset>
                 </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <button class="btn btn-primary" type="button" @click="PostProvider">Registrar</button>
-                        <router-link to="/provider">
-                            <button class="btn btn-default" type="button">Cancelar</button>
-                        </router-link>                
-                    </div>
-                </div> 
+                
             </div>
 		</section>
 	</main>
@@ -163,23 +139,13 @@ export default {
         purchase_orders_solicited_date:'',
         providers_id:'',
         preview_arrival_date:'',
-        purchase_orders_confirmed_by:this.user['id'],
-        purchase_orders_confirmed_at:this.user['id'],
-        purchase_orders_received_by:this.user['id'],
-        purchase_orders_arrived_at:this.user['id'],
         purchase_orders_observation:'',
-        purchase_orders_is_ok:[],
-        purchase_orders_complain:'',
         purchase_orders_total_price:'',
         total_products:'',
         hoy: new Date(),  
         fecha:'',
         data_order:[],
         neworder: null,
-        status_product: [
-          { id: '0', name:'no' },
-          { id: '1', name:'si' }
-        ],
       }
   },
   computed:{
@@ -273,11 +239,7 @@ export default {
                   'purchase_orders_solicited_date': this.purchase_orders_solicited_date,
                   'providers_id': this.providers_id,
                   'preview_arrival_date': this.preview_arrival_date,
-                  'purchase_orders_confirmed_by': this.purchase_orders_confirmed_by,
-                  'purchase_orders_received_by': this.purchase_orders_received_by,
                   'purchase_orders_observation': this.purchase_orders_observation,
-                  'purchase_orders_is_ok': this.purchase_orders_is_ok,
-                  'purchase_orders_complain': this.purchase_orders_complain,
                   'purchase_orders_total_price': this.purchase_orders_total_price,
                   'data_order_details':this.data_order
                 })
@@ -289,7 +251,7 @@ export default {
                               type: 'success',
                               confirmButtonText: 'OK'
                             });
-                            this.$router.replace('/provider');
+                            this.$router.replace('/purchase_orders/lista');
                         }else{
                             Swal.fire({
                               title: response.data.message,
