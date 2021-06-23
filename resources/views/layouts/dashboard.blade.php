@@ -134,6 +134,13 @@
                                 </li>
 
                                 <li>
+                                     <a href="{{url('/inventory')}}">
+                                        <i class="fa fa-dashboard"></i>
+                                        <span>Inventario</span>
+                                    </a>                                    
+                                </li>
+
+                                <li>
                                      <a href="{{url('/sales/pedidos')}}">
                                         <i class="fa fa-dashboard"></i>
                                         <span>Ventas</span>

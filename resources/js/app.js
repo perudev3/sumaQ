@@ -111,6 +111,11 @@ const routes = [
         path:'/sales/pedidos',
         component: require('./master_tables/tbl_sales/index.vue').default
     },
+    {
+        path:'/sales/compra',
+        name:'compra',
+        component: require('./master_tables/tbl_sales/compra.vue').default
+    },
 /***Products***/
     {
         path:'/products',

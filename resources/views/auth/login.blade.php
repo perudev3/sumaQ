@@ -46,7 +46,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <strong class="tg-logo">
                                     <a href="{{ url('/') }}">
-                                       <img src="#" style="width: 184px; height: 39px;">
+                                       <img src="{{asset('img/logo.jpeg')}}" style="width: 184px; height: 39px;">
                                     </a>
                                 </strong>
                                 @guest
@@ -77,7 +77,7 @@
                                                     <div class="tg-logingarea" style="border-radius: 23px;width: 42%;">
                                                         <h2 style="color: black;padding: 22px;">
                                                             <div>
-                                                                <img src="#" class="img-responsive">
+                                                                <img src="{{asset('img/logo.jpeg')}}" class="img-responsive">
                                                             </div>
                                                             {{ __('Ingresar') }}
                                                         </h2>

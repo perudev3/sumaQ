@@ -3,36 +3,19 @@
 	<main id="tg-main" class="tg-main tg-haslayout">
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
-				<ul class="nav nav-pills nav-wizard">
-					<li class="active" style="width: 35%;"><a>Control de Invetario</a></li>
-					<li style="width: 35%;"><a>Realizar Order</a></li>
-					<li style="width: 30%;"><a>Pago</a></li>
-				</ul>
 				<div class="tg-formtheme tg-formdashboard">
 					<fieldset>
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div class="tg-dashboardbox">
-						<div class="tg-dashboardboxtitle">
-							<router-link to="/inventory/create">
-								<button class="btn btn-primary">
-									+ Crear Inventario
-								</button>
-							</router-link>
-						</div>
 						<div class="tg-dashboardholder">
 							<table id="tg-adstype" class="table table-responsive tg-dashboardtable tg-payments">
 							<thead>
 								<tr>
 								<th>Nombre</th>
-								<th>Coleccion</th>
-								<th>Categoria</th>
-								<th>Material</th>
-								<th>Caracteristicas</th>
-								<th>Tamaño</th>
-								<th>Precio</th>
-								<th>Nuevo Precio</th>
-								<th>Descuento</th>
-								<th>Estado</th>
+								<th>Sucursal</th>
+								<th>Imagen</th>
+								<th>Codigo de Inventario</th>
+								<th>Usuario</th>
 								<th>Opciones</th>
 								</tr>
 							</thead>
@@ -41,37 +24,21 @@
 								<td data-title="Nombre">
 									<h3>{{data.products_name}}</h3>
 								</td>
-								<td data-title="Coleccion">
-									<h3>{{data.collections_name}}</h3>
+								<td data-title="Sucursal">
+									<h3>{{data.sucursals_name}}</h3>
 								</td>
-								<td data-title="Categoria">
-									<h3>{{data.categories_name}}</h3>
+								<td data-title="Imagen">
+									<img :src="data.inventories_image_url ? '/img_inventories/'+data.inventories_image_url : '/img/logo.jpeg'" />
 								</td>
-								<td data-title="Material">
-									<h3>{{data.materials_name}}</h3>
+								<td data-title="Codigo de Inventario">
+									<h3>{{data.inventories_codigo}}</h3>
 								</td>
-								<td data-title="Caracteristicas">
-									<h3>{{data.products_caracts}}</h3>
-								</td>
-								<td data-title="Tamaño" >
-									<h3>{{data.products_size}}</h3>
-								</td>
-								<td data-title="Precio">
-									<h3>{{data.products_price}}</h3>
-								</td>
-								<td data-title="Nuevo Precio">
-									<h3>{{data.products_net_price}}</h3>
-								</td>
-								<td data-title="Descuento">
-									<h3>{{ parseFloat((data.products_price*data.discounts_porcentaje)/100).toFixed(2)  }}</h3>
-								</td>
-								<td data-title="Estado">
-									<h3 v-if="data.products_is_active==1">Activo</h3>
-									<h3 v-else>Inactivo</h3>
+								<td data-title="Usuario">
+									<h3>{{data.name}}</h3>
 								</td>
 								<td data-title="Opciones">
 									<div class="tg-btnsactions">
-									<a class="tg-btnaction tg-btnactionview" target="_blank" :href="'/generate_qr/'+data.products_id"><i class="fa fa-qrcode fa-2x"></i></a>
+									<a class="tg-btnaction tg-btnactionview" target="_blank" :href="'/generate_qr_inventorie/'+data.inventories_codigo"><i class="fa fa-qrcode fa-2x"></i></a>
 									<a class="tg-btnaction tg-btnactionview" href="javascript:void(0);"><i class="fa fa-pencil fa-2x"></i></a>
 									<a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash fa-2x"></i></a>
 									</div>
@@ -257,13 +224,13 @@ export default {
           if (this.search.length > 0){
               this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
               this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
-              this.pagination.total = me.data_inventarios.filter((inv) => inv.inventories_id.toLowerCase().includes(this.search.toLowerCase())).length;
+              this.pagination.total = me.data_inventarios.filter((inv) => inv.inventories_id).length;
           }else{
               this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
               this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
               this.pagination.total = me.data_inventarios.length;
           }
-          return me.data_inventarios.filter((inv) => inv.inventories_id.toLowerCase().includes(this.search.toLowerCase())).slice(this.pagination.from,this.pagination.to);
+          return me.data_inventarios.filter((inv) => inv.inventories_id).slice(this.pagination.from,this.pagination.to);
       }
   },
 

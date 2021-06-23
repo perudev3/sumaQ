@@ -85,15 +85,24 @@ Route::get('/products',function(){
 	return view('processes_tables.tbl_products', compact('name_view'));
 })->name('products');
 
-
 Route::get('get_products', 'ProductsController@GetProducts');
 Route::post('post_products', 'ProductsController@PostProducts');
 Route::get('/generate_qr/{id}', 'ProductsController@GenerateQR');
 
-
-
 /***Sales***/
 Route::get('/sales/pedidos','SalesController@index')->name('/sales/pedidos');
+Route::post('sales_products', 'SalesController@Data_Products');
+Route::post('get_products_pedidos', 'SalesController@Data_Products_Pedidos');
+
+
+/***Inventories***/
+Route::get('/inventory',function(){
+	$name_view = 'INVENTARIO';
+	return view('processes_tables.tbl_inventories', compact('name_view'));
+})->name('inventory');
+
+Route::get('get_inventario', 'InventoryController@GetInventario');
+Route::get('/generate_qr_inventorie/{codigo}', 'InventoryController@GenerateQRInventorie');
 
 
 /**PurcheaseOrders**/
