@@ -24,7 +24,8 @@ const routes = [
     },
 
     {
-        path:'/category/edit/:categories_id',
+        path:'/category/edit',
+        name:'category/edit',
         component: require('./master_tables/mae_category/edit.vue').default
     },
 /***Collection***/
@@ -39,7 +40,8 @@ const routes = [
     },
 
     {
-        path:'/collection/edit/:colecctions_id',
+        path:'/collection/edit',
+        name:'collection/edit',
         component: require('./master_tables/mae_collections/edit.vue').default
     },
 /***Discount***/
@@ -54,7 +56,8 @@ const routes = [
     },
 
     {
-        path:'/discount/edit/:discounts_id',
+        path:'/discount/edit',
+        name:'discount/edit',
         component: require('./master_tables/mae_discounts/edit.vue').default
     },
 /***Material***/
@@ -98,7 +101,7 @@ const routes = [
         component: require('./master_tables/mae_providers/create.vue').default
     },
     {
-        path:'/purchase_orders/lista',
+        path:'/provider/purchase_orders/lista',
         component: require('./master_tables/mae_providers/purchase_order_list.vue').default
     },
     {

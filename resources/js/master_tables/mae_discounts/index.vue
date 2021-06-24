@@ -1,20 +1,32 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
 	          <div class="tg-formtheme tg-formdashboard">
 	            <fieldset>
 	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	                <div class="tg-dashboardbox">
-	                  <div class="tg-dashboardboxtitle">
-	                    	<router-link to="/discount/create">
-		                        <button class="btn btn-primary">
-		                            + Nuevo Descuento
-		                        </button>
-		                    </router-link>
-	                  </div>
 	                  <div class="tg-dashboardholder">
+					  	<div class="tg-otherfilters">
+							<div class="row">
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-left">
+									<div  class="form-group tg-inputwithicon">
+										<router-link to="/discount/create">
+											<button class="btn btn-primary">
+												+ Nuevo Descuento
+											</button>
+										</router-link>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-right">
+									<div class="form-group tg-inputwithicon">
+										<i class="icon-magnifier"></i>
+										<input type="search" class="form-control" placeholder="Nombre del Descuento"  v-model="discounts_name" v-on:keyup="searchDiscounts">
+									</div>
+								</div>
+							</div>
+						</div>
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
@@ -45,7 +57,7 @@
 	                          </td>
 	                          <td data-title="Action">
 	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" href="javascript:void(0);"><i class="fa fa-eye"></i></a>
+	                              <a class="tg-btnaction tg-btnactionview" @click="EditDiscounts(data)"><i class="fa fa-pencil"></i></a>
 	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
 	                            </div>
 	                          </td>
@@ -141,7 +153,8 @@ export default {
   data:function(){
       return {
         data_discounts:[],
-
+		discounts_id:'',
+		discounts_name:'',
         selectPerPage:10,
         search:'',
         pagination:{
@@ -161,12 +174,29 @@ export default {
 
   methods:{
 
+	  	EditDiscounts(data){
+			this.$router.push({
+				name: "discount/edit",
+				params:{
+					data_discounts: data,
+				}
+			});
+		},
+
         //Paginacion vue//
         GetDiscount(){
               let me=this;
+			  Swal.fire({
+                	title: 'Cargando...',
+					allowEscapeKey: false,
+					allowOutsideClick: false,
+					onOpen: () => {
+					swal.showLoading();
+					}
+            	});
               axios.get('/get_discount').then(function(response){
                 me.data_discounts = response.data;
-				console.log(me.data_discounts);
+				swal.close();
           });
         },
 
@@ -180,7 +210,12 @@ export default {
         },
         //End Paginate//
         
-
+		searchDiscounts(){
+          let me=this;
+          axios.get('/discount/search_discount?discounts_name='+ me.discounts_name).then(function(response){
+              me.data_discounts=response.data;
+          })
+        }
   },
 
   computed:{

@@ -1,20 +1,32 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
 	          <div class="tg-formtheme tg-formdashboard">
 	            <fieldset>
 	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	                <div class="tg-dashboardbox">
-	                  <div class="tg-dashboardboxtitle">
-	                    	<router-link to="/material/create">
-		                        <button class="btn btn-primary">
-		                            + Nuevo Material
-		                        </button>
-		                    </router-link>
-	                  </div>
 	                  <div class="tg-dashboardholder">
+					  	<div class="tg-otherfilters">
+							<div class="row">
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-left">
+									<div  class="form-group tg-inputwithicon">
+										<router-link to="/material/create">
+											<button class="btn btn-primary">
+												+ Nuevo Material
+											</button>
+										</router-link>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-right">
+									<div class="form-group tg-inputwithicon">
+										<i class="icon-magnifier"></i>
+										<input type="search" class="form-control" placeholder="Nombre del Material"  v-model="materials_name" v-on:keyup="searchMaterials">
+									</div>
+								</div>
+							</div>
+						</div>
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
@@ -33,7 +45,7 @@
 	                          </td>
 	                          <td data-title="Opciones">
 	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" href="javascript:void(0);"><i class="fa fa-eye"></i></a>
+	                              <a class="tg-btnaction tg-btnactionview" @click="EditMaterials(data)"><i class="fa fa-eye"></i></a>
 	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
 	                            </div>
 	                          </td>
@@ -129,14 +141,9 @@ export default {
   data:function(){
       return {
         data_material:[],
-        categoriaproductos:[],
-        no_produto:'',
-        pt_producto:'',
-        qt_stock:'',  
-        search_no_producto:'', 
-        id_subcategoria:'',
-        permiso:0,
-
+		materials_id:'',
+		materials_name:'',
+		materials_image_url:'',
         selectPerPage:10,
         search:'',
         pagination:{
@@ -156,6 +163,15 @@ export default {
 
   methods:{
 
+	  	EditMaterials(data){
+			this.$router.push({
+				name: "material/edit",
+				params:{
+					data_material: data,
+				}
+			});
+		},
+
         //Paginacion vue//
         GetMaterials(){
               let me=this;
@@ -173,7 +189,13 @@ export default {
             this.changePage(1);
         },
         //End Paginate//
-        
+
+		searchMaterials(){
+          let me=this;
+          axios.get('/material/search_discount?discounts_name='+ me.discounts_name).then(function(response){
+              me.data_discounts=response.data;
+          })
+        }
 
   },
 

@@ -64,10 +64,10 @@
                     <span id="tg-btnmenutoggle" class="tg-btnmenutoggle">
                         <i class="fa fa-bars"></i>
                     </span>
-                    <div id="tg-verticalscrollbar" class="tg-verticalscrollbar" style="background-image: url(bg/bg-3.jpg);">
-                        <strong class="tg-logo">
+                    <div id="tg-verticalscrollbar" class="tg-verticalscrollbar" style="background-image: url({{ asset('bg/bg-3.jpg') }} ;">
+                        <strong class="tg-logo" style="margin-top: 50px;">
                             <a href="{{ url('/') }}">
-                                <img src="img/logo.jpeg">
+                                <img src="{{ asset('img/logo.jpeg') }}">
                             </a>
                         </strong>
                         <div class="tg-user">                           

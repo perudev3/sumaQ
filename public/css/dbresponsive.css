@@ -328,7 +328,13 @@
 	.tg-subcategories > li{width: 100%;}
 
 	.tg-btnmenutoggle{
-	    font-size: 28px;
-    	color: #000000f5;
+	    top: 9px;
+		font-size: 28px;
+		color: #000000f5;
+		z-index: 1000;
+	}
+
+	.tg-btnmenutoggle i {
+		background: #d9d4d4;
 	}
 }

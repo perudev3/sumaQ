@@ -1,6 +1,6 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
         <div class="tg-formtheme tg-formdashboard">
           <fieldset>
@@ -20,16 +20,19 @@
                             :options="dropzoneOptions">
                         </vue2Dropzone>
                   </div>
+                  <div class="form-group">
+                      <button class="btn btn-primary" type="button" @click="PostCategory">Registrar</button>
+                      <router-link :to="{path: '/category'}">
+                        <button class="btn btn-warning" type="button" >Cancelar</button>
+                      </router-link>
+                      
+                  </div>
+
                 </div>
               </div>
             </div>
           </fieldset>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <button class="btn btn-primary" type="button" @click="PostCategory">Registrar</button>
-            </div>
-        </div> 
 		</section>
 	</main>
 	

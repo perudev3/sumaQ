@@ -1,6 +1,6 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="card tg-dbsectionspace tg-haslayout">
         <div class="tg-formtheme tg-formdashboard">
           <fieldset>
@@ -27,16 +27,14 @@
                   <div class="form-group">
                       <input type="text"  v-model="discounts_stock_max" class="form-control" placeholder="Stock maximo">
                   </div>
+                  <div class="form-group">
+                      <button class="btn btn-primary" type="button" @click="PostDiscount">Registrar</button>
+                  </div>
                 </div>
               </div>
             </div>
           </fieldset>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <button class="btn btn-primary" type="button" @click="PostDiscount">Registrar</button>
-            </div>
-        </div> 
 		</section>
 	</main>
 	
@@ -73,7 +71,7 @@ export default {
                         if (response.data.status==='success') {
                             Swal.fire({
                               title: response.data.message,
-                              text: 'Descuento Registrado',
+                              text: 'Descuento Actualizado',
                               type: 'success',
                               confirmButtonText: 'OK'
                             });

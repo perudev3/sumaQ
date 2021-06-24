@@ -20,59 +20,152 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 /***Category***/
-Route::get('/category',function(){
-	$name_view = 'CATEGORIA';
-	return view('master_tables.mae_category', compact('name_view'));
-})->name('category');
+Route::prefix('category')->group(function () {
+    Route::get('/',function(){
+		$name_view = 'CATEGORIA';
+		return view('master_tables.mae_category', compact('name_view'));
+	});
+
+	Route::get('/create',function(){
+		$name_view = 'CATEGORIA';
+		return view('master_tables.mae_category', compact('name_view'));
+	});
+
+	Route::get('/edit',function(){
+		$name_view = 'CATEGORIA';
+		return view('master_tables.mae_category', compact('name_view'));
+	});
+
+	Route::get('/search_category','CategoryController@SearchCategory');
+
+});
 
 Route::get('get_categories', 'CategoryController@GetCategories');
 Route::post('post_categories', 'CategoryController@PostCategories');
+Route::post('edit_categories', 'CategoryController@EditCategories');
 
 
 /***Colletion***/
-Route::get('/collection',function(){
-	$name_view = 'COLECCIÓN';
-	return view('master_tables.mae_collections', compact('name_view'));
-})->name('collection');
 
+Route::prefix('collection')->group(function () {
+	Route::get('/',function(){
+		$name_view = 'COLECCIÓN';
+		return view('master_tables.mae_collections', compact('name_view'));
+	});
+
+	Route::get('/create',function(){
+		$name_view = 'COLECCIÓN';
+		return view('master_tables.mae_collections', compact('name_view'));
+	});
+
+	Route::get('/edit',function(){
+		$name_view = 'COLECCIÓN';
+		return view('master_tables.mae_collections', compact('name_view'));
+	});
+
+	Route::get('/search_collection','CollectionsController@SearchCollection');
+});
 Route::get('get_collection', 'CollectionsController@GetCollections');
 Route::post('post_collection', 'CollectionsController@PostCollections');
+Route::post('edit_collection', 'CollectionsController@EditCollections');
 
-/***Discounts***/
-Route::get('/discount',function(){
-	$name_view = 'DESCUENTOS';
-	return view('master_tables.mae_discounts', compact('name_view'));
-})->name('discount');
+	/***Discounts***/
+
+Route::prefix('discount')->group(function () {
+	Route::get('/',function(){
+		$name_view = 'DESCUENTOS';
+		return view('master_tables.mae_discounts', compact('name_view'));
+	});
+
+	Route::get('/create',function(){
+		$name_view = 'DESCUENTOS';
+		return view('master_tables.mae_discounts', compact('name_view'));
+	});
+
+	Route::get('/edit',function(){
+		$name_view = 'DESCUENTOS';
+		return view('master_tables.mae_discounts', compact('name_view'));
+	});
+
+	Route::get('/search_discount','DiscountController@SearchDiscounts');
+});
 
 Route::get('get_discount', 'DiscountController@GetDiscounts');
 Route::post('post_discount', 'DiscountController@PostDiscounts');
+Route::post('edit_discount', 'DiscountController@EditDiscounts');
 
 
 /***Materials***/
-Route::get('/material',function(){
-	$name_view = 'MATERIAL';
-	return view('master_tables.mae_materials', compact('name_view'));
-})->name('material');
+Route::prefix('material')->group(function () {
+	Route::get('/',function(){
+		$name_view = 'MATERIAL';
+		return view('master_tables.mae_materials', compact('name_view'));
+	});
+
+	Route::get('/create',function(){
+		$name_view = 'MATERIAL';
+		return view('master_tables.mae_materials', compact('name_view'));
+	});
+
+	Route::get('/edit',function(){
+		$name_view = 'MATERIAL';
+		return view('master_tables.mae_materials', compact('name_view'));
+	});
+
+	Route::get('/search_material','MaterialController@SearchMaterials');
+});
 
 Route::get('get_material', 'MaterialController@GetMaterials');
 Route::post('post_material', 'MaterialController@PostMaterials');
 
 /***Sucursals***/
-Route::get('/sucursal',function(){
-	$name_view = 'SUCURSAL';
-	return view('master_tables.mae_sucursals', compact('name_view'));
-})->name('sucursal');
+Route::prefix('sucursal')->group(function () {
+	Route::get('/',function(){
+		$name_view = 'SUCURSAL';
+		return view('master_tables.mae_sucursals', compact('name_view'));
+	});
+
+	Route::get('/create',function(){
+		$name_view = 'SUCURSAL';
+		return view('master_tables.mae_sucursals', compact('name_view'));
+	});
+
+	Route::get('/edit',function(){
+		$name_view = 'SUCURSAL';
+		return view('master_tables.mae_sucursals', compact('name_view'));
+	});
+});
 
 Route::get('get_sucursal', 'SucursalController@GetSucursals');
 Route::post('post_sucursal', 'SucursalController@PostSucursals');
 
 
 /***Providers***/
-Route::get('/provider',function(){
-	$name_view = 'PROVEEDOR';
-	$user = \Auth::user();
-	return view('master_tables.mae_providers', compact('name_view', 'user'));
-})->name('provider');
+Route::prefix('provider')->group(function () {
+	Route::get('/',function(){
+		$name_view = 'PROVEEDOR';
+		$user = \Auth::user();
+		return view('master_tables.mae_providers', compact('name_view', 'user'));
+	});
+
+	Route::get('/create',function(){
+		$name_view = 'PROVEEDOR';
+		$user = \Auth::user();
+		return view('master_tables.mae_providers', compact('name_view', 'user'));
+	});
+
+	Route::get('/edit',function(){
+		$name_view = 'PROVEEDOR';
+		$user = \Auth::user();
+		return view('master_tables.mae_providers', compact('name_view', 'user'));
+	});
+
+	Route::get('/purchase_orders/lista', function(){
+		$name_view = 'PROVEEDOR';
+		$user = \Auth::user();
+		return view('master_tables.mae_providers', compact('name_view', 'user'));
+	});
+});
 
 
 Route::get('get_provider', 'ProviderController@GetProvider');
@@ -80,26 +173,48 @@ Route::post('post_provider', 'ProviderController@PostProvider');
 
 
 /***Products***/
-Route::get('/products',function(){
-	$name_view = 'PRODUCTOS';
-	return view('processes_tables.tbl_products', compact('name_view'));
-})->name('products');
+Route::prefix('products')->group(function () {
+	Route::get('/',function(){
+		$name_view = 'PRODUCTOS';
+		return view('processes_tables.tbl_products', compact('name_view'));
+	});
+
+	Route::get('/create',function(){
+		$name_view = 'PRODUCTOS';
+		return view('processes_tables.tbl_products', compact('name_view'));
+	});
+
+	Route::get('/edit',function(){
+		$name_view = 'PRODUCTOS';
+		return view('processes_tables.tbl_products', compact('name_view'));
+	});
+});
 
 Route::get('get_products', 'ProductsController@GetProducts');
 Route::post('post_products', 'ProductsController@PostProducts');
 Route::get('/generate_qr/{id}', 'ProductsController@GenerateQR');
 
 /***Sales***/
-Route::get('/sales/pedidos','SalesController@index')->name('/sales/pedidos');
+Route::prefix('sales')->group(function () {
+	Route::get('/pedidos','SalesController@index');
+});
 Route::post('sales_products', 'SalesController@Data_Products');
 Route::post('get_products_pedidos', 'SalesController@Data_Products_Pedidos');
 
 
 /***Inventories***/
-Route::get('/inventory',function(){
-	$name_view = 'INVENTARIO';
-	return view('processes_tables.tbl_inventories', compact('name_view'));
-})->name('inventory');
+Route::prefix('inventory')->group(function () {
+	Route::get('/',function(){
+		$name_view = 'INVENTARIO';
+		return view('processes_tables.tbl_inventories', compact('name_view'));
+	});
+
+	Route::get('/edit',function(){
+		$name_view = 'INVENTARIO';
+		return view('processes_tables.tbl_inventories', compact('name_view'));
+	});
+
+});
 
 Route::get('get_inventario', 'InventoryController@GetInventario');
 Route::get('/generate_qr_inventorie/{codigo}', 'InventoryController@GenerateQRInventorie');

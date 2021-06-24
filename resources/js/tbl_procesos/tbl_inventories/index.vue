@@ -1,6 +1,6 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
 				<div class="tg-formtheme tg-formdashboard">
@@ -28,7 +28,7 @@
 									<h3>{{data.sucursals_name}}</h3>
 								</td>
 								<td data-title="Imagen">
-									<img :src="data.inventories_image_url ? '/img_inventories/'+data.inventories_image_url : '/img/logo.jpeg'" />
+									<img :src="data.inventories_image_url ? '/img_inventories/'+data.inventories_image_url : '/img/logo.jpeg'"  style="width: 50%;"/>
 								</td>
 								<td data-title="Codigo de Inventario">
 									<h3>{{data.inventories_codigo}}</h3>

@@ -1,6 +1,6 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: #dbdbdb;">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
             <div class="row">
                 <ul class="nav nav-pills nav-wizard">

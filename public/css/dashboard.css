@@ -472,15 +472,11 @@ input[type=file].tg-fileinput{display: none;}
 	fill-rule: evenodd;
 }
 .tg-btnmenutoggle i{
-	top: 0;
-    left: 0;
-    z-index: 1000;
-    background: green;
-    width: 72%;
-    height: 48%;
+	left: 0;
     display: block;
-    line-height: 64px;
-    position: absolute;
+    line-height: 30px;
+    padding: 8px;
+    border-radius: 6px;
 }
 .tg-navdashboard {
 	width: 250px;

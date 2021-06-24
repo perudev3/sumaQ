@@ -1,20 +1,35 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
 	          <div class="tg-formtheme tg-formdashboard">
 	            <fieldset>
 	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	                <div class="tg-dashboardbox">
-	                  <div class="tg-dashboardboxtitle">
-	                    <router-link to="/category/create">
-		                      <button class="btn btn-primary">
-		                          + Nueva Categoria
-		                      </button>
-		                  </router-link>
-	                  </div>
 	                  <div class="tg-dashboardholder">
+					  	
+						<div class="tg-otherfilters">
+							<div class="row">
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-left">
+									<div  class="form-group tg-inputwithicon">
+										<router-link to="/category/create">
+											<button class="btn btn-primary">
+												+ Nueva Categoria
+											</button>
+										</router-link>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-right">
+									<div class="form-group tg-inputwithicon">
+										<i class="icon-magnifier"></i>
+										<input type="search" class="form-control" placeholder="Nombre de la Categoria"  v-model="categories_name" v-on:keyup="searchCategory">
+									</div>
+								</div>
+							</div>
+						</div>
+
+
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
@@ -33,7 +48,7 @@
 	                          </td>
 	                          <td data-title="Action">
 	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" href="javascript:void(0);"><i class="fa fa-eye"></i></a>
+	                              <a class="tg-btnaction tg-btnactionview" @click="EditCategory(data)"><i class="fa fa-eye"></i></a>
 	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
 	                            </div>
 	                          </td>
@@ -128,13 +143,7 @@ export default {
   data:function(){
       return {
         data_category:[],
-        categoriaproductos:[],
-        no_produto:'',
-        pt_producto:'',
-        qt_stock:'',  
-        search_no_producto:'', 
-        id_subcategoria:'',
-        permiso:0,
+		categories_name:'',
 
         selectPerPage:10,
         search:'',
@@ -155,11 +164,29 @@ export default {
 
   methods:{
 
+	  	EditCategory(data){
+			this.$router.push({
+				name: "category/edit",
+				params:{
+					data_category: data,
+				}
+			});
+		},
+
         //Paginacion vue//
         GetCategories(){
-              let me=this;
-              axios.get('/get_categories').then(function(response){
+              	let me=this;
+			  	Swal.fire({
+                	title: 'Cargando...',
+					allowEscapeKey: false,
+					allowOutsideClick: false,
+					onOpen: () => {
+					swal.showLoading();
+					}
+            	});
+              	axios.get('/get_categories').then(function(response){
                 me.data_category = response.data;
+				swal.close();
           });
         },
 
@@ -172,6 +199,14 @@ export default {
             this.changePage(1);
         },
         //End Paginate//
+
+		searchCategory(){
+          let me=this;
+          axios.get('/category/search_category?categories_name='+ me.categories_name).then(function(response){
+              me.data_category=response.data;
+          })
+        }
+
         
 
   },
@@ -237,11 +272,8 @@ export default {
 
 
    mounted() {
-            let self = this
-            setTimeout(function(){
-              self.GetCategories();
-            },2000);
-
+    	let self = this
+    	self.GetCategories();
   }
 
   

@@ -1,6 +1,6 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: #dbdbdb;">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
         <!--Modal-->
@@ -56,7 +56,7 @@
 							</router-link>
 						</li>			
                         <li class="active" style="width:50%;">
-							<router-link to="/purchase_orders/lista">
+							<router-link to="/provider/purchase_orders/lista">
 							Ordenes Solicitadas
 							</router-link>
 						</li>	
@@ -84,7 +84,7 @@
 	                        </tr>
 	                      </thead>
 	                      <tbody>
-	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers" align="center">
+	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
 	                          <td data-title="Ordenado por:">
 	                            <h3>{{data.name}}</h3>
 	                          </td>
@@ -94,10 +94,10 @@
 	                          <td data-title="Proveedor">
 	                            <h3>{{data.providers_name}}</h3>
 	                          </td>
-	                          <td data-title="Estado">
-	                            <h3 v-if="data.purchase_orders_status==0" style="background: #73e873;">Solicitado</h3>
-                                <h3 v-if="data.purchase_orders_status==1" style="background: #ecd324;">Confirmado</h3>
-                                <h3 v-if="data.purchase_orders_status==2" style="background: #f05a5a;">Entregado</h3>
+	                          <td data-title="Estado" style="text-align: center;">
+	                            <h3 v-if="data.purchase_orders_status==0" style="background: rgb(115, 232, 115);border-radius: 8px;margin: 6px;padding: 5px;">Solicitado</h3>
+                                <h3 v-if="data.purchase_orders_status==1" style="background: #ecd324;border-radius: 8px;margin: 6px;padding: 5px;">Confirmado</h3>
+                                <h3 v-if="data.purchase_orders_status==2" style="background: #f05a5a;border-radius: 8px;margin: 6px;padding: 5px;">Entregado</h3>
 	                          </td>
 	                          <td data-title="Opciones">
 	                            <div class="tg-btnsactions">

@@ -35,4 +35,31 @@ class DiscountController extends Controller
         }
     }
     
+    public function SearchDiscounts(Request $request)
+    {
+        $discounts_name = $request->discounts_name;
+
+        return mae_discounts::where('discounts_name', 'like', '%'.$discounts_name.'%')->get();
+    }
+
+    public function EditDiscounts(Request $request)
+    {
+        $discounts_id = $request->discounts_id;   
+        $user=\Auth::user();    
+        $discount=mae_discounts::where('discounts_id', $discounts_id)->update([
+            'discounts_name' => $request['discounts_name'],
+            'discounts_porcentaje' => $request['discounts_porcentaje'],
+            'discounts_start_date' => $request['discounts_start_date'],
+            'discounts_end_date' => $request['discounts_end_date'],
+            'user_id' => $user->id,
+            'discounts_stock_max' => $request['discounts_stock_max']
+
+        ]);
+
+        if ($discount==true) {
+            return [ "status" => "success", "message" => "Descuento Actualizado con Exito"];
+        }else{
+            return [ "status" => "error", "message" => "Error al Actualizar el descuento"];
+        }
+    }
 }

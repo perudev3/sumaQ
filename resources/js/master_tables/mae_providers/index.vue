@@ -1,6 +1,6 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: #dbdbdb;">
+	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
 				<ul class="nav nav-pills nav-wizard">
@@ -10,7 +10,7 @@
 							</router-link>
 						</li>			
             <li style="width:50%;">
-							<router-link to="/purchase_orders/lista">
+							<router-link to="/provider/purchase_orders/lista">
 							Ordenes Solicitadas
 							</router-link>
 						</li>
