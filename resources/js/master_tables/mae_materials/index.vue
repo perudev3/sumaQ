@@ -45,7 +45,7 @@
 	                          </td>
 	                          <td data-title="Opciones">
 	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" @click="EditMaterials(data)"><i class="fa fa-eye"></i></a>
+	                              <a class="tg-btnaction tg-btnactionview" @click="EditMaterials(data)"><i class="fa fa-pencil"></i></a>
 	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
 	                            </div>
 	                          </td>
@@ -175,8 +175,17 @@ export default {
         //Paginacion vue//
         GetMaterials(){
               let me=this;
+			  	Swal.fire({
+                	title: 'Cargando...',
+					allowEscapeKey: false,
+					allowOutsideClick: false,
+					onOpen: () => {
+					swal.showLoading();
+					}
+            	});
               axios.get('/get_material').then(function(response){
                 me.data_material = response.data;
+				swal.close();
           });
         },
 
@@ -192,8 +201,8 @@ export default {
 
 		searchMaterials(){
           let me=this;
-          axios.get('/material/search_discount?discounts_name='+ me.discounts_name).then(function(response){
-              me.data_discounts=response.data;
+          axios.get('/material/search_materials?materials_name='+ me.materials_name).then(function(response){
+              me.data_material=response.data;
           })
         }
 

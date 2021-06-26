@@ -48,7 +48,7 @@
 	                          </td>
 	                          <td data-title="Action">
 	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" @click="EditCategory(data)"><i class="fa fa-eye"></i></a>
+	                              <a class="tg-btnaction tg-btnactionview" @click="EditCategory(data)"><i class="fa fa-pencil"></i></a>
 	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
 	                            </div>
 	                          </td>

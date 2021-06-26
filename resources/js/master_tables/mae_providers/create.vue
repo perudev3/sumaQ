@@ -31,19 +31,17 @@
                         <option value="0">Inactivo</option>
                     </select>
                   </div>
+                  <div class="form-group">
+                      <button class="btn btn-primary" type="button" @click="PostProvider">Registrar</button>
+                      <router-link to="/provider">
+                          <button class="btn btn-default" type="button">Cancelar</button>
+                      </router-link> 
+                  </div>
                 </div>
               </div>
             </div>
           </fieldset>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <button class="btn btn-primary" type="button" @click="PostProvider">Registrar</button>
-                <router-link to="/provider">
-                    <button class="btn btn-default" type="button">Cancelar</button>
-                </router-link>                
-            </div>
-        </div> 
 		</section>
 	</main>
 	

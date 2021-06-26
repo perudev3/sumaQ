@@ -7,18 +7,31 @@
 	            <fieldset>
 	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	                <div class="tg-dashboardbox">
-	                  <div class="tg-dashboardboxtitle">
-	                    <router-link to="/products/create">
-		                      <button class="btn btn-primary">
-		                          + Agregar Producto
-		                      </button>
-		                  </router-link>
-	                  </div>
 	                  <div class="tg-dashboardholder">
+					  	<div class="tg-otherfilters">
+							<div class="row">
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-left">
+									<div  class="form-group tg-inputwithicon">
+										<router-link to="/products/create">
+											<button class="btn btn-primary">
+												+ Nuevo Producto
+											</button>
+										</router-link>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-right">
+									<div class="form-group tg-inputwithicon">
+										<i class="icon-magnifier"></i>
+										<input type="search" class="form-control" placeholder="Nombre del Producto"  v-model="products_name" v-on:keyup="searchProducts">
+									</div>
+								</div>
+							</div>
+						</div>
 	                    <table id="tg-adstype" class="table table-responsive tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
 	                          <th>Nombre</th>
+							  <th>Imagen</th>
 	                          <th>Coleccion</th>
 	                          <th>Categoria</th>
 	                          <th>Material</th>
@@ -26,7 +39,6 @@
 	                          <th>Tamaño</th>
 	                          <th>Precio</th>
 	                          <th>Nuevo Precio</th>
-	                          <th>Descuento</th>
 	                          <th>Estado</th>
 	                          <th>Opciones</th>
 	                        </tr>
@@ -59,9 +71,6 @@
 	                          </td>
 	                          <td data-title="Nuevo Precio">
 	                          	<h3>{{data.products_net_price}}</h3>
-	                          </td>
-	                          <td data-title="Descuento">
-	                          	<h3>{{ parseFloat((data.products_price*data.discounts_porcentaje)/100).toFixed(2)  }}</h3>
 	                          </td>
 	                          <td data-title="Estado">
 	                          	<h3 v-if="data.products_is_active==1">Activo</h3>
@@ -165,6 +174,7 @@ export default {
   data:function(){
       return {
       	data_products:[],
+		  products_name:'',
         selectPerPage:10,
         search:'',
         pagination:{
@@ -203,6 +213,12 @@ export default {
         },
         //End Paginate//
         
+		searchProducts(){
+          let me=this;
+          axios.get('/products/search_products?products_name='+ me.products_name).then(function(response){
+              me.data_products=response.data;
+          })
+        }
 
   },
 

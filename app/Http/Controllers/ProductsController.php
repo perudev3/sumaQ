@@ -99,9 +99,21 @@ class ProductsController extends Controller
         
     }
 
+    public function SearchProducts(Request $request)
+    {
+        $products_name = $request->products_name;
+
+        return tbl_products::where('products_name', 'like', '%'.$products_name.'%')->get();
+    }
+
     public function GenerateQR($id)
     {
         $product = tbl_products::where('products_id', $id)->get();
         return view('generate_QR.product_qr', compact('product'));
+    }
+
+    public function GetListProducts(Request $request)
+    {
+        return tbl_products::where('category_id', $request['categories_id'])->where('collections_id', $request['collections_id'])->get();
     }
 }

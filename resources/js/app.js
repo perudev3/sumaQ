@@ -56,6 +56,11 @@ const routes = [
     },
 
     {
+        path:'/discount/create_group',
+        component: require('./master_tables/mae_discounts/create_group.vue').default
+    },
+
+    {
         path:'/discount/edit',
         name:'discount/edit',
         component: require('./master_tables/mae_discounts/edit.vue').default
@@ -72,7 +77,8 @@ const routes = [
     },
 
     {
-        path:'/material/edit/:materials_id',
+        path:'/material/edit',
+        name:'material/edit',
         component: require('./master_tables/mae_materials/edit.vue').default
     },
 /***Sucursal***/
@@ -99,6 +105,11 @@ const routes = [
     {
         path:'/provider/create',
         component: require('./master_tables/mae_providers/create.vue').default
+    },
+    {
+        path:'/provider/edit',
+        name:'provider/edit',
+        component: require('./master_tables/mae_providers/edit.vue').default
     },
     {
         path:'/provider/purchase_orders/lista',

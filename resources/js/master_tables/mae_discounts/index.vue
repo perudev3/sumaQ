@@ -17,6 +17,13 @@
 												+ Nuevo Descuento
 											</button>
 										</router-link>
+
+										<router-link to="/discount/create_group">
+											<button class="btn btn-primary">
+												+ Crear Grupo
+											</button>
+										</router-link>
+										
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-right">
@@ -30,30 +37,30 @@
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
-							  <th>Nombre del descuento</th>
-	                          <th>Porcentaje</th>
+							  <th>Grupo de Descuento</th>
+	                          <th>Categoria</th>
+							  <th>Coleccion</th>
 	                          <th>Fecha de Inicio</th>
 	                          <th>Fecha de Conclusión</th>
-	                          <th>Stock</th>
 	                          <th>Action</th>
 	                        </tr>
 	                      </thead>
 	                      <tbody>
 	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
-							  <td data-title="Nombre del Descuento">
-	                            <h3>{{data.discounts_name}}</h3>
+							  <td data-title="Nombre del Grupo">
+	                            <h3>{{data.group_discounts_name}}</h3>
 	                          </td>
-	                          <td data-title="Porcentaje">
-	                            <h3>{{data.discounts_porcentaje}}</h3>
+	                          <td data-title="Categoria">
+	                            <h3>{{data.categories_name}}</h3>
+	                          </td>
+							  <td data-title="Coleccion">
+	                            <h3>{{data.collections_name}}</h3>
 	                          </td>
 	                          <td data-title="Fecha de Inicio">
 	                            <h3>{{data.discounts_start_date}}</h3>
 	                          </td>
 	                          <td data-title="Fecha de Conclusión">
 	                            <h3>{{data.discounts_end_date}}</h3>
-	                          </td>
-	                          <td data-title="Stock">
-	                            <h3>{{data.discounts_stock_max}}</h3>
 	                          </td>
 	                          <td data-title="Action">
 	                            <div class="tg-btnsactions">
@@ -186,15 +193,8 @@ export default {
         //Paginacion vue//
         GetDiscount(){
               let me=this;
-			  Swal.fire({
-                	title: 'Cargando...',
-					allowEscapeKey: false,
-					allowOutsideClick: false,
-					onOpen: () => {
-					swal.showLoading();
-					}
-            	});
-              axios.get('/get_discount').then(function(response){
+			  
+              axios.get('/get_group_discount').then(function(response){
                 me.data_discounts = response.data;
 				swal.close();
           });
@@ -280,9 +280,15 @@ export default {
 
    mounted() {
             let self = this
-            setTimeout(function(){
+			Swal.fire({
+                	title: 'Cargando...',
+					allowEscapeKey: false,
+					allowOutsideClick: false,
+					onOpen: () => {
+					swal.showLoading();
+					}
+            });
               self.GetDiscount();
-            },2000);
 
   }
 

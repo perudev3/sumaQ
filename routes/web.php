@@ -77,6 +77,11 @@ Route::prefix('discount')->group(function () {
 		return view('master_tables.mae_discounts', compact('name_view'));
 	});
 
+	Route::get('/create_group',function(){
+		$name_view = 'DESCUENTOS';
+		return view('master_tables.mae_discounts', compact('name_view'));
+	});
+
 	Route::get('/create',function(){
 		$name_view = 'DESCUENTOS';
 		return view('master_tables.mae_discounts', compact('name_view'));
@@ -89,7 +94,7 @@ Route::prefix('discount')->group(function () {
 
 	Route::get('/search_discount','DiscountController@SearchDiscounts');
 });
-
+Route::get('get_group_discount', 'DiscountController@GetGroupDiscounts');
 Route::get('get_discount', 'DiscountController@GetDiscounts');
 Route::post('post_discount', 'DiscountController@PostDiscounts');
 Route::post('edit_discount', 'DiscountController@EditDiscounts');
@@ -117,6 +122,7 @@ Route::prefix('material')->group(function () {
 
 Route::get('get_material', 'MaterialController@GetMaterials');
 Route::post('post_material', 'MaterialController@PostMaterials');
+Route::post('edit_material', 'MaterialController@EditMaterials');
 
 /***Sucursals***/
 Route::prefix('sucursal')->group(function () {
@@ -165,11 +171,14 @@ Route::prefix('provider')->group(function () {
 		$user = \Auth::user();
 		return view('master_tables.mae_providers', compact('name_view', 'user'));
 	});
+
+	Route::get('/search_providers','ProviderController@SearchProviders');
 });
 
 
 Route::get('get_provider', 'ProviderController@GetProvider');
 Route::post('post_provider', 'ProviderController@PostProvider');
+Route::post('edit_providers', 'ProviderController@EditProviders');
 
 
 /***Products***/
@@ -188,6 +197,8 @@ Route::prefix('products')->group(function () {
 		$name_view = 'PRODUCTOS';
 		return view('processes_tables.tbl_products', compact('name_view'));
 	});
+
+	Route::get('/search_products','ProductsController@SearchProducts');
 });
 
 Route::get('get_products', 'ProductsController@GetProducts');
@@ -229,3 +240,5 @@ Route::post('/post_confirm_order', 'ControllerPurchase_Orders@Confirm_Order');
 Route::post('/post_recibido_order', 'ControllerPurchase_Orders@Recibido_Order');
 Route::post('/get_pedidos', 'ControllerPurchase_Orders@GetPedidos');
 Route::post('/post_pedido', 'ControllerPurchase_Orders@UpdatePedido');
+Route::post('/get_list_products', 'ProductsController@GetListProducts');
+Route::post('/create_groupdiscounts', 'DiscountController@CreateGroupDiscounts');

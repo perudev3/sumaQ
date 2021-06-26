@@ -29,6 +29,10 @@
                   </div>
                   <div class="form-group">
                       <button class="btn btn-primary" type="button" @click="PostDiscount">Registrar</button>
+                      <router-link to="/discount">
+                        <button class="btn btn-warning" type="button">Cancelar</button>
+                      </router-link>
+                      
                   </div>
                 </div>
               </div>

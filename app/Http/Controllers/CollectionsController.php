@@ -35,9 +35,9 @@ class CollectionsController extends Controller
         }
 
         if ($colletion==true) {
-            return [ "status" => "success", "message" => "Categoria Creada con Exito"];
+            return [ "status" => "success", "message" => "Colección Creada con Exito"];
         }else{
-            return [ "status" => "error", "message" => "Error al Registrar la Categoria"];
+            return [ "status" => "error", "message" => "Error al Registrar la Colección"];
         }
     }
 
