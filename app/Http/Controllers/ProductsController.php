@@ -25,11 +25,6 @@ class ProductsController extends Controller
     public function PostProducts(Request $request)
     {
         $images = $request->file('products_image_url');
-        if ($request['discounts_id'] == true) {
-            $porcentaje=mae_discounts::where('discounts_id', $request['discounts_id'])->first();
-            $desc = ($request['products_price']*$porcentaje->discounts_porcentaje)/100;
-            $products_net_price = $request['products_price']-$desc;
-
             $products= tbl_products::create([
                 'products_name' => $request['products_name'],
                 'collections_id' => $request['collections_id'],
@@ -38,8 +33,6 @@ class ProductsController extends Controller
                 'products_caracts' => $request['products_caracts'],
                 'products_size' => $request['products_size'],
                 'products_price' => $request['products_price'],
-                'products_net_price' => $products_net_price,
-                'discounts_id' => $request['discounts_id'],
                 'products_is_active'=> $request['products_is_active'],
     
             ]);
@@ -62,38 +55,7 @@ class ProductsController extends Controller
             if ($products==true) {
                 return ['status'=>'success' , 'message'=>'Producto Registrado'];
             }
-        }else{
-
-            $products= tbl_products::create([
-                'products_name' => $request['products_name'],
-                'collections_id' => $request['collections_id'],
-                'category_id' => $request['category_id'],
-                'material_id' => $request['materials_id'],
-                'products_caracts' => $request['products_caracts'],
-                'products_size' => $request['products_size'],
-                'products_price' => $request['products_price'],
-                'products_is_active'=> $request['products_is_active'],    
-            ]);
-
-            $cont = 0;
-            foreach($images as $img){
-
-                $custom_name = 'products-'.'-'.Str::uuid()->toString().'.'.$img->getClientOriginalExtension();
-                if  ($cont === 0){
-                    $products->products_image_url = $custom_name;
-                }else{
-                    break;
-                }
-                $img->move(public_path().'/img_products',$custom_name);
-                $products->update();
-                $cont++;
-            }
-
-            if ($products==true) {
-                return ['status'=>'success' , 'message'=>'Producto Registrado'];
-            }
-        }
-        
+      
 
 
         
