@@ -1,8 +1,15 @@
 /node_modules
 /public/hot
 /public/storage
+
+/public/img_products
+/public/img_category
+/public/img_collection
+/public/img_material
+
 /storage/*.key
 /vendor
+/.history
 .env
 .env.backup
 .phpunit.result.cache

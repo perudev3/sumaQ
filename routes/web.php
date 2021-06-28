@@ -202,7 +202,8 @@ Route::prefix('products')->group(function () {
 });
 
 Route::get('get_products', 'ProductsController@GetProducts');
-Route::post('post_products', 'ProductsController@PostProducts');
+//Route::post('post_products', 'ProductsController@PostProducts');
+Route::post('/post_products', 'ProductsController@PostProducts');
 Route::get('/generate_qr/{id}', 'ProductsController@GenerateQR');
 
 /***Sales***/
