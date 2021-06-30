@@ -3,11 +3,11 @@
 	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
             <ul class="nav nav-pills nav-wizard">
-			    <li style="width: 35%;"><a>Pedidos</a></li>
+			    <li style="width: 35%;" @click="Pedidos"><a>Pedidos</a></li>
 			    <li style="width: 35%;" class="active"><a>Compra</a></li>
 			    <li style="width: 30%;"><a>Pago</a></li>
 			</ul>
-	      <div class="row">
+	      <div class="row" style="padding-top: 2%;">
 	          <div class="tg-formtheme tg-formdashboard">
 	            <fieldset>
 	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -16,46 +16,54 @@
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
+							  <th>Codigo de Inventario</th>
 	                          <th>Nombre</th>
 	                          <th>Imagen</th>
                               <th>Precio</th>
-                              <th>Cantidad</th>
-                              <th>Sub-Total</th>
 	                          <th>Action</th>
 	                        </tr>
 	                      </thead>
 	                      <tbody>
 	                        <tr data-category="packageone" v-for="(data, index) in data">
+							  <td data-title="Codigo Inventario">
+	                            <h3>{{data.inventories_codigo}}</h3>
+	                          </td>
 	                          <td data-title="Nombre">
 	                            <h3>{{data.products_name}}</h3>
 	                          </td>
-                              <td data-title="Nombre">
+                              <td data-title="Imagen">
 	                            <img :src="'/img_products/'+data.products_image_url" />
 	                          </td>
-                              <td data-title="Nombre">
+                              <td data-title="Precio">
 	                            <h3>{{data.products_price}}</h3>
 	                          </td>
-                              <td data-title="Nombre">
-	                            <input type="text" class="form-control" v-model="data.cantidad"></input>
-	                          </td>
-                              <td>{{ parseFloat(data.products_price* data.cantidad ).toFixed(2)}}</td>
 	                          <td data-title="Action">
 	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" href="javascript:void(0);"><i class="fa fa-eye"></i></a>
-	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
+									<a class="tg-btnaction tg-btnactiondelete" @click="removeOrder(index)">
+										<i class="fa fa-trash"></i>
+									</a>
 	                            </div>
 	                          </td>
 	                        </tr>
                             <tr>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+								<td></td>
                                 <td>Total</td>
                                 <td>{{ total= parseFloat(Total).toFixed(2)}}</td>
                             </tr>
+							<tr>
+								<br><br>
+									<div class="footer">
+										<div class="form-group">
+											<button @click="Pago" class="btn btn-primary">Finalizar Compra</button>
+										</div>							
+									</div>
+							</tr>
 	                      </tbody>
 	                    </table>
+						
 	                  </div>
+					  	
 
 	                </div>
 	              </div>
@@ -82,10 +90,12 @@ export default {
   },
 
   computed:{
+	   
+
       Total:function(){
         var resultado=0.0;
         for(var i=0;i<this.data.length;i++){
-          resultado= resultado+(this.data[i].products_price*this.data[i].cantidad);
+          resultado= resultado+(this.data[i].products_price);
         }
         return resultado;
       }
@@ -94,16 +104,46 @@ export default {
 
   methods:{
 
- 
+	  	Pedidos(){
+			this.$router.push({name: "sales/pedidos"})
+		},
+		
+		Pago(){
+			this.$router.push({name: "sales/pago" , params: {total: this.total, data_pedidos: this.data_pedidos} })
+		},		
         
+		removeOrder(x) {
+            this.data_pedidos.splice(x, 1);
+            this.saveOrder();			
+        },
 
+		saveOrder() {
+            let parsed = JSON.stringify(this.data_pedidos);
+            localStorage.setItem('data_pedidos', parsed);
+			this.getPedidos(this.data_pedidos);
+        },
+
+		getPedidos(data_pedidos){
+			let me = this;
+			axios.post('/get_products_pedidos', {'data_pedidos':data_pedidos}).then(function(response){
+				me.data = response.data;
+			});
+		},
+		
   },
 
    mounted() {
         let me=this;
-        axios.post('/get_products_pedidos', {'data_pedidos':this.data_pedidos}).then(function(response){
-            me.data = response.data;
-        });
+		if (localStorage.getItem('data_pedidos')) {
+                try {
+                  	this.data_pedidos = JSON.parse(localStorage.getItem('data_pedidos'));
+				  	
+                } catch(e) {
+                  localStorage.removeItem('data_pedidos');
+                }
+        };
+        
+		me.getPedidos(this.data_pedidos);
     }
 
   

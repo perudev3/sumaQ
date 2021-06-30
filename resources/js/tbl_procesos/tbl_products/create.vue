@@ -33,11 +33,6 @@
                      </select>
                   </div>
                   <div class="form-group">
-                     <select class="form-control" v-model="discounts_id">
-                         <option v-for="datadiscount in data_discounts" :key="datadiscount.discounts_id" :value="datadiscount.discounts_id">{{datadiscount.discounts_name}}</option>
-                     </select>
-                  </div>
-                  <div class="form-group">
                      <select class="form-control" v-model="material_id">
                          <option v-for="data in data_material" :key="data.materials_id" :value="data.materials_id">{{data.materials_name}}</option>
                      </select>
@@ -86,7 +81,6 @@ export default {
       return {
         data_category:[],
         data_collection:[],
-        data_discounts:[],
         data_material:[],
         
         products_name:'',
@@ -97,7 +91,6 @@ export default {
         products_size:'',
         products_price:'',
         products_net_price:'',
-        discounts_id:'',
         products_is_active:'',
         products_image_url:'',
 
@@ -142,12 +135,6 @@ export default {
           });
         },
 
-        GetDiscount(){
-              let me=this;
-              axios.get('/get_discount').then(function(response){
-                me.data_discounts = response.data;
-          });
-        },
 
         GetMaterials(){
               let me=this;
@@ -175,7 +162,6 @@ export default {
                 data.append("products_caracts", this.products_caracts)
                 data.append("products_size", this.products_size)
                 data.append("products_price", this.products_price)
-                data.append("discounts_id", this.discounts_id)
                 data.append("products_is_active", this.products_is_active)
                 axios.post('/post_products', data,{ headers: {'Content-Type': 'multipart/form-data'}})
                     .then(response => {
@@ -208,7 +194,6 @@ export default {
             setTimeout(function(){
                 self.GetCategories();
                 self.GetCollections();
-                self.GetDiscount();
                 self.GetMaterials();
             },2000);
 

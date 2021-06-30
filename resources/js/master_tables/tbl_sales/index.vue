@@ -18,16 +18,16 @@
 							<img :src="data_products.inventories_image_url ? '/img_inventories/'+data_products.inventories_image_url : '/img/logo.jpeg'" />
 						</div>
 						<div class="form-group">
-							<label>Nombre del  Producto</label>
+							<label>Nombre del  Producto</label>	
 							<input type="text"  class="form-control" :value="data_products.products_name" disabled>
 						</div>
 
 						<div class="form-group">
 							<label>Precio</label>
-							<input type="text"  class="form-control" :value="data_products.products_price" disabled>
+							<input type="text"  class="form-control" :value="data_products.products_net_price ? data_products.products_net_price : data_products.products_net_price" disabled>
 						</div>
 						<div class="form-group">
-							<button type="button" class="btn btn-primary" @click="Agregar_Pedido(data_products.products_id)">
+							<button type="button" class="btn btn-primary" @click="Agregar_Pedido(data_products.inventories_codigo)">
 								Agregar a Carrito
 							</button>
 						</div>
@@ -84,8 +84,8 @@ export default {
             });
 		},
 
-		Agregar_Pedido(id_inventorie){
-			this.neworder = id_inventorie;
+		Agregar_Pedido(inventories_codigo){
+			this.neworder = inventories_codigo;
             if(!this.neworder) return;
             this.array_pedidos.push(this.neworder);
             this.neworder = '';
@@ -107,7 +107,7 @@ export default {
         },
 
 		Compra(){
-			this.$router.push({name: "compra", params: {array_pedidos: this.array_pedidos}})
+			this.$router.push({name: "sales/compra", params: {array_pedidos: this.array_pedidos}})
 		}
 	},
 

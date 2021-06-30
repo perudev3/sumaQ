@@ -123,12 +123,18 @@ const routes = [
 /***Sales***/
     {
         path:'/sales/pedidos',
+        name:'sales/pedidos',
         component: require('./master_tables/tbl_sales/index.vue').default
     },
     {
         path:'/sales/compra',
-        name:'compra',
+        name:'sales/compra',
         component: require('./master_tables/tbl_sales/compra.vue').default
+    },
+    {
+        path:'/sales/pago',
+        name:'sales/pago',
+        component: require('./master_tables/tbl_sales/pago.vue').default
     },
 /***Products***/
     {
