@@ -10,6 +10,8 @@ use App\tbl_purchase_orders;
 use App\purchase_order_details;
 use Carbon\Carbon;
 use App\tbl_inventories;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ControllerPurchase_Orders extends Controller
 {
@@ -25,7 +27,7 @@ class ControllerPurchase_Orders extends Controller
 
     public function GetPurchaseOrder()
     {
-        return  \DB::table('tbl_purchase_orders')
+        return  DB::table('tbl_purchase_orders')
                     ->select('tbl_purchase_orders.*', 'mae_providers.*', 'users.*')
                     ->join('mae_providers','mae_providers.providers_id', '=', 'tbl_purchase_orders.providers_id')
                     ->join('users','users.id', '=', 'tbl_purchase_orders.purchase_orders_solicited_by')
@@ -34,7 +36,7 @@ class ControllerPurchase_Orders extends Controller
 
     public function GetPedidos(Request $request)
     {
-        return  \DB::table('tbl_purchase_orders')
+        return  DB::table('tbl_purchase_orders')
                     ->select('purchase_order_details.*', 'tbl_purchase_orders.*', 'tbl_products.*')
                     ->join('purchase_order_details','purchase_order_details.purchase_orders_id', '=', 'tbl_purchase_orders.purchase_orders_id')
                     ->join('tbl_products','tbl_products.products_id', '=', 'purchase_order_details.products_id')
@@ -75,7 +77,7 @@ class ControllerPurchase_Orders extends Controller
 
     public function Confirm_Order(Request $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $date = Carbon::now();
         $tbl_purchase_orders=tbl_purchase_orders::where('purchase_orders_id', $request['purchase_orders_id'])->update([
             'purchase_orders_status' =>1,
@@ -91,7 +93,7 @@ class ControllerPurchase_Orders extends Controller
 
     public function Recibido_Order(Request $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $date = Carbon::now();
         $tbl_purchase_orders=tbl_purchase_orders::where('purchase_orders_id', $request['purchase_orders_id'])->update([
             'purchase_orders_status' =>2,

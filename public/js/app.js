@@ -6749,27 +6749,33 @@ __webpack_require__.r(__webpack_exports__);
       this.saveOrder();
     },
     saveOrder: function saveOrder() {
-      var parsed = JSON.stringify(this.data_pedidos);
-      localStorage.setItem('data_pedidos', parsed);
+      var parsed = JSON.stringify(this.data_pedidos); //localStorage.setItem('data_pedidos', parsed);
+
+      localStorage.setItem('array_pedidos', parsed);
       this.getPedidos(this.data_pedidos);
     },
     getPedidos: function getPedidos(data_pedidos) {
+      console.log('Consultando pedidos ...');
       var me = this;
       axios.post('/get_products_pedidos', {
         'data_pedidos': data_pedidos
       }).then(function (response) {
         me.data = response.data;
+        console.log('Mostrando dato del pedido');
+        console.log(response.data);
       });
+      console.log('Saliendo de getPedidso');
     }
   },
   mounted: function mounted() {
     var me = this;
 
-    if (localStorage.getItem('data_pedidos')) {
+    if (localStorage.getItem('array_pedidos')) {
       try {
-        this.data_pedidos = JSON.parse(localStorage.getItem('data_pedidos'));
+        //this.data_pedidos = JSON.parse(localStorage.getItem('data_pedidos'));
+        this.data_pedidos = JSON.parse(localStorage.getItem('array_pedidos'));
       } catch (e) {
-        localStorage.removeItem('data_pedidos');
+        localStorage.removeItem('array_pedidos');
       }
     }
 
@@ -6791,6 +6797,14 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_qrcode_reader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-qrcode-reader */ "./node_modules/vue-qrcode-reader/dist/VueQrcodeReader.common.js");
 /* harmony import */ var vue_qrcode_reader__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_qrcode_reader__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6898,6 +6912,30 @@ __webpack_require__.r(__webpack_exports__);
           array_pedidos: this.array_pedidos
         }
       });
+    },
+    // Buscar producto por codigo de inventario
+    search_producto: function search_producto(input) {
+      var url = "/find_by_code_inventory/".concat(encodeURI(input));
+      return new Promise(function (resolve) {
+        if (input.length < 2) {
+          return resolve([]);
+        }
+
+        fetch(url).then(function (response) {
+          return response.json();
+        }).then(function (data) {
+          console.log(data);
+          resolve(data);
+        });
+      });
+    },
+    // Mostrar en el select los resultados
+    getResultValueProduct: function getResultValueProduct(result) {
+      return result.inventories_codigo;
+    },
+    // Cuando se selecciona un codigo de inventario
+    onSubmitProducto: function onSubmitProducto(result) {
+      this.data_products = result;
     }
   },
   mounted: function mounted() {
@@ -51392,6 +51430,7 @@ var render = function() {
                                   return _c(
                                     "tr",
                                     {
+                                      key: index,
                                       attrs: { "data-category": "packageone" }
                                     },
                                     [
@@ -51694,6 +51733,22 @@ var render = function() {
                     "col-xs-12 col-sm-8 col-md-8 col-lg-6 tg-lgcolwidthhalf"
                 },
                 [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("autocomplete", {
+                        attrs: {
+                          search: _vm.search_producto,
+                          placeholder: "Nombre del Producto",
+                          "get-result-value": _vm.getResultValueProduct
+                        },
+                        on: { submit: _vm.onSubmitProducto }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c("div", { staticClass: "tg-dashboardbox" }, [
                     _c("div", { staticClass: "tg-dashboardholder" }, [
                       _c(

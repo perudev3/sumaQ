@@ -24,7 +24,7 @@
 	                        </tr>
 	                      </thead>
 	                      <tbody>
-	                        <tr data-category="packageone" v-for="(data, index) in data">
+	                        <tr data-category="packageone" v-for="(data, index) in data" :key="index">
 							  <td data-title="Codigo Inventario">
 	                            <h3>{{data.inventories_codigo}}</h3>
 	                          </td>
@@ -113,33 +113,39 @@ export default {
 		},		
         
 		removeOrder(x) {
-            this.data_pedidos.splice(x, 1);
+			this.data_pedidos.splice(x, 1);
             this.saveOrder();			
         },
 
 		saveOrder() {
             let parsed = JSON.stringify(this.data_pedidos);
-            localStorage.setItem('data_pedidos', parsed);
+			//localStorage.setItem('data_pedidos', parsed);
+			localStorage.setItem('array_pedidos', parsed);
 			this.getPedidos(this.data_pedidos);
         },
 
 		getPedidos(data_pedidos){
+			console.log('Consultando pedidos ...')
 			let me = this;
 			axios.post('/get_products_pedidos', {'data_pedidos':data_pedidos}).then(function(response){
 				me.data = response.data;
+				console.log('Mostrando dato del pedido');
+				console.log(response.data);
 			});
+			console.log('Saliendo de getPedidso')
 		},
+
 		
   },
 
    mounted() {
         let me=this;
-		if (localStorage.getItem('data_pedidos')) {
+		if (localStorage.getItem('array_pedidos')) {
                 try {
-                  	this.data_pedidos = JSON.parse(localStorage.getItem('data_pedidos'));
-				  	
+                  	//this.data_pedidos = JSON.parse(localStorage.getItem('data_pedidos'));
+				  	this.data_pedidos = JSON.parse(localStorage.getItem('array_pedidos'));
                 } catch(e) {
-                  localStorage.removeItem('data_pedidos');
+                  localStorage.removeItem('array_pedidos');
                 }
         };
         

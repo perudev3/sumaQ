@@ -16,7 +16,7 @@ class CreateTblInventoriesTable extends Migration
         Schema::create('tbl_inventories', function (Blueprint $table) {
             $table->increments('inventories_id');
             $table->integer('products_id')->unsigned();
-            $table->integer('sucursals_id')->unsigned();
+            $table->integer('sucursals_id')->unsigned()->nullable();
             $table->string('inventories_image_url')->nullable();
             $table->string('inventories_codigo')->nullable();
             $table->integer('sales_id')->unsigned();

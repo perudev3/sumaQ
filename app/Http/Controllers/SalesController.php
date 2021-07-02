@@ -31,15 +31,20 @@ class SalesController extends Controller
     public function Data_Products_Pedidos(Request $request)
     {
         $array_data = $request->data_pedidos;
+
+        $data = [];
+
         for ($i=0; $i < count($array_data) ; $i++) {             
-            $data = \DB::table('tbl_inventories')
+            $row = \DB::table('tbl_inventories')
                     ->select('tbl_products.*', 'tbl_inventories.*')
                     ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
                     ->where('tbl_inventories.inventories_codigo', $array_data[$i])
-                    ->get();
+                    ->first();
             
-            return $data;
+            $data[] = $row;
         }
+
+        return response()->json($data);
 
         
     }

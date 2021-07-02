@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use DB;
 use App\mae_discounts;
 use App\tbl_products;
 use App\tbl_group_discounts;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DiscountController extends Controller
 {
@@ -19,7 +20,7 @@ class DiscountController extends Controller
 
     public function GetGroupDiscounts()
     {
-        return  \DB::table('tbl_group_discounts')
+        return  DB::table('tbl_group_discounts')
                     ->select('*')
                     ->join('mae_collections','mae_collections.collections_id', '=', 'tbl_group_discounts.collections_id')
                     ->join('tbl_products','tbl_products.products_id', '=', 'tbl_group_discounts.products_id')
@@ -31,7 +32,7 @@ class DiscountController extends Controller
 
     public function PostDiscounts(Request $request)
     {
-        $user=\Auth::user();
+        $user=Auth::user();
        
         $discount=mae_discounts::create([
             'discounts_name' => $request['discounts_name'],

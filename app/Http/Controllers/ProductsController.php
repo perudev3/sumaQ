@@ -40,7 +40,7 @@ class ProductsController extends Controller
             $cont = 0;
             foreach($images as $img){
 
-                $custom_name = 'products-'.'-'.\Str::uuid()->toString().'.'.$img->getClientOriginalExtension();
+                $custom_name = 'products-'.'-'.Str::uuid()->toString().'.'.$img->getClientOriginalExtension();
                 if  ($cont === 0){
                     $products->products_image_url = $custom_name;
                 }else{

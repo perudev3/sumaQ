@@ -35,6 +35,14 @@
 	              </div>
 	            </div>
 	            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 tg-lgcolwidthhalf">
+
+					<div class="form-group">
+						<autocomplete :search="search_producto"
+									placeholder="Nombre del Producto"
+									:get-result-value="getResultValueProduct"
+									@submit="onSubmitProducto"> 
+						</autocomplete>
+					</div>  
 	              <div class="tg-dashboardbox">
 	                <div class="tg-dashboardholder">
 	                  <div class="form-group">
@@ -87,7 +95,7 @@ export default {
 		Agregar_Pedido(inventories_codigo){
 			this.neworder = inventories_codigo;
             if(!this.neworder) return;
-            this.array_pedidos.push(this.neworder);
+			this.array_pedidos.push(this.neworder);
             this.neworder = '';
             this.saveOrder();
 			Swal.fire({
@@ -96,6 +104,7 @@ export default {
             	confirmButtonText: 'OK'
         	})
 		},
+		
 		removeOrder(x) {
             this.array_pedidos.splice(x, 1);
             this.saveOrder();
@@ -108,6 +117,34 @@ export default {
 
 		Compra(){
 			this.$router.push({name: "sales/compra", params: {array_pedidos: this.array_pedidos}})
+		},
+
+		// Buscar producto por codigo de inventario
+		search_producto(input) {
+				  const url = `/find_by_code_inventory/${encodeURI(input)}`;
+			      
+			      return new Promise((resolve) => {
+			        if (input.length < 2) {
+			          return resolve([])
+			        }
+			 
+			        fetch(url)
+			          .then((response) => response.json())
+			          .then((data) => {
+						console.log(data);
+			            resolve(data)
+			          })
+			      })
+		},
+
+		// Mostrar en el select los resultados
+		getResultValueProduct(result) {
+			return result.inventories_codigo;
+		},
+
+		// Cuando se selecciona un codigo de inventario
+		onSubmitProducto(result) {
+			this.data_products = result;
 		}
 	},
 
