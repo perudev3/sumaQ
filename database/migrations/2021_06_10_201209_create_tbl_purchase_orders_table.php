@@ -24,6 +24,7 @@ class CreateTblPurchaseOrdersTable extends Migration
             $table->integer('purchase_orders_received_by')->nullable();
             $table->date('purchase_orders_arrived_at')->nullable();
             $table->string('purchase_orders_observation')->nullable();
+            $table->integer('purchase_orders_status')->nullable();
             $table->integer('purchase_orders_is_ok')->nullable();
             $table->string('purchase_orders_complain')->nullable();
             $table->float('purchase_orders_total_price')->nullable();
