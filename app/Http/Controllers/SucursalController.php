@@ -9,6 +9,22 @@ use App\mae_sucursals;
 
 class SucursalController extends Controller
 {
+
+    public function seleccionarSucursal(){
+
+        $sucursales = mae_sucursals::where('sucursals_is_active',1)->get();
+
+        return view('sucursal', compact('sucursales'));
+    }
+
+    public function seleccionarSucursalPost(Request $request){
+
+        // Creamos la sesion de la sucursal
+        $request->session()->put('sucursal_id', $request->sucursal_id);
+
+        return redirect()->to('/');
+    }
+
     public function GetSucursals()
     {
         return mae_sucursals::all();

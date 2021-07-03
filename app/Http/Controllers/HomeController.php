@@ -21,9 +21,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Si no existe la sesion de sucursal
+        if(!$request->session()->exists('sucursal_id')) {
+            return redirect()->route('sucursal.seleccionar.get');
+        }
+
         $name_view = 'HOME';
         return view('home', compact('name_view'));
     }
+
+   
 }

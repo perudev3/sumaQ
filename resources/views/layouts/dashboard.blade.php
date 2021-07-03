@@ -72,7 +72,7 @@
                         </strong>
                         <div class="tg-user">                           
                             <div class="tg-usercontent">
-                                <h3>Bienvenido(a) {{ Auth::user()->name }}</h3>
+                                <h3>Bienvenido(a) {{ Auth::user()->name }} sesion sucursal {{session('sucursal_id')}}</h3>
                             </div>
                         </div>
                         <nav id="tg-navdashboard" class="tg-navdashboard">

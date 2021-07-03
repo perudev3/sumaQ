@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SucursalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 
 /***Category***/
@@ -127,6 +129,7 @@ Route::post('edit_material', 'MaterialController@EditMaterials');
 
 /***Sucursals***/
 Route::prefix('sucursal')->group(function () {
+
 	Route::get('/', function () {
 		$name_view = 'SUCURSAL';
 		return view('master_tables.mae_sucursals', compact('name_view'));
@@ -141,6 +144,11 @@ Route::prefix('sucursal')->group(function () {
 		$name_view = 'SUCURSAL';
 		return view('master_tables.mae_sucursals', compact('name_view'));
 	});
+
+	// Seleeccionar sucursal al iniciar sesion
+	Route::get('seleccionar', 'SucursalController@seleccionarSucursal')->name('sucursal.seleccionar.get');
+	Route::post('seleccionar', 'SucursalController@seleccionarSucursalPost')->name('sucursal.seleccionar.post');
+
 });
 
 Route::get('get_sucursal', 'SucursalController@GetSucursals');
