@@ -14,6 +14,7 @@ class InventoryController extends Controller
                     ->join('tbl_purchase_orders', 'tbl_purchase_orders.purchase_orders_id', 'tbl_inventories.purchase_orders_id')
                     ->join('tbl_products', 'tbl_products.products_id', 'tbl_inventories.products_id')
                     ->join('users', 'users.id', 'tbl_inventories.user_id')
+                    ->where('sucursals_id', session('sucursal_id')) // Solo mostrar las de la sucursal elegida
                     ->get();
     }
 
@@ -23,6 +24,7 @@ class InventoryController extends Controller
             ->select('tbl_inventories.*', 'tbl_products.*')
             ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
             ->where('inventories_codigo', 'like', "%$codigo%")
+            ->where('sucursals_id', session('sucursal_id')) // Solo mostrar las de la sucursal elegida
             ->get();
 
     }
