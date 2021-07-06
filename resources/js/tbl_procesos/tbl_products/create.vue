@@ -52,7 +52,7 @@
                   <div class="form-group">
                       <button class="btn btn-primary" type="button" @click="PostProducts">Registrar</button>                      
                       <router-link to="/products">
-                        <button class="btn btn-warning" type="button" @click="PostProducts">Cancelar</button>
+                        <button class="btn btn-warning" type="button">Cancelar</button>
                       </router-link>                      
                   </div>
                 </div>

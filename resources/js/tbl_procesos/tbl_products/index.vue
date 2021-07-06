@@ -44,7 +44,7 @@
 	                        </tr>
 	                      </thead>
 	                      <tbody>
-	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
+	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers" :key="index">
 	                          <td data-title="Nombre">
 	                            <h3>{{data.products_name}}</h3>
 	                          </td>
@@ -79,7 +79,7 @@
 	                          <td data-title="Opciones">
 	                            <div class="tg-btnsactions">
 	                              <a class="tg-btnaction tg-btnactionview" target="_blank" :href="'/generate_qr/'+data.products_id"><i class="fa fa-qrcode fa-2x"></i></a>
-								  <a class="tg-btnaction tg-btnactionview" href="javascript:void(0);"><i class="fa fa-pencil fa-2x"></i></a>
+								  <a class="tg-btnaction tg-btnactionview" href="javascript:void(0);" @click="editProducto(data)"><i class="fa fa-pencil fa-2x"></i></a>
 	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash fa-2x"></i></a>
 	                            </div>
 	                          </td>
@@ -218,7 +218,16 @@ export default {
           axios.get('/products/search_products?products_name='+ me.products_name).then(function(response){
               me.data_products=response.data;
           })
-        }
+		},
+		
+		editProducto(data){
+			this.$router.push({
+				name: "products/edit",
+				params:{
+					data_product: data
+				}
+			});
+		}
 
   },
 

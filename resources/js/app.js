@@ -145,6 +145,11 @@ const routes = [
         path:'/products/create',
         component: require('./tbl_procesos/tbl_products/create.vue').default
     },
+    {
+        path:'/products/edit',
+        name:'products/edit',
+        component: require('./tbl_procesos/tbl_products/edit.vue').default
+    },
 
 /***Inventario***/
     {
