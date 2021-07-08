@@ -7138,6 +7138,22 @@ __webpack_require__.r(__webpack_exports__);
           swal.close();
         }
       });
+    },
+    ObtenerDatosCliente: function ObtenerDatosCliente(telefono) {
+      console.log('Obteniendo datos del cliente por numero de telefono');
+      var self = this;
+      axios.get("/customers/search-phone/".concat(telefono)).then(function (response) {
+        console.log(response);
+
+        if (response.data.customer == null) {
+          console.log("NO EXISTE CLIENTE CON EL NUMERO DE TELEFONO -->" + telefono);
+        } else {
+          self.addresses_reference = response.data.customer.addresses_reference;
+          self.customers_mail = response.data.customer.customers_mail;
+          self.customers_name = response.data.customer.customers_name;
+          self.address = response.data.customer.addresses_first_line + ', ' + response.data.customer.addresses_second_line;
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -7152,6 +7168,15 @@ __webpack_require__.r(__webpack_exports__);
 
     if (mes < 10) mes = '0' + mes;
     self.fecha = ano + "-" + mes + "-" + dia;
+  },
+  watch: {
+    // Observando la propiedad telefono
+    customers_phone: function customers_phone(val) {
+      // Si la logitud del telefono es igual a 10
+      if (val.length == 10) {
+        this.ObtenerDatosCliente(val);
+      }
+    }
   }
 });
 
@@ -52073,26 +52098,26 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-4" }, [
                           _c("div", { staticClass: "form-group" }, [
-                            _c("label", [_vm._v("Nombres y Apellidos")]),
+                            _c("label", [_vm._v("Telefono")]),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.customers_name,
-                                  expression: "customers_name"
+                                  value: _vm.customers_phone,
+                                  expression: "customers_phone"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: { type: "text" },
-                              domProps: { value: _vm.customers_name },
+                              domProps: { value: _vm.customers_phone },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
-                                  _vm.customers_name = $event.target.value
+                                  _vm.customers_phone = $event.target.value
                                 }
                               }
                             })
@@ -52185,26 +52210,26 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-6" }, [
                           _c("div", { staticClass: "form-group" }, [
-                            _c("label", [_vm._v("Telefono")]),
+                            _c("label", [_vm._v("Nombres y Apellidos")]),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.customers_phone,
-                                  expression: "customers_phone"
+                                  value: _vm.customers_name,
+                                  expression: "customers_name"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: { type: "text" },
-                              domProps: { value: _vm.customers_phone },
+                              domProps: { value: _vm.customers_name },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
-                                  _vm.customers_phone = $event.target.value
+                                  _vm.customers_name = $event.target.value
                                 }
                               }
                             })

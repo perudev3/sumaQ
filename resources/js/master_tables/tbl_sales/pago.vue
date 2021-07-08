@@ -29,8 +29,8 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Nombres y Apellidos</label>	
-                                    <input type="text"  class="form-control" v-model="customers_name">
+                                    <label>Telefono</label>
+                                    <input type="text"  class="form-control" v-model="customers_phone">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -55,9 +55,9 @@
                             </div>
                         
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Telefono</label>
-                                    <input type="text"  class="form-control" v-model="customers_phone">
+                                 <div class="form-group">
+                                    <label>Nombres y Apellidos</label>	
+                                    <input type="text"  class="form-control" v-model="customers_name">
                                 </div>
                             </div>
 
@@ -118,7 +118,6 @@
 
 <script>
 
-
 export default {
 
     props:['user'],
@@ -177,6 +176,30 @@ export default {
                     swal.close();
                 }				
           	});
+        },
+
+        ObtenerDatosCliente(telefono){
+            console.log('Obteniendo datos del cliente por numero de telefono');
+
+            let self = this;
+            axios.get(`/customers/search-phone/${telefono}`)
+                .then(function(response){
+
+                    console.log(response);
+
+                    if(response.data.customer == null){
+                        console.log("NO EXISTE CLIENTE CON EL NUMERO DE TELEFONO -->" + telefono);
+                    }else{
+                        
+                        self.addresses_reference = response.data.customer.addresses_reference;
+                        self.customers_mail      = response.data.customer.customers_mail;
+                        self.customers_name      = response.data.customer.customers_name;
+                        self.address             = response.data.customer.addresses_first_line + ', ' + response.data.customer.addresses_second_line;
+
+                    }
+
+
+                });
         }
 
 	},
@@ -192,6 +215,19 @@ export default {
             mes='0'+mes;
         
         self.fecha = ano+"-"+mes+"-"+dia;
+    },
+    watch: {
+
+        // Observando la propiedad telefono
+        customers_phone(val){
+
+            // Si la logitud del telefono es igual a 10
+            if( val.length == 10){
+                this.ObtenerDatosCliente(val);
+            }
+            
+        } 
+
     }
 
   

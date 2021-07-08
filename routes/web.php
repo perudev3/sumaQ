@@ -271,3 +271,13 @@ Route::post('/get_pedidos', 'ControllerPurchase_Orders@GetPedidos');
 Route::post('/post_pedido', 'ControllerPurchase_Orders@UpdatePedido');
 Route::post('/get_list_products', 'ProductsController@GetListProducts');
 Route::post('/create_groupdiscounts', 'DiscountController@CreateGroupDiscounts');
+
+/** Customers ***/
+Route::prefix('customers')->group(function () {
+
+
+	// Busqueda de un cliente por numero de celular
+	Route::get('/search-phone/{phone}', 'CustomerController@findByPhone');
+
+	
+});
