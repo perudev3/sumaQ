@@ -89,7 +89,14 @@
                                         <i class="fa fa-dashboard"></i>
                                         <span> Categorias</span>
                                     </a>
-                                </li>      
+                                </li>
+                                
+                                <li>
+                                    <a href="{{url('/customers')}}">
+                                        <i class="fa fa-dashboard"></i>
+                                        <span> Clientes</span>
+                                    </a>
+                                </li>  
 
                                 <li>
                                     <a href="{{url('/collection')}}">

@@ -28,6 +28,15 @@ const routes = [
         name:'category/edit',
         component: require('./master_tables/mae_category/edit.vue').default
     },
+
+/***Customer***/
+
+    {
+        path:'/customers',
+        component: require('./tbl_procesos/tbl_customers/index.vue').default
+        
+    },
+
 /***Collection***/
     {
         path:'/collection',

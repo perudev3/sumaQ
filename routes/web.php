@@ -276,8 +276,17 @@ Route::post('/create_groupdiscounts', 'DiscountController@CreateGroupDiscounts')
 Route::prefix('customers')->group(function () {
 
 
+	Route::get('/', function () {
+		$name_view = 'CLIENTES';
+		return view('processes_tables.tbl_customers', compact('name_view'));
+	});
+
+
 	// Busqueda de un cliente por numero de celular
 	Route::get('/search-phone/{phone}', 'CustomerController@findByPhone');
 
 	
 });
+
+Route::get('get_customers', 'CustomerController@getCustomers');
+Route::get('search_customers', 'CustomerController@searchCustomers');
