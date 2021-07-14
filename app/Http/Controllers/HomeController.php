@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // Si no existe la sesion de sucursal
-        if(!$request->session()->exists('sucursal_id')) {
+        if(!$request->session()->exists('sucursal')) {
             return redirect()->route('sucursal.seleccionar.get');
         }
 

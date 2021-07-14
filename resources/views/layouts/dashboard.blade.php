@@ -72,11 +72,17 @@
                         </strong>
                         <div class="tg-user">                           
                             <div class="tg-usercontent">
-                                <h3>Bienvenido(a) {{ Auth::user()->name }} sesion sucursal {{session('sucursal_id')}}</h3>
+                                <h3>Bienvenido(a) {{ Auth::user()->name }}  Sucursal : {{session('sucursal')[0]->sucursals_name }}</h3>
                             </div>
                         </div>
                         <nav id="tg-navdashboard" class="tg-navdashboard">
                             <ul>
+                                <li>
+                                    <ul class="dropdown">
+                                        <li>item</li>
+                                        <li>Item</li>
+                                    </ul>
+                                </li>
                                 <li>
                                     <a href="{{url('/')}}">
                                         <i class="fa fa-dashboard"></i>
@@ -109,6 +115,13 @@
                                     <a href="{{url('/material')}}">
                                         <i class="fa fa-dashboard"></i>
                                         <span> Material</span>
+                                    </a>
+                                </li>  
+
+                                <li>
+                                    <a href="{{url('/user')}}">
+                                        <i class="fa fa-dashboard"></i>
+                                        <span> Usuarios</span>
                                     </a>
                                 </li>  
 

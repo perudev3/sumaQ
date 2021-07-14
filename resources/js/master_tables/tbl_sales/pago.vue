@@ -30,7 +30,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Telefono</label>
-                                    <input type="text"  class="form-control" v-model="customers_phone">
+                                    <input type="text"  class="form-control" v-model="customers_phone" @change="ObtenerDatosCliente($event)">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -81,8 +81,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Acepta terminos y Condiciones</label>	
-                                    <input type="checkbox" v-model="check">
+                                    <label for=""></label><br>
+                                    <label><input type="checkbox" v-model="check"> Acepta terminos y Condiciones</label>	
                                 </div>
                             </div>                            
                         </div>
@@ -179,16 +179,18 @@ export default {
         },
 
         ObtenerDatosCliente(telefono){
-            console.log('Obteniendo datos del cliente por numero de telefono');
+            var tel= telefono.target.value;
 
             let self = this;
-            axios.get(`/customers/search-phone/${telefono}`)
+            axios.get(`/customers/search-phone/${tel}`)
                 .then(function(response){
-
-                    console.log(response);
-
                     if(response.data.customer == null){
                         console.log("NO EXISTE CLIENTE CON EL NUMERO DE TELEFONO -->" + telefono);
+                        Swal.fire({
+                            title: 'El Cliente con numero '+ tel + ' no existe',
+                            type: 'success',
+                            confirmButtonText: 'OK'
+                        });
                     }else{
                         
                         self.addresses_reference = response.data.customer.addresses_reference;
@@ -216,20 +218,7 @@ export default {
         
         self.fecha = ano+"-"+mes+"-"+dia;
     },
-    watch: {
-
-        // Observando la propiedad telefono
-        customers_phone(val){
-
-            // Si la logitud del telefono es igual a 10
-            if( val.length == 10){
-                this.ObtenerDatosCliente(val);
-            }
-            
-        } 
-
-    }
-
+   
   
 };
 </script>

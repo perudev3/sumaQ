@@ -1,7 +1,6 @@
 require('./bootstrap');
 window.Vue = require('vue');
 
-
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
@@ -164,6 +163,21 @@ const routes = [
     {
         path:'/inventory',
         component: require('./tbl_procesos/tbl_inventories/index.vue').default
+    },
+
+/***Users***/
+    {
+        path:'/user',
+        component: require('./master_tables/mae_user/index.vue').default
+    },
+    {
+        path:'/user/create',
+        component: require('./master_tables/mae_user/create.vue').default
+    },
+    {
+        path:'/user/edit',
+        name:'user/edit',
+        component: require('./master_tables/mae_user/edit.vue').default
     },
 
 ]
