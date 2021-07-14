@@ -151,7 +151,7 @@ Route::prefix('sucursal')->group(function () {
 
 });
 
-/***Users***/
+/***Usuarios***/
 Route::prefix('user')->group(function () {
 
 	Route::get('/', function () {
