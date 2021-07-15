@@ -39,21 +39,18 @@
 <body class="tg-home tg-homeone">
     <div id="app">
         <div id="tg-wrapper" class="tg-wrapper tg-haslayout">
-            <header id="tg-header" class="tg-header tg-haslayout">
+            <!--<header id="tg-header" class="tg-header tg-haslayout">
                 <div class="tg-navigationarea">
                     <div class="container">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <strong class="tg-logo">
                                     <a href="{{ url('/') }}">
-                                       <img src="{{asset('img/logo.jpeg')}}" style="width: 184px; height: 39px;">
+                                       <img src="{{asset('img/logo.jpeg')}}" style="height: 39px;">
                                     </a>
                                 </strong>
                                 @guest
-
                                 @else
-
-
                                 @endguest
                                         </ul>
                                     </div>
@@ -62,10 +59,10 @@
                         </div>
                     </div>
                 </div>
-            </header>
+            </header>-->
 
-            <div id="tg-homebanner" class="tg-homebanner tg-haslayout" style="margin-top: 140px;">
-                <figure style="background-image: url(bg/bg-3.jpg);width: 100%;height: 86%;margin-top: -36px;">
+            <div id="tg-homebanner" class="tg-homebanner tg-haslayout">
+                <figure style="background-image: url(bg/bg-1.jpg);width: 100%;height: 100%;background-repeat: no-repeat;">
                     <div style="position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; overflow: hidden; background-size: cover; background-color: transparent; background-repeat: no-repeat; background-position: 50% 50%;">
                     </div>
                             <figcaption>
@@ -74,10 +71,10 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="tg-bannercontent">
                                                 <div class="container">                                                    
-                                                    <div class="tg-logingarea" style="border-radius: 23px;width: 42%;">
+                                                    <div class="tg-logingarea" style="border-radius: 23px;width: 42%;background: white;">
                                                         <h2 style="color: black;padding: 22px;">
-                                                            <div>
-                                                                <img src="{{asset('img/logo.jpeg')}}" class="img-responsive">
+                                                            <div align="center">
+                                                                <img src="{{asset('img/logo.jpeg')}}" class="img-responsive" style="width: 50%;">
                                                             </div>
                                                             {{ __('Ingresar') }}
                                                         </h2>
@@ -157,4 +154,3 @@
     
 </body>
 </html>
-

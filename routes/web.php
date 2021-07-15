@@ -241,6 +241,28 @@ Route::post('get_products_pedidos', 'SalesController@Data_Products_Pedidos');
 Route::post('/post_pago_efectivo', 'SalesController@PostSales');
 
 
+/***Usuarios***/
+Route::prefix('user')->group(function () {
+
+	Route::get('/', function () {
+		$name_view = 'Usuarios';
+		return view('master_tables.mae_user', compact('name_view'));
+	});
+
+	Route::get('/create', function () {
+		$name_view = 'Usuarios';
+		return view('master_tables.mae_user', compact('name_view'));
+	});
+
+	Route::get('/edit', function () {
+		$name_view = 'Usuarios';
+		return view('master_tables.mae_user', compact('name_view'));
+	});
+
+	Route::get('/search_users', 'UserController@SearchUsers');
+});
+
+
 /***Inventories***/
 Route::prefix('inventory')->group(function () {
 	Route::get('/', function () {
@@ -274,7 +296,6 @@ Route::post('/create_groupdiscounts', 'DiscountController@CreateGroupDiscounts')
 
 /** Customers ***/
 Route::prefix('customers')->group(function () {
-
 
 	Route::get('/', function () {
 		$name_view = 'CLIENTES';
