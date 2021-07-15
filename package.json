@@ -25,7 +25,9 @@
     },
     "dependencies": {
         "@trevoreyre/autocomplete-vue": "^2.2.0",
+        "chart.js": "^3.4.1",
         "moment": "^2.29.1",
+        "vue-chartjs": "^3.5.1",
         "vue-qrcode-reader": "^3.0.3",
         "vue-router": "^3.5.1",
         "vue2-dropzone": "^3.6.0",

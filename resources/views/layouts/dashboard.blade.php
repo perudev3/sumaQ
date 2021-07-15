@@ -38,6 +38,10 @@
             font-size: 23px;
         }
 
+        .tg-navdashboard .menu-item-has-children .sub-menu li:before {
+            background: #49506700 !important;
+        }
+
         @media (max-width:769px){
             .title_span{
                 font-size: 18px;
@@ -77,9 +81,17 @@
                         </div>
                         <nav id="tg-navdashboard" class="tg-navdashboard">
                             <ul>
-                                <li>
-                                    <ul class="dropdown">
-                                        <li>item</li>
+                                <li class="menu-item-has-children">
+                                    <span class="tg-dropdowarrow">
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                    <a>
+                                        <i class="icon-layers"></i>
+                                        <span>Dropdwon</span>
+                                    </a>
+                                    <ul class="sub-menu" style="border-left: 1px solid #49506708 !important;">
+                                        <li>Item</li>
+                                        <li>Item</li>
                                         <li>Item</li>
                                     </ul>
                                 </li>

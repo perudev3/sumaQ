@@ -8,6 +8,10 @@ Vue.use(VueRouter);
 const routes = [
 
     {
+        path:'/',
+        component: require('./Dashboard.vue').default
+    },
+    {
         path:'/inicio',
         component: require('./index.vue').default
     },
