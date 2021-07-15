@@ -139,7 +139,7 @@ export default {
 
 		// Mostrar en el select los resultados
 		getResultValueProduct(result) {
-			return result.inventories_codigo;
+			return result.products_name;
 		},
 
 		// Cuando se selecciona un codigo de inventario

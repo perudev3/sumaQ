@@ -502,7 +502,7 @@ input[type=file].tg-fileinput{display: none;}
 	list-style-type: none;
 	/*border-bottom: 1px solid #495067;*/
 }
-.tg-navdashboard > ul > li:nth-child(odd){ background: #dee0e738; }
+.tg-navdashboard > ul > li:nth-child(odd){ background: #ffffff00; }
 /*.tg-navdashboard > ul > li:nth-child(even){ background: #dee0e738; }*/
 .tg-navdashboard > ul > li > a {
 	color: #6b6b6b;
@@ -515,7 +515,7 @@ input[type=file].tg-fileinput{display: none;}
 .tg-navdashboard ul li a:focus,
 .tg-navdashboard ul li a:hover,
 .tg-navdashboard ul li a:active,
-.tg-navdashboard ul li.tg-active a{ color: #fff; }
+.tg-navdashboard ul li.tg-active a{ color: #151111;background: #00000026; }
 .tg-navdashboard ul li a i,
 .tg-navdashboard ul li a span{
 	float: left;

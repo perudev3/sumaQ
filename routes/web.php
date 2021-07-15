@@ -151,8 +151,29 @@ Route::prefix('sucursal')->group(function () {
 
 });
 
-Route::get('get_sucursal', 'SucursalController@GetSucursals');
-Route::post('post_sucursal', 'SucursalController@PostSucursals');
+/***Usuarios***/
+Route::prefix('user')->group(function () {
+
+	Route::get('/', function () {
+		$name_view = 'Usuarios';
+		return view('master_tables.mae_user', compact('name_view'));
+	});
+
+	Route::get('/create', function () {
+		$name_view = 'Usuarios';
+		return view('master_tables.mae_user', compact('name_view'));
+	});
+
+	Route::get('/edit', function () {
+		$name_view = 'Usuarios';
+		return view('master_tables.mae_user', compact('name_view'));
+	});
+
+	Route::get('/search_users', 'UserController@SearchUsers');
+});
+
+Route::get('get_users', 'UserController@GetUsers');
+Route::post('post_users', 'UserController@PostUsers');
 
 
 /***Providers***/

@@ -108,7 +108,8 @@ class ControllerPurchase_Orders extends Controller
                 'products_id' => $data->products_id,
                 'inventories_codigo' => Str::random(4),
                 'purchase_orders_id' => $request['purchase_orders_id'],
-                'user_id' => $user->id
+                'user_id' => $user->id,
+                'sucursals_id' => session('sucursal_id')
             ]);
         }
 
