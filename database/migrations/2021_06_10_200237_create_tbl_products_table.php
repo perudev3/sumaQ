@@ -23,6 +23,7 @@ class CreateTblProductsTable extends Migration
             $table->string('products_size')->nullable();
             $table->float('products_price')->nullable();
             $table->float('products_net_price')->nullable();
+            $table->string('products_image_url')->nullable();
             $table->integer('discounts_id')->nullable();
             $table->integer('products_is_active')->nullable();
             $table->timestamps();

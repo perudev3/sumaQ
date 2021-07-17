@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class tbl_addresses extends Model
 {
-    protected $table= 'tbl_addresses';
 
     protected $fillable = [
         'addresses_first_line',
@@ -15,5 +14,6 @@ class tbl_addresses extends Model
         'districts_id',
     ];
 
-    protected $primaryKey='addresses_id';
+    protected $primaryKey = "addresses_id";
+
 }

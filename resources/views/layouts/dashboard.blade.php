@@ -53,14 +53,30 @@
         <div id="tg-wrapper" class="tg-wrapper tg-haslayout">
             <header id="tg-dashboardheader" class="tg-dashboardheader tg-haslayout">
                 <span class="title_span"><b>{{$name_view}}</b></span>
-                <div style="float: right;">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" style="color: rgb(0 0 0) !important;">
-                        <i class="icon-exit"></i>
-                        <span>Cerrar Sesión</span>
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+
+                <div class="tg-rghtbox">
+                    <div class="dropdown tg-themedropdown tg-notification">
+                        <button class="tg-btndropdown" id="tg-notificationdropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="icon-user"></i>
+                        </button>
+                        <ul class="dropdown-menu tg-dropdownmenu" aria-labelledby="tg-notificationdropdown">
+                            <li>
+                                Bienvenido(a) {{ Auth::user()->name }}  
+                            </li>
+                            <li>
+                                Sucursal : {{session('sucursal')[0]->sucursals_name }}
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" style="color: rgb(0 0 0) !important;">
+                                    <i class="icon-exit"></i>
+                                    <span>Cerrar Sesión</span>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>                            
+                        </ul>
+                    </div>
                 </div>
                 <div id="tg-sidebarwrapper" class="tg-sidebarwrapper">
                     <span id="tg-btnmenutoggle" class="tg-btnmenutoggle">
@@ -72,39 +88,98 @@
                                 <img src="{{ asset('img/logo.jpeg') }}">
                             </a>
                         </strong>
-                        <div class="tg-user">                           
-                            <div class="tg-usercontent">
-                                <h3>Bienvenido(a) {{ Auth::user()->name }} sesion sucursal {{session('sucursal_id')}}</h3>
-                            </div>
-                        </div>
                         <nav id="tg-navdashboard" class="tg-navdashboard">
                             <ul>
-                                <li class="menu-item-has-children">
-                                    <span class="tg-dropdowarrow">
-                                        <i class="fa fa-angle-down"></i>
-                                    </span>
-                                    <a>
-                                        <i class="icon-layers"></i>
-                                        <span>Dropdwon</span>
-                                    </a>
-                                    <ul class="sub-menu" style="border-left: 1px solid #49506708 !important;">
-                                        <li>Item</li>
-                                        <li>Item</li>
-                                        <li>Item</li>
-                                    </ul>
-                                </li>
                                 <li>
                                     <a href="{{url('/')}}">
                                         <i class="fa fa-dashboard"></i>
                                         <span> Dashboard</span>
                                     </a>
                                 </li>  
-
-                                <li>
-                                    <a href="{{url('/category')}}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span> Categorias</span>
+                                <li class="menu-item-has-children">
+                                    <span class="tg-dropdowarrow">
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                    <a>
+                                        <i class="icon-layers"></i>
+                                        <span>Registros Maestros</span>
                                     </a>
+                                    <ul class="sub-menu" style="border-left: 1px solid #49506708 !important;background: rgba(0, 0, 0, 0.15);">
+                                        <li>
+                                            <a href="{{url('/category')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span> Categorias</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('/collection')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span> Colección</span>
+                                            </a>
+                                        </li>  
+
+                                        <li>
+                                            <a href="{{url('/material')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span> Material</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <span class="tg-dropdowarrow">
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                    <a>
+                                        <i class="icon-layers"></i>
+                                        <span>Configuraciones</span>
+                                    </a>
+                                    <ul class="sub-menu" style="border-left: 1px solid #49506708 !important;background: rgba(0, 0, 0, 0.15);">
+                                        <li>
+                                            <a href="{{url('/user')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span> Usuarios</span>
+                                            </a>
+                                        </li>  
+                                    </ul>
+                                </li>
+
+                                <li class="menu-item-has-children">
+                                    <span class="tg-dropdowarrow">
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                    <a>
+                                        <i class="icon-layers"></i>
+                                        <span>PUNTO DE VENTA</span>
+                                    </a>
+                                    <ul class="sub-menu" style="border-left: 1px solid #49506708 !important;background: rgba(0, 0, 0, 0.15);">
+                                        <li>
+                                            <a href="{{url('/sales/pedidos')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span>Ventas</span>
+                                            </a>                                    
+                                        </li> 
+                                        <li>
+                                            <a href="{{url('/provider')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span>Provedores</span>
+                                            </a>                                    
+                                        </li>
+
+                                        <li>
+                                            <a href="{{url('/products')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span>Productos</span>
+                                            </a>                                    
+                                        </li>
+
+                                        <li>
+                                            <a href="{{url('/inventory')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span>Inventario</span>
+                                            </a>                                    
+                                        </li>
+                                    </ul>
                                 </li>
                                 
                                 <li>
@@ -114,26 +189,9 @@
                                     </a>
                                 </li>  
 
-                                <li>
-                                    <a href="{{url('/collection')}}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span> Colección</span>
-                                    </a>
-                                </li>  
+                                  
 
-                                <li>
-                                    <a href="{{url('/material')}}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span> Material</span>
-                                    </a>
-                                </li>  
-
-                                <li>
-                                    <a href="{{url('/user')}}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span> Usuarios</span>
-                                    </a>
-                                </li>  
+                                
 
                                 <li>
                                     <a href="{{url('/sucursal')}}">
@@ -149,33 +207,9 @@
                                     </a>
                                 </li>  
 
-                                <li>
-                                     <a href="{{url('/provider')}}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span>Provedores</span>
-                                    </a>                                    
-                                </li>
+                                
 
-                                <li>
-                                     <a href="{{url('/products')}}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span>Productos</span>
-                                    </a>                                    
-                                </li>
-
-                                <li>
-                                     <a href="{{url('/inventory')}}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span>Inventario</span>
-                                    </a>                                    
-                                </li>
-
-                                <li>
-                                     <a href="{{url('/sales/pedidos')}}">
-                                        <i class="fa fa-dashboard"></i>
-                                        <span>Ventas</span>
-                                    </a>                                    
-                                </li>
+                               
                             </ul>
                         </nav>
                     </div>

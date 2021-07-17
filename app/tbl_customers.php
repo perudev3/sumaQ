@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class tbl_customers extends Model
 {
-    protected $table= 'tbl_customers';
 
     protected $fillable = [
         'customers_name',
@@ -15,5 +14,6 @@ class tbl_customers extends Model
         'addresses_id'
     ];
 
-    protected $primaryKey='customers_id';
+    protected $primaryKey = "customers_id";
+
 }

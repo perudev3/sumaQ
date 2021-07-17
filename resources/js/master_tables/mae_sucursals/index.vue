@@ -6,15 +6,29 @@
 	          <div class="tg-formtheme tg-formdashboard">
 	            <fieldset>
 	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	                <div class="tg-dashboardbox">
-	                  <div class="tg-dashboardboxtitle">
-	                    	<router-link to="/sucursal/create">
-		                        <button class="btn btn-primary">
-		                            + Nueva Sucursal
-		                        </button>
-		                    </router-link>
-	                  </div>
+	                <div class="tg-dashboardbox">						
 	                  <div class="tg-dashboardholder">
+
+						<div class="tg-otherfilters">
+							<div class="row">
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-left">
+									<div  class="form-group tg-inputwithicon">
+										<router-link to="/sucursal/create">
+											<button class="btn btn-primary">
+												+ Nueva Sucursal
+											</button>
+										</router-link>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-right">
+									<div class="form-group tg-inputwithicon">
+										<i class="icon-magnifier"></i>
+										<input type="search" class="form-control" placeholder="Nombre de la Sucursal" >
+									</div>
+								</div>
+							</div>
+						</div>
+
 	                    <table id="tg-adstype" class="table table-responsive tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>

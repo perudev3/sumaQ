@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class tbl_group_discounts extends Model
 {
-    protected $table= 'tbl_group_discounts';
 
     protected $fillable = [
         'group_discounts_name',
@@ -16,5 +15,6 @@ class tbl_group_discounts extends Model
         'collections_id'
     ];
 
-    protected $primaryKey='group_discounts_id';
+    protected $primaryKey = "group_discounts_id";
+
 }

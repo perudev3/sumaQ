@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class purchase_order_details extends Model
 {
-    protected $table= 'purchase_order_details';
 
     protected $fillable = [
         'purchase_orders_id',
@@ -16,5 +15,6 @@ class purchase_order_details extends Model
         'net_price'
     ];
 
-    protected $primaryKey='purchase_order_details_id';
+    protected $primaryKey = "purchase_order_details_id";
+
 }

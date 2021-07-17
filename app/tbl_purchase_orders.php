@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class tbl_purchase_orders extends Model
 {
-    protected $table= 'tbl_purchase_orders';
 
     protected $fillable = [
         'purchase_orders_solicited_by',
@@ -24,5 +23,6 @@ class tbl_purchase_orders extends Model
         'purchase_orders_total_price'
     ];
 
-    protected $primaryKey='purchase_orders_id';
+    protected $primaryKey = "purchase_orders_id";
+
 }

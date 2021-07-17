@@ -20,7 +20,8 @@ class SucursalController extends Controller
     public function seleccionarSucursalPost(Request $request){
 
         // Creamos la sesion de la sucursal
-        $request->session()->put('sucursal_id', $request->sucursal_id);
+        $sucursales = mae_sucursals::where('sucursals_id',$request->sucursal_id)->get();
+        $request->session()->put('sucursal', $sucursales);
 
         return redirect()->to('/');
     }

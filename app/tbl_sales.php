@@ -3,11 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class tbl_sales extends Model
 {
-    protected $table= 'tbl_sales';
-
     protected $fillable = [
         'user_id',
         'sucursals_id',
@@ -21,5 +20,7 @@ class tbl_sales extends Model
         'sales_status'
     ];
 
-    protected $primaryKey='sales_id';
+
+    protected $primaryKey = "sales_id";
+
 }
