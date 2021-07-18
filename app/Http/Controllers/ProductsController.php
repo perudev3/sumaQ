@@ -9,17 +9,16 @@ use App\mae_category;
 use App\mae_materials;
 use App\mae_collections;
 use App\mae_discounts;
+use App\tbl_inventories;
 
 class ProductsController extends Controller
 {
     public function GetProducts()
     {        
-        return  \DB::table('tbl_products')
-                    ->select('tbl_products.*', 'mae_collections.*','mae_materials.*', 'mae_categories.*')
-                    ->join('mae_collections','mae_collections.collections_id', '=', 'tbl_products.collections_id')
-                    ->join('mae_materials','mae_materials.materials_id', '=', 'tbl_products.material_id')
-                    ->join('mae_categories','mae_categories.categories_id', '=', 'tbl_products.category_id')
-                    ->get();
+        return  tbl_products::with(['discountsGroup' => function($query) {
+            return $query->with('discounts');
+        }])
+        ->with(['category', 'collection', 'material'])->get();
     }
 
     public function PostProducts(Request $request)
@@ -55,9 +54,6 @@ class ProductsController extends Controller
             if ($products==true) {
                 return ['status'=>'success' , 'message'=>'Producto Registrado'];
             }
-      
-
-
         
     }
 
@@ -110,14 +106,8 @@ class ProductsController extends Controller
         return tbl_products::where('products_name', 'like', '%'.$products_name.'%')->get();
     }
 
-    public function GenerateQR($id)
-    {
-        $product = tbl_products::where('products_id', $id)->get();
-        return view('generate_QR.product_qr', compact('product'));
-    }
-
     public function GetListProducts(Request $request)
     {
-        return tbl_products::where('category_id', $request['categories_id'])->where('collections_id', $request['collections_id'])->get();
+        return tbl_products::where('categories_id', $request['categories_id'])->where('collections_id', $request['collections_id'])->get();
     }
 }

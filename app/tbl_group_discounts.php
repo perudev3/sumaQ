@@ -17,4 +17,9 @@ class tbl_group_discounts extends Model
 
     protected $primaryKey = "group_discounts_id";
 
+    public function discounts()
+    {
+        return $this->hasMany('App\mae_discounts','discounts_id');
+    }
+
 }

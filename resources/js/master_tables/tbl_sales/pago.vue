@@ -30,7 +30,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Telefono</label>
-                                    <input type="text"  class="form-control" v-model="customers_phone">
+                                    <input type="text"  class="form-control" v-model="customers_phone" @change="ObtenerDatosCliente($event)">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -179,26 +179,24 @@ export default {
         },
 
         ObtenerDatosCliente(telefono){
-            console.log('Obteniendo datos del cliente por numero de telefono');
-
+            var tel= telefono.target.value;
             let self = this;
-            axios.get(`/customers/search-phone/${telefono}`)
+            axios.get(`/customers/search-phone/${tel}`)
                 .then(function(response){
-
-                    console.log(response);
-
                     if(response.data.customer == null){
                         console.log("NO EXISTE CLIENTE CON EL NUMERO DE TELEFONO -->" + telefono);
+                        Swal.fire({
+                            title: 'El Cliente con numero '+ tel + ' no existe',
+                            type: 'success',
+                            confirmButtonText: 'OK'
+                        });
                     }else{
                         
                         self.addresses_reference = response.data.customer.addresses_reference;
                         self.customers_mail      = response.data.customer.customers_mail;
                         self.customers_name      = response.data.customer.customers_name;
                         self.address             = response.data.customer.addresses_first_line + ', ' + response.data.customer.addresses_second_line;
-
                     }
-
-
                 });
         }
 

@@ -10,6 +10,6 @@ class mae_materials extends Model
         'materials_name','materials_image_url'
     ];
 
-    protected $primaryKey ="materials_id";
+    protected $primaryKey ="material_id";
 
 }

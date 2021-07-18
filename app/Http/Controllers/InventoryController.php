@@ -5,25 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\tbl_inventories;
+use App\tbl_products;
 
 class InventoryController extends Controller
 {
     public function GetInventario()
     {
-        $inventory = DB::table('tbl_inventories')
-                    ->select('tbl_purchase_orders.*', 'tbl_products.*', 'tbl_inventories.*', 'users.*')
-                    ->join('tbl_purchase_orders', 'tbl_purchase_orders.purchase_orders_id', 'tbl_inventories.purchase_orders_id')
-                    ->join('tbl_products', 'tbl_products.products_id', 'tbl_inventories.products_id')
-                    ->join('users', 'users.id', 'tbl_inventories.user_id')
-                    ->where('sucursals_id', session('sucursal_id')) // Solo mostrar las de la sucursal elegida
-                    ->where('sales_id', NULL)
-                    ->groupBy('tbl_inventories.products_id')
-                    ->paginate(18);
-
-        return [
-            'inventory' => $inventory->items(),
-            'count' => $inventory->total()
-        ];
+            return tbl_products::with(['countInventory', 'category'])->get();
+            
     }
 
     public function findByInventoryCode($codigo){
@@ -38,8 +27,14 @@ class InventoryController extends Controller
     }
 
 
-    public function GenerateQRInventorie($codigo)
+    public function GenerateQRInventorie($products_id)
     {
-        return view('generate_QR.inventorie_qr', compact('codigo'));
+        $product =DB::table('tbl_inventories')
+                ->select('tbl_inventories.*', 'tbl_products.*')
+                ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
+                ->where('tbl_inventories.products_id', $products_id)
+                ->where('tbl_inventories.sales_id', NULL)
+                ->get();
+        return view('generate_QR.inventorie_qr', compact('product'));
     }
 }

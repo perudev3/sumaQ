@@ -252,7 +252,7 @@ export default {
                               confirmButtonText: 'OK'
                             });
                             localStorage.clear();
-                            this.$router.replace('/purchase_orders/lista');
+                            this.$router.replace('/provider');
                         }else{
                             Swal.fire({
                               title: response.data.message,

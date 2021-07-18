@@ -66,6 +66,7 @@
 
 export default {
 
+    
   data:function(){
       return {
       	data_products:[],
@@ -89,7 +90,7 @@ export default {
 
   methods:{
 
-        GetProductos(){
+        getDetailsInventory(){
               let me=this;
 			  Swal.fire({
                 	title: 'Cargando...',
@@ -128,7 +129,7 @@ export default {
    mounted() {
             let self = this
             setTimeout(function(){
-              self.GetProductos();
+              self.getDetailsInventory();
             },2000);
 
   }

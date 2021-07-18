@@ -103,7 +103,37 @@ class ControllerPurchase_Orders extends Controller
 
         $products_orders=purchase_order_details::where('purchase_orders_id', $request['purchase_orders_id'])->get();
 
-        foreach ($products_orders as $data ) {
+        foreach ($products_orders as $data) {
+            $count_order = $data->total_products;
+
+            for ($i=0; $i < $count_order ; $i++) { 
+                $tbl_inventories=tbl_inventories::create([
+                    'products_id' => $data->products_id,
+                    'inventories_codigo' => Str::random(4),
+                    'purchase_orders_id' => $request['purchase_orders_id'],
+                    'user_id' => $user->id
+                ]);
+            }
+
+            if ($tbl_inventories == true) {
+                return ['status'=>'success'];
+            }
+
+        }
+        
+        /*for ($i=0; $i < $count_order ; $i++) { 
+            $tbl_inventories=tbl_inventories::create([
+                'products_id' => $products_orders->products_id,
+                'inventories_codigo' => Str::random(4),
+                'purchase_orders_id' => $request['purchase_orders_id'],
+                'user_id' => $user->id
+            ]);
+        }
+
+        if ($tbl_inventories == true) {
+            return ['status'=>'success'];
+        }*/
+        /*foreach ($products_orders as $data ) {
             $tbl_inventories=tbl_inventories::create([
                 'products_id' => $data->products_id,
                 'inventories_codigo' => Str::random(4),
@@ -114,7 +144,7 @@ class ControllerPurchase_Orders extends Controller
 
         if ($tbl_inventories) {
             return ['status'=>'success'];
-        }
+        }*/
     }
 
     public function UpdatePedido(Request $request)

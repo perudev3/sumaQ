@@ -240,6 +240,16 @@ Route::post('sales_products', 'SalesController@Data_Products');
 Route::post('get_products_pedidos', 'SalesController@Data_Products_Pedidos');
 Route::post('/post_pago_efectivo', 'SalesController@PostSales');
 
+/***Sales Detail***/
+Route::prefix('sales')->group(function () {
+	Route::get('/details', function () {
+		$name_view = 'DETALLES VENTAS';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_sales', compact('name_view', 'user'));
+	});
+});
+
+Route::post('get_sales_details', 'SalesController@GetSalesDetails');
 
 /***Usuarios***/
 Route::prefix('user')->group(function () {
@@ -274,10 +284,16 @@ Route::prefix('inventory')->group(function () {
 		$name_view = 'INVENTARIO';
 		return view('processes_tables.tbl_inventories', compact('name_view'));
 	});
+
+	Route::get('/details/{products_id}', function () {
+		$name_view = 'INVENTARIO';
+		return view('processes_tables.tbl_inventories', compact('name_view'));
+	});
+
 });
 
 Route::get('get_inventario', 'InventoryController@GetInventario');
-Route::get('/generate_qr_inventorie/{codigo}', 'InventoryController@GenerateQRInventorie');
+Route::get('/generate_qr_inventorie/{products_id}', 'InventoryController@GenerateQRInventorie');
 Route::get('/find_by_code_inventory/{codigo}', 'InventoryController@findByInventoryCode');
 
 Route::get('data_districts', 'DistrictsController@GetDistricts');

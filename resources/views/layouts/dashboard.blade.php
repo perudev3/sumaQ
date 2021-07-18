@@ -160,6 +160,12 @@
                                             </a>                                    
                                         </li> 
                                         <li>
+                                            <a href="{{url('/sales/details')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span>Detalles Ventas</span>
+                                            </a>                                    
+                                        </li>
+                                        <li>
                                             <a href="{{url('/provider')}}">
                                                 <i class="fa fa-dashboard"></i>
                                                 <span>Provedores</span>

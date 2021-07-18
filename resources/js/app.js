@@ -148,6 +148,11 @@ const routes = [
         name:'sales/pago',
         component: require('./master_tables/tbl_sales/pago.vue').default
     },
+    {
+        path:'/sales/details',
+        name:'sales/details',
+        component: require('./master_tables/tbl_sales/details.vue').default
+    },
 /***Products***/
     {
         path:'/products',
@@ -166,6 +171,10 @@ const routes = [
 /***Inventario***/
     {
         path:'/inventory',
+        component: require('./tbl_procesos/tbl_inventories/index.vue').default
+    },
+    {
+        path:'/inventory/details/:products_id',
         component: require('./tbl_procesos/tbl_inventories/index.vue').default
     },
 /***Users***/

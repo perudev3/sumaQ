@@ -12,4 +12,5 @@ class tbl_inventories extends Model
     ];
 
     protected $primaryKey = "inventories_id";
+
 }

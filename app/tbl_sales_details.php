@@ -11,9 +11,29 @@ class tbl_sales_details extends Model
        'sales_id',
        'customers_id',
        'products_id',
-       'office_id'
+       'sucursals_id'
     ];
 
     protected $primaryKey = "sales_details_id";
+
+    public function products()
+    {
+        return $this->belongsTo('App\tbl_products','products_id');
+    }
+
+    public function customers()
+    {
+        return $this->belongsTo('App\tbl_customers','customers_id');
+    }
+
+    public function sucursals()
+    {
+        return $this->belongsTo('App\mae_sucursals','sucursals_id');
+    }
+
+    public function sales()
+    {
+        return $this->belongsTo('App\tbl_sales','sales_id');
+    }
 
 }

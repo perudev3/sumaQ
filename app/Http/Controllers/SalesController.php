@@ -110,8 +110,11 @@ class SalesController extends Controller
         if ($tbl_addresses && $tbl_customers && $tbl_sales_details == true) {
             return ['status' => 'success'];
         }
-        
-        
+    }
+
+    public function GetSalesDetails()
+    {
+        return tbl_sales_details::with(['products','customers','sucursals','sales'])->get();
     }
 
 }
