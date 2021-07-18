@@ -292,6 +292,7 @@ Route::prefix('inventory')->group(function () {
 
 });
 
+Route::get('inventory_details/{products_id}', 'InventoryController@DetailsInventory');
 Route::get('get_inventario', 'InventoryController@GetInventario');
 Route::get('/generate_qr_inventorie/{products_id}', 'InventoryController@GenerateQRInventorie');
 Route::get('/find_by_code_inventory/{codigo}', 'InventoryController@findByInventoryCode');

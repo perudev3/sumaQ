@@ -19,7 +19,8 @@
 						<div class="tg-dashboardbox">
 						<div class="tg-dashboardholder">
 							<div class="row">
-								<div class="col-md-6" v-for="data in data_inventarios" :key="data.id">
+								<div class="col-md-6" v-for="data in data_inventarios" :key="data.id" 
+								style="border: 1px solid;padding-bottom: 13px;padding-top: 9px;">
 										<div class="card">
 											<div class="col-lg-6">
 												<img :src="'/img_products/'+data.products_image_url" />

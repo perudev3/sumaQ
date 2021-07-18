@@ -1,32 +1,15 @@
 <template>
 
 	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
-		<section class="tg-dbsectionspace tg-haslayout">
-	      <div class="row">
-				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Digite el nombre del producto">
-				</div>
-				<div class="col-md-3">
-					<button class="btn btn-primary">Filtrar Busqueda</button>
-				</div>
-				<div class="col-md-3">
-					<router-link to="/products/create">
-						<button class="btn btn-primary">
-							+ Nuevo Producto
-						</button>
-					</router-link>
-				</div>
-	      </div>
-		</section>
-		<section class="tg-dbsectionspace tg-haslayout">
+		<section class="tg-dbsectionspace tg-haslayout" >
 	      <div class="row">
 				<div class="tg-formtheme tg-formdashboard">
 					<fieldset>
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
 						<div class="tg-dashboardbox">
 						<div class="tg-dashboardholder">
 							<div class="row">
-								<div class="col-md-6" v-for="data in data_products" >
+								<div class="col-md-12" v-for="data in data_products.products">
 										<div class="card">
 											<div class="col-lg-6">
 												<img :src="'/img_products/'+data.products_image_url" />
@@ -42,15 +25,53 @@
 												</div>
 											</div>
 										</div>
-										<div class="card-footer">
-											<button class="btn btn-primary">Editar <i class="fa fa-pencil fa-1x"></i></button>
-											<button class="btn btn-primary">Eliminar <i class="fa fa-trash fa-1x"></i></button>
-										</div>
 								</div>
 							</div>
 						
 						</div>
 
+						</div>
+					</div>
+					</fieldset>
+				</div>
+	      </div>
+		</section>
+		<section class="tg-dbsectionspace tg-haslayout" >
+	      <div class="row">
+				<div class="tg-formtheme tg-formdashboard">
+					<fieldset>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="tg-dashboardbox">
+							<div class="tg-dashboardholder">
+								<div class="row">
+									<table id="tg-adstype" class="table tg-dashboardtable tg-payments">
+									<thead>
+										<tr>
+										<th>Nombre</th>
+										<th>Categoria</th>
+										<th>Material</th>
+										<th>Coleccion</th>
+										<th>Tamaño</th>
+										<th>Generar QR</th>
+										<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-category="packageone" v-for="(data, index) in data_inventory">
+										<td data-title="Nombre">
+											<h3>{{data.products_name}}</h3>
+										</td>
+										<td data-title="Action">
+											<div class="tg-btnsactions">
+											<a class="tg-btnaction tg-btnactionview" ><i class="fa fa-pencil"></i></a>
+											<a class="tg-btnaction tg-btnactiondelete" ><i class="fa fa-trash"></i></a>
+											</div>
+										</td>
+										</tr>
+									</tbody>
+									</table>
+								</div>						
+							</div>
 						</div>
 					</div>
 					</fieldset>
@@ -66,24 +87,11 @@
 
 export default {
 
-    
   data:function(){
       return {
-      	data_products:[],
-		  products_name:'',
-        selectPerPage:10,
-        search:'',
-        pagination:{
-          perPage:10,
-          total:0,
-          currentPage:1,
-          from:0,
-          to:0,
-          lastPage:0,
-          currentUsers:[],
-          links:[]
-        },
-
+      		data_inventory:[],
+			data_products:[],
+			products_id: this.$route.params.products_id,
       }
   },
 
@@ -100,29 +108,13 @@ export default {
                   swal.showLoading();
                   }
             	});
-              axios.get('/get_products').then(function(response){
-                me.data_products = response.data;
+              axios.get('/inventory_details/'+me.products_id).then(function(response){
+                me.data_inventory = response.data.lista;
+				me.data_products = response.data.product.products;
 				swal.close();
-                console.log(me.data_products);
+                console.log(me.data_inventory, me.data_products);
           });
         },
-
-        
-		searchProducts(){
-          let me=this;
-          axios.get('/products/search_products?products_name='+ me.products_name).then(function(response){
-              me.data_products=response.data;
-          })
-		},
-		
-		editProducto(data){
-			this.$router.push({
-				name: "products/edit",
-				params:{
-					data_product: data
-				}
-			});
-		}
 
   },
 

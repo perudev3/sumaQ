@@ -37,4 +37,33 @@ class InventoryController extends Controller
                 ->get();
         return view('generate_QR.inventorie_qr', compact('product'));
     }
+
+    public function DetailsInventory($products_id)
+    {
+       /* return  DB::table('tbl_inventories')
+                ->select('tbl_inventories.*', 'tbl_products.*')
+                ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
+                ->where('tbl_inventories.products_id', $products_id)
+                ->where('tbl_inventories.sales_id', NULL)
+                ->get();*/
+        $listainventory = tbl_inventories::with(['products' => function($query) {
+                                    return $query->with('category', 'collection', 'material', 'discountsGroup');
+                                }])
+                                ->with('sizes')
+                                ->where('products_id', $products_id)
+                                ->where('sales_id', NULL)
+                                ->get();
+        $product = tbl_inventories::with(['products' => function($query) {
+                                    return $query->with('category', 'collection', 'material', 'discountsGroup');
+                                }])
+                                ->with('sizes')
+                                ->where('products_id', $products_id)
+                                ->where('sales_id', NULL)
+                                ->first();
+
+        return [
+            'lista' => $listainventory,
+            'product' => $product,
+        ];
+    }
 }

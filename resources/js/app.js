@@ -175,7 +175,7 @@ const routes = [
     },
     {
         path:'/inventory/details/:products_id',
-        component: require('./tbl_procesos/tbl_inventories/index.vue').default
+        component: require('./tbl_procesos/tbl_inventories/details.vue').default
     },
 /***Users***/
     {
