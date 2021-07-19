@@ -174,6 +174,9 @@ export default {
 			}).then(function(response){
                 if (response.data.status=='success') {
                     swal.close();
+                    JSON.parse(localStorage.getItem('array_pedidos'));
+                    localStorage.clear();
+                    me.Pedidos();
                 }				
           	});
         },

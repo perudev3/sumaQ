@@ -26,7 +26,7 @@
             {{ $prod->inventories_codigo }}<br>
 				S/ {{ $prod->products_price }}
 				<br>
-				MEDIDAS :  {{ $prod->products_size }}
+				MEDIDAS :  
 			</div>	
 		</div>
 	</div>

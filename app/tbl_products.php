@@ -14,7 +14,6 @@ class tbl_products extends Model
         'categories_id',
         'material_id', 
         'products_caracts',
-        'products_size',
         'products_price',
         'products_net_price',
         'discounts_id',

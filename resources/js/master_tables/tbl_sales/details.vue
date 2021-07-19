@@ -3,6 +3,13 @@
 
 	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
 		<section class="tg-dbsectionspace tg-haslayout">
+	      <div class="row">
+			  	<div class="col-md-6">
+				  <button class="btn btn-primary">Filtrar Busqueda</button>
+			  	</div>
+	      </div>
+		</section>
+		<section class="tg-dbsectionspace tg-haslayout">
             <div class="row" style="padding-top: 2%;">
 	          <div class="tg-formtheme tg-formdashboard">
 	            <fieldset>
@@ -12,26 +19,31 @@
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
-							              <th>Cliente</th>
-	                          <th>Metodo de Pago</th>
-	                          <th>Fecha de Entrega</th>
-                            <th>Producto</th>
+								<th>Cliente</th>
+								<th>Telefono</th>
+								<th>Metodo de Pago</th>
+								<th>Fecha de Pago</th>
+								<th></th>
 	                        </tr>
 	                      </thead>
 	                      <tbody>
 	                        <tr data-category="packageone" v-for="(data, index) in data_details_sales" :key="index">
-							              <td data-title="Cliente">
-	                            <h3>{{data.customers.customers_name}}</h3>
-	                          </td>
-                            <td data-title="Cliente">
-	                            <h3>{{data.sales.sales_payment_method}}</h3>
-	                          </td>
-                            <td data-title="Cliente">
-	                            <h3>{{data.sales.sales_entrega_date}}</h3>
-	                          </td>
-                            <td data-title="Cliente">
-	                            <h3>{{data.products.products_name}}</h3>
-	                          </td>
+								<td data-title="Cliente">
+									<h3>{{data.customers.customers_name}}</h3>
+								</td>
+								<td data-title="Telefono">
+									<h3>{{data.customers.customers_phone}}</h3>
+								</td>
+								<td data-title="Metodo de Pago">
+									<h3>{{data.sales.sales_payment_method}}</h3>
+								</td>
+								<td data-title="Fecha de Pago">
+									<h3>{{data.sales.sales_payment_date}}</h3>
+								</td>
+								<td>
+									<button class="btn btn-primary"><i class="fa fa-check"></i></button>
+									<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+								</td>
 	                        </tr>
 	                      </tbody>
 	                    </table>
@@ -58,6 +70,7 @@ export default {
 	data:function(){
 	    return {
 			data_details_sales:[],
+			busquedadetails:0,
 	    }
 	},
 

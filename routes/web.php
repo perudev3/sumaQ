@@ -290,9 +290,15 @@ Route::prefix('inventory')->group(function () {
 		return view('processes_tables.tbl_inventories', compact('name_view'));
 	});
 
+	Route::get('/add/{products_id}', function () {
+		$name_view = 'INVENTARIO';
+		return view('processes_tables.tbl_inventories', compact('name_view'));
+	});
+
 });
 
 Route::get('inventory_details/{products_id}', 'InventoryController@DetailsInventory');
+Route::post('inventory_add', 'InventoryController@InvetarioAdd');
 Route::get('get_inventario', 'InventoryController@GetInventario');
 Route::get('/generate_qr_inventorie/{products_id}', 'InventoryController@GenerateQRInventorie');
 Route::get('/find_by_code_inventory/{codigo}', 'InventoryController@findByInventoryCode');

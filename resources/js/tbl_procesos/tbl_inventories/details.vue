@@ -9,16 +9,15 @@
 						<div class="tg-dashboardbox">
 						<div class="tg-dashboardholder">
 							<div class="row">
-								<div class="col-md-12" v-for="data in data_products.products">
+								<div class="col-md-12">
 										<div class="card">
 											<div class="col-lg-6">
-												<img :src="'/img_products/'+data.products_image_url" />
+												<img :src="'/img_products/'+data_products.products_image_url" />
 											</div>
 											<div class="col-lg-6">
 												<div class="card-header">
-													<p><b>{{ data.products_name }}</b></p>
-													<p><b>Precio - S/ {{data.products_price }}</b></p>
-													<p>Descuento - S/ {{ data.discounts_group ? (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100 : 'No tiene descuento'}}</p>
+													<p><b>{{ data_products.products_name }}</b></p>
+													<p><b>Precio - S/ {{data_products.products_price }}</b></p>
 												</div>
 												<div class="card-body">
 
@@ -59,7 +58,16 @@
 									<tbody>
 										<tr data-category="packageone" v-for="(data, index) in data_inventory">
 										<td data-title="Nombre">
-											<h3>{{data.products_name}}</h3>
+											<h3>{{data.products.products_name}}</h3>
+										</td>
+										<td>
+											<h3>{{data.products.category.categories_name }}</h3>
+										</td>
+										<td>
+											<h3>{{data.products.material.materials_name}}</h3>
+										</td>
+										<td>
+											<h3>{{data.products.collection.collections_name}}</h3>
 										</td>
 										<td data-title="Action">
 											<div class="tg-btnsactions">

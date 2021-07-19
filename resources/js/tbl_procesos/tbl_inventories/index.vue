@@ -36,8 +36,10 @@
 												</div>
 											</div>
 										</div>
-										<div class="card-footer">											
-											<button class="btn btn-primary">+ Agregar inventario</button> 
+										<div class="card-footer">	
+											<router-link :to="`/inventory/add/${data.products_id}`">										
+												<button class="btn btn-primary">+ Agregar inventario</button> 
+											</router-link>
 											<router-link :to="`/inventory/details/${data.products_id}`">
 												<button class="btn btn-primary">Ver inventario</button>
 											</router-link>			

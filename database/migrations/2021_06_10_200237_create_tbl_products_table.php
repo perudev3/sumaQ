@@ -20,7 +20,6 @@ class CreateTblProductsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('material_id')->unsigned();
             $table->longText('products_caracts')->nullable();
-            $table->string('products_size')->nullable();
             $table->float('products_price')->nullable();
             $table->float('products_net_price')->nullable();
             $table->string('products_image_url')->nullable();

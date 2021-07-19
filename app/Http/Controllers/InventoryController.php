@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\tbl_inventories;
 use App\tbl_products;
+use App\mae_size;
 
 class InventoryController extends Controller
 {
@@ -40,12 +43,6 @@ class InventoryController extends Controller
 
     public function DetailsInventory($products_id)
     {
-       /* return  DB::table('tbl_inventories')
-                ->select('tbl_inventories.*', 'tbl_products.*')
-                ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
-                ->where('tbl_inventories.products_id', $products_id)
-                ->where('tbl_inventories.sales_id', NULL)
-                ->get();*/
         $listainventory = tbl_inventories::with(['products' => function($query) {
                                     return $query->with('category', 'collection', 'material', 'discountsGroup');
                                 }])
@@ -53,6 +50,7 @@ class InventoryController extends Controller
                                 ->where('products_id', $products_id)
                                 ->where('sales_id', NULL)
                                 ->get();
+                                
         $product = tbl_inventories::with(['products' => function($query) {
                                     return $query->with('category', 'collection', 'material', 'discountsGroup');
                                 }])
@@ -65,5 +63,24 @@ class InventoryController extends Controller
             'lista' => $listainventory,
             'product' => $product,
         ];
+    }
+
+    public function InvetarioAdd(Request $request)
+    {
+        $user = Auth::user();
+        $size = mae_size::create([ 'medidas' => $request['medidas'] ]);
+
+        for ($i=0; $i < $request['cantidad']; $i++) { 
+            $inventario = tbl_inventories::create([
+                'products_id' => $request['products_id'],
+                'inventories_codigo' =>Str::random(4),
+                'sizes_id' => $size->sizes_id,
+                'user_id' => $user->id
+            ]);
+        }
+
+        if ($inventario==true) {
+            return ['status'=>'success'];
+        }
     }
 }

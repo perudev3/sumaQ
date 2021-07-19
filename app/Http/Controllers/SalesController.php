@@ -73,7 +73,7 @@ class SalesController extends Controller
 
         $tbl_sales = tbl_sales::create([
             'user_id' => $user->id,
-            'sucursals_id' => 1,
+            'sucursals_id' => session('sucursal')[0]->sucursals_id,
             'customers_id' => $tbl_customers->customers_id,
             'sales_payment_method' => $request->sales_payment_method,
             'sales_payment_date' => $request->sales_payment_date,
@@ -82,26 +82,19 @@ class SalesController extends Controller
 
 
         for ($i=0; $i < count($array) ; $i++) { 
-            $purchase_orders_id = tbl_inventories::select('purchase_orders_id', 'products_id')
-                                                    ->where('inventories_codigo', $array[$i])
-                                                    ->first();
-            
-            $total_products_details = purchase_order_details::select('total_products')
-                                                                ->where('purchase_orders_id', $purchase_orders_id->purchase_orders_id)
-                                                                ->where('products_id', $purchase_orders_id->products_id)
-                                                                ->first();
 
-            $result = $total_products_details->total_products - 1;
-            purchase_order_details::where('purchase_orders_id', $purchase_orders_id->purchase_orders_id)
-                                    ->where('products_id', $purchase_orders_id->products_id)
-                                    ->update([
-                                        'total_products' => $result,
-                                    ]);
-            $tbl_sales_details = tbl_sales_details::create([
-                'sales_id' => $tbl_sales->sales_id,
-                'customers_id' => $tbl_customers->customers_id,
-                'products_id' => $purchase_orders_id->products_id,
-            ]);
+            $inventario = tbl_inventories::with('products')->where('inventories_codigo',$array[$i])->get();
+            foreach ($inventario as $key) {
+                $tbl_sales_details = tbl_sales_details::create([
+                    'sales_id' => $tbl_sales->sales_id,
+                    'customers_id' => $tbl_customers->customers_id,
+                    'products_id' => $key->products->products_id,
+                ]);
+    
+                $inventario = tbl_inventories::where('inventories_codigo',$array[$i])->update([
+                    'sales_id' => $tbl_sales->sales_id,
+                ]);
+            }
 
         }
         
