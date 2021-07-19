@@ -33,6 +33,10 @@
     <link rel="stylesheet" href="{{ asset('css/dbresponsive.css') }}">
     <script src="{{ asset('js/vendor/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
 
+    <!-- Tailwind -->
+    <link href="{{ asset('css/tailwind.css') }}" rel="stylesheet">
+
+
     <style type="text/css">
         .title_span{
             font-size: 23px;
