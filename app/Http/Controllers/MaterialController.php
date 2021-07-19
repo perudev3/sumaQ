@@ -18,21 +18,20 @@ class MaterialController extends Controller
 
        $images = $request->file('materials_image_url');
        
-        $material=mae_materials::create([
-            'materials_name'=>$request['materials_name'],
+        $material = mae_materials::create([
+            'materials_name' => $request->materials_name,
         ]);
-        $cont = 0;
+
         foreach($images as $img){
 
             $custom_name = 'material-'.$material->materials_id.'-'.Str::uuid()->toString().'.'.$img->getClientOriginalExtension();
-            if  ($cont === 0){
-                $material->materials_image_url = $custom_name;
-            }else{
-                break;
-            }
-            $img->move(public_path().'/img_material',$custom_name);
-            $material->update();
-            $cont++;
+            
+            $img->move(public_path('img_material'), $custom_name);
+            
+            $material->materials_image_url = $custom_name;
+            $material->save();
+            
+            break;
         }
 
         if ($material==true) {
