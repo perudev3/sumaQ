@@ -12,7 +12,7 @@ class tbl_products extends Model
         'products_image_url',
         'collections_id',
         'categories_id',
-        'material_id', 
+        'materials_id', 
         'products_caracts',
         'products_price',
         'products_net_price',
@@ -42,7 +42,7 @@ class tbl_products extends Model
 
     public function material()
     {
-        return $this->belongsTo('App\mae_materials','material_id');
+        return $this->belongsTo('App\mae_materials','materials_id');
     }
 
     public function discountsGroup()

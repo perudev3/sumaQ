@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class mae_providers extends Model
 {
-    
-
     protected $fillable = [
         'providers_name','providers_id_number','providers_address','providers_encargado','providers_mobile','providers_is_active'
     ];
