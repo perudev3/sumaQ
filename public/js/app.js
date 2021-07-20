@@ -8531,9 +8531,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8550,7 +8547,6 @@ __webpack_require__.r(__webpack_exports__);
       category_id: '',
       material_id: '',
       products_caracts: '',
-      products_size: '',
       products_price: '',
       products_net_price: '',
       products_is_active: '',
@@ -8616,7 +8612,6 @@ __webpack_require__.r(__webpack_exports__);
       data.append("category_id", this.category_id);
       data.append("materials_id", this.material_id);
       data.append("products_caracts", this.products_caracts);
-      data.append("products_size", this.products_size);
       data.append("products_price", this.products_price);
       data.append("products_is_active", this.products_is_active);
       axios.post('/post_products', data, {
@@ -90608,8 +90603,8 @@ var render = function() {
                           return _c(
                             "option",
                             {
-                              key: data.materials_id,
-                              domProps: { value: data.materials_id }
+                              key: data.material_id,
+                              domProps: { value: data.material_id }
                             },
                             [_vm._v(_vm._s(data.materials_name))]
                           )
@@ -90657,30 +90652,6 @@ var render = function() {
                           ])
                         ]
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.products_size,
-                            expression: "products_size"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { placeholder: "Tamaño del Producto" },
-                        domProps: { value: _vm.products_size },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.products_size = $event.target.value
-                          }
-                        }
-                      })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
@@ -91261,7 +91232,7 @@ var render = function() {
                                     _vm._v(
                                       "Descuento - S/ " +
                                         _vm._s(
-                                          data.discounts_group
+                                          data.discounts_group.length
                                             ? (data.discounts_group[0]
                                                 .discounts[0]
                                                 .discounts_porcentaje *

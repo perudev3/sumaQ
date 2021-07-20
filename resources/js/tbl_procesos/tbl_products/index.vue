@@ -35,7 +35,7 @@
 												<div class="card-header">
 													<p><b>{{ data.products_name }}</b></p>
 													<p><b>Precio - S/ {{data.products_price }}</b></p>
-													<p>Descuento - S/ {{ data.discounts_group ? (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100 : 'No tiene descuento'}}</p>
+													<p>Descuento - S/ {{ data.discounts_group.length ? (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100 : 'No tiene descuento'}}</p>
 												</div>
 												<div class="card-body">
 

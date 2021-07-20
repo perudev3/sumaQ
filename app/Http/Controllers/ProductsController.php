@@ -27,10 +27,9 @@ class ProductsController extends Controller
             $products= tbl_products::create([
                 'products_name' => $request['products_name'],
                 'collections_id' => $request['collections_id'],
-                'category_id' => $request['category_id'],
+                'categories_id' => $request['category_id'],
                 'material_id' => $request['materials_id'],
                 'products_caracts' => $request['products_caracts'],
-                'products_size' => $request['products_size'],
                 'products_price' => $request['products_price'],
                 'products_is_active'=> $request['products_is_active'],
     
@@ -39,7 +38,7 @@ class ProductsController extends Controller
             $cont = 0;
             foreach($images as $img){
 
-                $custom_name = 'products-'.'-'.Str::uuid()->toString().'.'.$img->getClientOriginalExtension();
+                $custom_name = 'products-'.Str::uuid()->toString().'.'.$img->getClientOriginalExtension();
                 if  ($cont === 0){
                     $products->products_image_url = $custom_name;
                 }else{
@@ -65,10 +64,9 @@ class ProductsController extends Controller
         $producto->update([
             'products_name' => $request['products_name'],
             'collections_id' => $request['collections_id'],
-            'category_id' => $request['category_id'],
+            'categories_id' => $request['category_id'],
             'material_id' => $request['materials_id'],
             'products_caracts' => $request['products_caracts'],
-            'products_size' => $request['products_size'],
             'products_price' => $request['products_price'],
             'products_is_active'=> $request['products_is_active'],
         ]);
