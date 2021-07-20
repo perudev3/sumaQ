@@ -46,17 +46,22 @@
 									<table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 									<thead>
 										<tr>
+										<th>Imagen</th>
 										<th>Nombre</th>
 										<th>Categoria</th>
 										<th>Material</th>
 										<th>Coleccion</th>
 										<th>Tamaño</th>
+										<th>Codigo</th>
 										<th>Generar QR</th>
 										<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr data-category="packageone" v-for="(data, index) in data_inventory">
+										<td>
+											<img :src="data.inventories_image_url ? '/img_inventories/'+data.inventories_image_url : '/img/logo.jpeg'" style="width: 70%;">
+										</td>
 										<td data-title="Nombre">
 											<h3>{{data.products.products_name}}</h3>
 										</td>
@@ -68,6 +73,13 @@
 										</td>
 										<td>
 											<h3>{{data.products.collection.collections_name}}</h3>
+										</td>
+										<td></td>
+										<td>
+											<h3>{{data.inventories_codigo}}</h3>
+										</td>
+										<td>
+											<a :href="'/generate_qr_byinventorie/'+data.inventories_codigo" target="_blank">Generar QR</a>
 										</td>
 										<td data-title="Action">
 											<div class="tg-btnsactions">

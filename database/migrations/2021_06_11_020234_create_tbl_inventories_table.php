@@ -17,11 +17,12 @@ class CreateTblInventoriesTable extends Migration
             $table->increments('inventories_id');
             $table->integer('products_id')->unsigned();
             $table->integer('sucursals_id')->unsigned()->nullable();
+            $table->integer('sizes_id')->unsigned()->nullable();
             $table->string('inventories_image_url')->nullable();
             $table->string('inventories_codigo')->nullable();
-            $table->integer('sales_id')->unsigned();
+            $table->integer('sales_id')->unsigned()->nullable();
             $table->integer('purchase_orders_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('products_id')->references('products_id')->on('tbl_products');

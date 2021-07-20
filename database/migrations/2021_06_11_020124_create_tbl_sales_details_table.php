@@ -18,7 +18,7 @@ class CreateTblSalesDetailsTable extends Migration
             $table->integer('sales_id')->unsigned();
             $table->integer('customers_id')->unsigned();
             $table->integer('products_id')->unsigned();
-            $table->integer('office_id')->nullable();
+            $table->integer('sucursals_id')->nullable();
             $table->timestamps();
 
             $table->foreign('sales_id')->references('sales_id')->on('tbl_sales');
