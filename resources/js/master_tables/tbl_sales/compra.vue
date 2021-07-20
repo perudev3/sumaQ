@@ -22,7 +22,7 @@
         class="grid">
 				<div class="mt-4 mb-28 bg-white rounded w-full shadow px-4 py-4">
 					
-					<div class="flex flex-wrap gap-3 justify-around">
+					<div class="flex flex-wrap gap-5 justify-around">
 
 						<div
 							v-for="(data, index) in data"
@@ -40,25 +40,35 @@
 									</div>
 									
 									<div class="">$ {{ data.products_price }}</div>
+									
+									<div class="flex justify-center">
+										<div class="rounded text-xs gap-4 uppercase flex justify-between items-center px-2 font-bold bg-red-500 text-white
+											hover:bg-red-600 cursor-pointer"
+											@click="removeOrder(index)">
+											Quitar
+											<div class="fa fa-trash"></div>
+										</div>
+									</div>
 								</div>
 								
 							</div>
 							
-							<div class="flex justify-center mt-2 transform hover:scale-105 transition-all">
-								<div class="rounded text-xs gap-4 uppercase flex justify-between items-center px-2 py-2 font-bold bg-red-500 text-white
-									hover:bg-red-600 cursor-pointer"
-									@click="removeOrder(index)">
-									Quitar
-									<div class="fa fa-trash"></div>
-								</div>
-							</div>
-
 						</div>
 
 					</div>
 
 					<div class="text-xl font-bold py-4 text-right">
 						Total: ${{ totalPrice }}
+					</div>
+					<div class="flex justify-end">
+						<div
+							@click="Pago"
+							class="font-bold uppercase bg-green-600 inline-block px-4 py-3 rounded text-white
+								flex items-center gap-3
+								hover:bg-green-700 cursor-pointer hover transition-all ease-out duration-300 hover:scale-105 transform">
+							Finalizar compra
+							<i class="fa fa-chevron-right"></i>
+						</div>
 					</div>
 
 				</div>
