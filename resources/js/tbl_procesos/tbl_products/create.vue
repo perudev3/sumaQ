@@ -33,8 +33,8 @@
                      </select>
                   </div>
                   <div class="form-group">
-                     <select class="form-control" v-model="material_id">
-                         <option v-for="data in data_material" :key="data.material_id" :value="data.material_id">{{data.materials_name}}</option>
+                     <select class="form-control" v-model="materials_id">
+                         <option v-for="data in data_material" :key="data.materials_id" :value="data.materials_id">{{data.materials_name}}</option>
                      </select>
                   </div>
                   <div class="form-group">
@@ -83,7 +83,7 @@ export default {
         products_name:'',
         collection_id:'',
         category_id:'',
-        material_id:'',
+        materials_id:'',
         products_caracts:'',
         products_price:'',
         products_net_price:'',
@@ -154,7 +154,7 @@ export default {
                 data.append("products_name", this.products_name)
                 data.append("collections_id", this.collection_id)
                 data.append("category_id", this.category_id)
-                data.append("materials_id", this.material_id)
+                data.append("materials_id", this.materials_id)
                 data.append("products_caracts", this.products_caracts)
                 data.append("products_price", this.products_price)
                 data.append("products_is_active", this.products_is_active)

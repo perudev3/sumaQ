@@ -8557,7 +8557,7 @@ __webpack_require__.r(__webpack_exports__);
       products_name: '',
       collection_id: '',
       category_id: '',
-      material_id: '',
+      materials_id: '',
       products_caracts: '',
       products_price: '',
       products_net_price: '',
@@ -8622,7 +8622,7 @@ __webpack_require__.r(__webpack_exports__);
       data.append("products_name", this.products_name);
       data.append("collections_id", this.collection_id);
       data.append("category_id", this.category_id);
-      data.append("materials_id", this.material_id);
+      data.append("materials_id", this.materials_id);
       data.append("products_caracts", this.products_caracts);
       data.append("products_price", this.products_price);
       data.append("products_is_active", this.products_is_active);
@@ -90635,8 +90635,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.material_id,
-                              expression: "material_id"
+                              value: _vm.materials_id,
+                              expression: "materials_id"
                             }
                           ],
                           staticClass: "form-control",
@@ -90650,7 +90650,7 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.material_id = $event.target.multiple
+                              _vm.materials_id = $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
                             }
@@ -90660,8 +90660,8 @@ var render = function() {
                           return _c(
                             "option",
                             {
-                              key: data.material_id,
-                              domProps: { value: data.material_id }
+                              key: data.materials_id,
+                              domProps: { value: data.materials_id }
                             },
                             [_vm._v(_vm._s(data.materials_name))]
                           )

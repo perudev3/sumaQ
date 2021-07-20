@@ -28,7 +28,7 @@ class ProductsController extends Controller
                 'products_name' => $request['products_name'],
                 'collections_id' => $request['collections_id'],
                 'categories_id' => $request['category_id'],
-                'material_id' => $request['materials_id'],
+                'materials_id' => $request['materials_id'],
                 'products_caracts' => $request['products_caracts'],
                 'products_price' => $request['products_price'],
                 'products_is_active'=> $request['products_is_active'],
