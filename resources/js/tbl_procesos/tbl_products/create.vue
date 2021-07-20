@@ -34,7 +34,7 @@
                   </div>
                   <div class="form-group">
                      <select class="form-control" v-model="material_id">
-                         <option v-for="data in data_material" :key="data.material_id" :value="data.material_id">{{data.materials_name}}</option>
+                         <option v-for="data in data_material" :key="data.materials_id" :value="data.materials_id">{{data.materials_name}}</option>
                      </select>
                   </div>
                   <div class="form-group">
