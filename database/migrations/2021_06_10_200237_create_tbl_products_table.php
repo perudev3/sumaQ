@@ -18,7 +18,7 @@ class CreateTblProductsTable extends Migration
             $table->string('products_name')->nullable();
             $table->integer('collections_id')->unsigned();
             $table->integer('categories_id')->unsigned();
-            $table->integer('material_id')->unsigned();
+            $table->integer('materials_id')->unsigned();
             $table->longText('products_caracts')->nullable();
             $table->float('products_price')->nullable();
             $table->float('products_net_price')->nullable();
@@ -29,7 +29,7 @@ class CreateTblProductsTable extends Migration
 
             $table->foreign('collections_id')->references('collections_id')->on('mae_collections');
             $table->foreign('categories_id')->references('categories_id')->on('mae_categories');
-            $table->foreign('material_id')->references('materials_id')->on('mae_materials');
+            $table->foreign('materials_id')->references('materials_id')->on('mae_materials');
         });
     }
 

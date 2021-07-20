@@ -41,7 +41,7 @@
 												<button class="btn btn-primary">+ Agregar inventario</button> 
 											</router-link>
 											<router-link :to="`/inventory/details/${data.products_id}`">
-												<button class="btn btn-primary">Ver inventario</button>
+												<button class="btn btn-primary"  :disabled="data.count_inventory.length==[]">Ver inventario</button>
 											</router-link>			
 											<a :href="'/generate_qr_inventorie/'+data.products_id" target="_blank">
 												<button class="btn btn-primary">Generar QR <i class="fa fa-qrcode"></i> </button>

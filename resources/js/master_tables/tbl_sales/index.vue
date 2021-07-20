@@ -15,7 +15,7 @@
 	                <div class="tg-dashboardholder">
 						<div class="form-group">
 							<label>Imagen del Producto</label>
-							<img :src="data_products.inventories_image_url ? '/img_inventories/'+data_products.inventories_image_url : '/img/logo.jpeg'" />
+							<img :src="data_products.products_image_url ? '/img_products/'+data_products.products_image_url : '/img/logo.jpeg'" />
 						</div>
 						<div class="form-group">
 							<label>Nombre del  Producto</label>	

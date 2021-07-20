@@ -8316,6 +8316,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -88672,9 +88684,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("img", {
                           attrs: {
-                            src: _vm.data_products.inventories_image_url
-                              ? "/img_inventories/" +
-                                _vm.data_products.inventories_image_url
+                            src: _vm.data_products.products_image_url
+                              ? "/img_products/" +
+                                _vm.data_products.products_image_url
                               : "/img/logo.jpeg"
                           }
                         })
@@ -90064,6 +90076,18 @@ var render = function() {
                                   "tr",
                                   { attrs: { "data-category": "packageone" } },
                                   [
+                                    _c("td", [
+                                      _c("img", {
+                                        staticStyle: { width: "70%" },
+                                        attrs: {
+                                          src: data.inventories_image_url
+                                            ? "/img_inventories/" +
+                                              data.inventories_image_url
+                                            : "/img/logo.jpeg"
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
                                     _c(
                                       "td",
                                       { attrs: { "data-title": "Nombre" } },
@@ -90109,6 +90133,29 @@ var render = function() {
                                       ])
                                     ]),
                                     _vm._v(" "),
+                                    _c("td"),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("h3", [
+                                        _vm._v(_vm._s(data.inventories_codigo))
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href:
+                                              "/generate_qr_byinventorie/" +
+                                              data.inventories_codigo,
+                                            target: "_blank"
+                                          }
+                                        },
+                                        [_vm._v("Generar QR")]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
                                     _vm._m(1, true)
                                   ]
                                 )
@@ -90136,6 +90183,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", [_vm._v("Imagen")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Categoria")]),
@@ -90145,6 +90194,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Coleccion")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tamaño")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Codigo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Generar QR")]),
         _vm._v(" "),
@@ -90298,7 +90349,13 @@ var render = function() {
                                     [
                                       _c(
                                         "button",
-                                        { staticClass: "btn btn-primary" },
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          attrs: {
+                                            disabled:
+                                              data.count_inventory.length == []
+                                          }
+                                        },
                                         [_vm._v("Ver inventario")]
                                       )
                                     ]
