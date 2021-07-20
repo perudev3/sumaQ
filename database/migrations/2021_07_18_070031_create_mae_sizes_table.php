@@ -15,7 +15,7 @@ class CreateMaeSizesTable extends Migration
     {
         Schema::create('mae_sizes', function (Blueprint $table) {
             $table->increments('sizes_id');
-            $table->integer('medidas')->unsigned();
+            $table->string('medidas')->nullable();
             $table->timestamps();
         });
     }

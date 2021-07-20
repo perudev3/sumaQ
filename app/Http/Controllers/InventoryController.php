@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use App\tbl_inventories;
 use App\tbl_products;
 use App\mae_size;
@@ -92,6 +93,22 @@ class InventoryController extends Controller
 
         if ($inventario==true) {
             return ['status'=>'success'];
+        }
+    }
+
+    public function UploadImageInventorie(Request $request)
+    {
+        $dir = public_path()."/img_inventories/";
+        $image = $request->file('inventories_image_url');
+        $date = Carbon::now();
+        $name = 'inventories-'.Str::uuid()->toString().'-'.$date->format('Y-m-d').'.'.$image->getClientOriginalExtension();
+        $inventories = tbl_inventories::where('inventories_codigo', $request['inventories_codigo'])->update([
+            'inventories_image_url'=>$name,
+        ]);
+        $image->move($dir,$name);
+
+        if ($inventories==true) {
+            return [ "status" => "success", "message" => "Imagen Subido con Exito"];
         }
     }
 }

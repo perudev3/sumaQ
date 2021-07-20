@@ -303,6 +303,7 @@ Route::get('get_inventario', 'InventoryController@GetInventario');
 Route::get('/generate_qr_inventorie/{products_id}', 'InventoryController@GenerateQRInventorie');
 Route::get('/generate_qr_byinventorie/{inventories_codigo}', 'InventoryController@GenerateQRByInventorie');
 Route::get('/find_by_code_inventory/{codigo}', 'InventoryController@findByInventoryCode');
+Route::post('uploadimage_inventorie', 'InventoryController@UploadImageInventorie');
 
 Route::get('data_districts', 'DistrictsController@GetDistricts');
 
