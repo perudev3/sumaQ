@@ -74,7 +74,9 @@
 										<td>
 											<h3>{{data.products.collection.collections_name}}</h3>
 										</td>
-										<td></td>
+										<td>
+											{{data.sizes.medidas }}
+										</td>
 										<td>
 											<h3>{{data.inventories_codigo}}</h3>
 										</td>
@@ -83,8 +85,12 @@
 										</td>
 										<td data-title="Action">
 											<div class="tg-btnsactions">
-											<a class="tg-btnaction tg-btnactionview" ><i class="fa fa-pencil"></i></a>
-											<a class="tg-btnaction tg-btnactiondelete" ><i class="fa fa-trash"></i></a>
+												<a class="tg-btnaction tg-btnactionview" ><i class="fa fa-pencil"></i></a>
+												<a class="tg-btnaction tg-btnactiondelete" ><i class="fa fa-trash"></i></a>
+												<label class="custom-file-upload" @click="Input(data.inventories_codigo)">
+													<i class="fa fa-cloud-upload"></i> Subir Imagen
+												</label>
+												<input  type="file" :data-id="data.inventories_codigo" @change="UploadImageInventorie($event)"/>
 											</div>
 										</td>
 										</tr>
@@ -112,6 +118,7 @@ export default {
       		data_inventory:[],
 			data_products:[],
 			products_id: this.$route.params.products_id,
+			inventories_codigo:'',
       }
   },
 
@@ -136,6 +143,31 @@ export default {
           });
         },
 
+		Input(codigo){
+			$("input[data-id='" +codigo+ "']").trigger('click');
+			this.inventories_codigo = codigo;
+			
+		},
+
+		UploadImageInventorie(event){
+                var data = new FormData()
+
+                data.append("inventories_image_url", event.target.files[0])
+				data.append("inventories_codigo", this.inventories_codigo)
+                axios.post('/uploadimage_inventorie', data).then(function (response) {
+                	Swal.fire({
+                      title: response.data.message,
+                      text: 'Imagen subido exitosamente!!',
+                      type: 'success',
+                      confirmButtonText: 'OK'
+                    });
+					this.getDetailsInventory();
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+		}
+
   },
 
    mounted() {
@@ -149,3 +181,15 @@ export default {
   
 };
 </script>
+
+<style scoped>
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+</style>
