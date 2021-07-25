@@ -8,28 +8,41 @@
 </head>
 <body>
 <div style="display:flex; width:100vw" class="row">
+
 @foreach($product as $prod)
-	<div class="col-2" style="margin-bottom:1vh; margin-top:1vh">
-		<div style="border: 1px solid black; margin: 1px; height: 65px; width:201px; display:flex">
-			<div style="width:63px; height:64px; border: 0.5px solid black">
-                {!! QrCode::size(60)->generate($prod->inventories_codigo); !!}
-			</div>	
-			<div 
-				style="
-						font-size: 0.8rem;
-						width: 100px;
-						height: 50px;
-						font-weight: bolder;
-						padding: 2px;
-					"
-			>
-            {{ $prod->inventories_codigo }}<br>
-				S/ {{ $prod->products_price }}
-				<br>
-				MEDIDAS :  
-			</div>	
+	<div class="col-md-3" style="margin-bottom:1vh; margin-top:1vh">
+		<div class="row">
+			<div class="col-3" style="border: 1px solid;
+									width: 105px;
+									margin: 5px;
+									height: 134px;
+									border-radius: 18px;">
+				<div style="margin-top: 25px;padding: 10px;">
+					{!! QrCode::size(60)->generate($prod->inventories_codigo); !!}
+				</div>						
+			</div>
+			<div class="col-3" style="border: 1px solid;
+									width: 105px;
+									margin: 5px;
+									height: 134px;
+									border-radius: 18px;">
+				<div style="margin-top: 25px;padding: 10px;">
+
+				</div>
+					{{ $prod->inventories_codigo }}
+			</div>
+			<div class="col-3" style="border: 1px solid;
+									width: 105px;
+									margin: 5px;
+									height: 134px;
+									border-radius: 18px;">
+					<p>{{ $prod['products']['products_name'] }}
+					<p>{{ $prod['sizes']['medidas'] }}
+					<p>{{ $prod['products']['products_price'] }} $ 
+			</div>
 		</div>
 	</div>
+	
 @endforeach
 </div>
 </body>

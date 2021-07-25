@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('chart_provider', 'ChartController@ChartProvider');
 
 
 
@@ -250,6 +251,7 @@ Route::prefix('sales')->group(function () {
 });
 
 Route::post('get_sales_details', 'SalesController@GetSalesDetails');
+Route::put('update_statussales', 'SalesController@UpdateStatus');
 
 /***Usuarios***/
 Route::prefix('user')->group(function () {
@@ -272,6 +274,8 @@ Route::prefix('user')->group(function () {
 	Route::get('/search_users', 'UserController@SearchUsers');
 });
 
+Route::get('/get_users', 'UserController@GetUsers');
+Route::put('/update_user', 'UserController@UpdateUser');
 
 /***Inventories***/
 Route::prefix('inventory')->group(function () {

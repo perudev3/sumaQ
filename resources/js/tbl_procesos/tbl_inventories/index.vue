@@ -20,7 +20,7 @@
 						<div class="tg-dashboardholder">
 							<div class="row">
 								<div class="col-md-6" v-for="data in data_inventarios" :key="data.id" 
-								style="border: 1px solid;padding-bottom: 13px;padding-top: 9px;">
+								style="padding-bottom: 13px;padding-top: 9px;">
 										<div class="card">
 											<div class="col-lg-6">
 												<img :src="'/img_products/'+data.products_image_url" />
@@ -38,13 +38,13 @@
 										</div>
 										<div class="card-footer">	
 											<router-link :to="`/inventory/add/${data.products_id}`">										
-												<button class="btn btn-primary">+ Agregar inventario</button> 
+												<button class="btn btn-primary">+ inventario</button> 
 											</router-link>
 											<router-link :to="`/inventory/details/${data.products_id}`">
-												<button class="btn btn-primary"  :disabled="data.count_inventory.length==[]">Ver inventario</button>
+												<button class="btn btn-primary"  :disabled="data.count_inventory.length==[]">Ver</button>
 											</router-link>			
 											<a :href="'/generate_qr_inventorie/'+data.products_id" target="_blank">
-												<button class="btn btn-primary">Generar QR <i class="fa fa-qrcode"></i> </button>
+												<button class="btn btn-primary">Gen. QR <i class="fa fa-qrcode"></i> </button>
 											</a>
 										</div>
 								</div>

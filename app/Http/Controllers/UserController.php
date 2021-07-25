@@ -24,4 +24,13 @@ class UserController extends Controller
             return [ 'status'=>'success', 'menssage'=>'Usuario Creado' ];
         }
     }
+
+    public function UpdateUser(Request $request){
+        User::where('id', $request['id'])->update([
+            'name' => $request->name, 
+            'email' => $request->email,
+        ]);
+
+        return ['status' => 'success'];
+    }
 }

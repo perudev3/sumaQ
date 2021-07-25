@@ -23,4 +23,9 @@ class tbl_inventories extends Model
         return $this->belongsTo('App\mae_size','sizes_id');
     }
 
+    public function sales()
+    {
+        return $this->belongsTo('App\tbl_sales','sales_id');
+    }
+
 }

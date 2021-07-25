@@ -20,25 +20,24 @@ class InventoryController extends Controller
     }
 
     public function findByInventoryCode($codigo){
-
-        return DB::table('tbl_inventories')
-            ->select('tbl_inventories.*', 'tbl_products.*')
-            ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
+            return tbl_inventories::with([
+                'products' => function($query){
+                    return $query->with(['discountsGroup','category', 'collection', 'material']);
+                }
+            ])
             ->where('inventories_codigo', 'like', "%$codigo%")
-            ->where('sucursals_id', session('sucursal_id')) // Solo mostrar las de la sucursal elegida
+            ->where('sucursals_id', session('sucursal_id'))
             ->get();
-
     }
 
 
     public function GenerateQRInventorie($products_id)
     {
-        $product =DB::table('tbl_inventories')
-                ->select('tbl_inventories.*', 'tbl_products.*')
-                ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
-                ->where('tbl_inventories.products_id', $products_id)
-                ->where('tbl_inventories.sales_id', NULL)
-                ->get();
+        $product = tbl_inventories::with('products','sizes','sales')
+                                    ->where('products_id', $products_id)
+                                    ->where('sales_id', NULL)
+                                    ->get();
+        //return dd($product[0]->products['products_name']);
         return view('generate_QR.inventorie_qr', compact('product'));
     }
 
@@ -79,21 +78,20 @@ class InventoryController extends Controller
 
     public function InvetarioAdd(Request $request)
     {
+        $inputs_add = $request->inputs_add;
         $user = Auth::user();
-        $size = mae_size::create([ 'medidas' => $request['medidas'] ]);
-
-        for ($i=0; $i < $request['cantidad']; $i++) { 
-            $inventario = tbl_inventories::create([
-                'products_id' => $request['products_id'],
-                'inventories_codigo' =>Str::random(4),
-                'sizes_id' => $size->sizes_id,
-                'user_id' => $user->id
-            ]);
-        }
-
-        if ($inventario==true) {
-            return ['status'=>'success'];
-        }
+        foreach ($inputs_add as $key => $value) {
+            $size = mae_size::create([ 'medidas' => $value['medidas'] ]);
+            
+            for ($i=0; $i < $value['cantidad']; $i++) { 
+                $inventario = tbl_inventories::create([
+                    'products_id' => $request->products_id,
+                    'inventories_codigo' =>Str::random(4),
+                    'sizes_id' => $size->sizes_id,
+                    'user_id' => $user->id
+                ]);
+            }
+        }  
     }
 
     public function UploadImageInventorie(Request $request)

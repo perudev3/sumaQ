@@ -72,80 +72,6 @@
 					</div>
 
 				</div>
-
-        <div class="tg-formtheme tg-formdashboard">
-          <fieldset>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="tg-dashboardbox">
-                <div class="tg-dashboardholder">
-                  <table
-                    id="tg-adstype"
-                    class="table tg-dashboardtable tg-payments"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Codigo de Inventario</th>
-                        <th>Nombre</th>
-                        <th>Imagen</th>
-                        <th>Precio</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        data-category="packageone"
-                        v-for="(data, index) in data"
-                        :key="index"
-                      >
-                        <td data-title="Codigo Inventario">
-                          <h3>{{data.inventories_codigo}}</h3>
-                        </td>
-                        <td data-title="Nombre">
-                          <h3>{{data.products_name}}</h3>
-                        </td>
-                        <td data-title="Imagen">
-                          <img :src="'/img_products/'+data.products_image_url" />
-                        </td>
-                        <td data-title="Precio">
-                          <h3>{{data.products_price}}</h3>
-                        </td>
-                        <td data-title="Action">
-                          <div class="tg-btnsactions">
-                            <a
-                              class="tg-btnaction tg-btnactiondelete"
-                              @click="removeOrder(index)"
-                            >
-                              <i class="fa fa-trash"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td>Total</td>
-                        <td>{{ total= parseFloat(Total).toFixed(2)}}</td>
-                      </tr>
-                      <tr>
-                        <br><br>
-                        <div class="footer">
-                          <div class="form-group">
-                            <button
-                              @click="Pago"
-                              class="btn btn-primary"
-                            >Finalizar Compra</button>
-                          </div>
-                        </div>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-
-              </div>
-            </div>
-          </fieldset>
-        </div>
       </div>
     </section>
   </main>
@@ -178,13 +104,6 @@ export default {
 				.toFixed(2);
 		},
 
-    Total: function () {
-      var resultado = 0.0;
-      for (var i = 0; i < this.data.length; i++) {
-        resultado = resultado + this.data[i].products_price;
-      }
-      return resultado;
-    },
   },
 
   methods: {
@@ -195,7 +114,7 @@ export default {
     Pago() {
       this.$router.push({
         name: "sales/pago",
-        params: { total: this.total, data_pedidos: this.data_pedidos },
+        params: { total: this.totalPrice, data_pedidos: this.data_pedidos },
       });
     },
 

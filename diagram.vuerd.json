@@ -1,0 +1,177 @@
+{
+  "canvas": {
+    "version": "2.1.0",
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": -15.2,
+    "scrollLeft": -111.19999999999995,
+    "zoomLevel": 1,
+    "show": {
+      "tableComment": true,
+      "columnComment": true,
+      "columnDataType": true,
+      "columnDefault": true,
+      "columnAutoIncrement": false,
+      "columnPrimaryKey": true,
+      "columnUnique": false,
+      "columnNotNull": true,
+      "relationship": true
+    },
+    "database": "MySQL",
+    "databaseName": "",
+    "canvasType": "SQLDDL",
+    "language": "GraphQL",
+    "tableCase": "pascalCase",
+    "columnCase": "camelCase",
+    "highlightTheme": "VS2015",
+    "bracketType": "none",
+    "setting": {
+      "relationshipDataTypeSync": true,
+      "columnOrder": [
+        "columnName",
+        "columnDataType",
+        "columnNotNull",
+        "columnUnique",
+        "columnAutoIncrement",
+        "columnDefault",
+        "columnComment"
+      ]
+    }
+  },
+  "table": {
+    "tables": [
+      {
+        "name": "user",
+        "comment": "",
+        "columns": [
+          {
+            "name": "name",
+            "comment": "",
+            "dataType": "VARCHAR",
+            "default": "225",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 64,
+              "widthDefault": 60
+            },
+            "id": "84110d00-773f-4659-bb48-85223c53acdf"
+          },
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "INTEGER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "51c1c101-3cee-4d8f-9ed2-db930233d3ed"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 200,
+          "top": 100,
+          "zIndex": 46,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "id": "f3b8f99a-6770-4d5d-8a67-9ce527461352"
+      },
+      {
+        "name": "courses",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id_user",
+            "comment": "",
+            "dataType": "INTEGER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "20f234df-67eb-426a-a4be-44452aa50df0"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 693.6,
+          "top": 182.4000000000001,
+          "zIndex": 51,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "id": "35382411-350b-45c3-b616-9cd036d8f7e7"
+      }
+    ],
+    "indexes": []
+  },
+  "memo": {
+    "memos": []
+  },
+  "relationship": {
+    "relationships": [
+      {
+        "identification": false,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "f3b8f99a-6770-4d5d-8a67-9ce527461352",
+          "columnIds": [
+            "51c1c101-3cee-4d8f-9ed2-db930233d3ed"
+          ],
+          "x": 551,
+          "y": 155,
+          "direction": "right"
+        },
+        "end": {
+          "tableId": "35382411-350b-45c3-b616-9cd036d8f7e7",
+          "columnIds": [
+            "20f234df-67eb-426a-a4be-44452aa50df0"
+          ],
+          "x": 693.6,
+          "y": 227.1500000000001,
+          "direction": "left"
+        },
+        "constraintName": "fk_user_to_courses",
+        "id": "4fd2d9e4-b875-4827-871a-e761586632f9"
+      }
+    ]
+  }
+}

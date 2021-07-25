@@ -25,4 +25,9 @@ class tbl_purchase_orders extends Model
 
     protected $primaryKey = "purchase_orders_id";
 
+    public function provider()
+    {
+        return $this->belongsTo('App\mae_providers','providers_id');
+    }
+
 }

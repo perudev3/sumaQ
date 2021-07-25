@@ -2,12 +2,48 @@
 	
 
 	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
+		<!--Modal-->
+			    <div  class="permiso" :class="{'mostrar' : modal}" style="overflow-y: auto;padding-top: 50px;">
+	            <div class="permiso-content">
+						<div class="modal-header">
+							<button @click="Cerrar"> X </button>
+						</div>
+							<div class="modal-body">
+								<div class="container">
+								<div class="form-group">
+									<label>Por favor, ingresar motivo de la cancelacion de pedido</label>
+									<input type="text" class="form-control" v-model="sales_canceled_reason">
+								</div>
+								</div>
+							</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" @click="CanceledSales()">Guardar</button>
+						</div>
+	            </div>            
+	        </div>
+        <!--Cerrar Modal-->
 		<section class="tg-dbsectionspace tg-haslayout">
 	      <div class="row">
 			  	<div class="col-md-6">
-				  <button class="btn btn-primary">Filtrar Busqueda</button>
+				  <button class="btn btn-primary" v-on:click="busquedadetails = !busquedadetails">Filtrar Busqueda</button>
 			  	</div>
-	      </div>
+	      </div><br>
+		  <transition name="fade">
+				<div class="row" v-if="busquedadetails">
+						<div class="form-grou´p">
+							<div class="col-md-6">
+								<label> Fecha de Inicio</label>
+								<input type="date" class="form-control">
+							</div>
+						</div>
+						<div class="form-grou´p">
+							<div class="col-md-6">
+								<label> Fecha de Fin</label>
+								<input type="date" class="form-control">
+							</div>
+						</div>				
+				</div>
+		  </transition>
 		</section>
 		<section class="tg-dbsectionspace tg-haslayout">
             <div class="row" style="padding-top: 2%;">
@@ -23,6 +59,7 @@
 								<th>Telefono</th>
 								<th>Metodo de Pago</th>
 								<th>Fecha de Pago</th>
+								<th>Estado de Pedido</th>
 								<th></th>
 	                        </tr>
 	                      </thead>
@@ -40,9 +77,18 @@
 								<td data-title="Fecha de Pago">
 									<h3>{{data.sales.sales_payment_date}}</h3>
 								</td>
+								<td align="center">
+									<label v-if="data.sales.sales_status==0">En Tienda</label>
+									<label v-if="data.sales.sales_status==1">Despachado</label>
+									<label v-if="data.sales.sales_status==2">Entregado</label>
+									<label v-if="data.sales.sales_status==3">Cencelado</label>
+								</td>
 								<td>
-									<button class="btn btn-primary"><i class="fa fa-check"></i></button>
-									<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+									<select class="form-control" @change="onChange($event,data.sales.sales_id)" v-model="data.sales.sales_status" >
+										<option value="1">Despachado</option>
+										<option value="2">Entregado</option>
+										<option value="3">Cancelado</option>
+									</select>
 								</td>
 	                        </tr>
 	                      </tbody>
@@ -70,18 +116,59 @@ export default {
 	data:function(){
 	    return {
 			data_details_sales:[],
-			busquedadetails:0,
+			busquedadetails:false,
+			status:'',
+			sales_id:'',
+			modal:0,
+			sales_canceled_reason:'',
 	    }
 	},
 
 	methods:{
 
+		Cerrar(){
+			this.modal=0;
+		},
+
 		GetSalesDetails(){
 			let me = this;		
-      axios.post('/get_sales_details').then(function(response){
+			axios.post('/get_sales_details').then(function(response){
 				me.data_details_sales = response.data;
-				console.log(me.data_details_sales)
-      });
+			});
+		},
+
+		CanceledSales(){
+			let me = this;
+			axios.put('/update_statussales',{
+				'sales_canceled_reason':me.sales_canceled_reason,
+				'status': me.status, 
+				'sales_id': me.sales_id
+			}).then(function(response){
+				if (response.data.status=='success') {
+					me.GetSalesDetails();
+					me.modal=0;
+				}
+			});
+		},
+
+		onChange(event, sales_id){
+			let me = this;
+			me.status = event.target.value;	
+			console.log(me.status,sales_id);
+			if (me.status==3) {
+				me.modal = 1;
+				me.sales_id = sales_id;
+			}else{
+				me.sales_id = sales_id;
+				axios.put('/update_statussales',{
+					'status': me.status, 
+					'sales_id': me.sales_id
+				}).then(function(response){
+					if (response.data.status=='success') {
+						me.GetSalesDetails();
+					}
+				});
+			}
 		}
 
 
@@ -98,74 +185,48 @@ export default {
 
 <style>
 	
-.nav-pills.nav-wizard > li {
-  position: relative;
-  overflow: visible;
-  border-right: 15px solid transparent;
-  border-left: 15px solid transparent;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
 }
-.nav-pills.nav-wizard > li + li {
-  margin-left: 0;
-}
-.nav-pills.nav-wizard > li:first-child {
-  border-left: 0;
-}
-.nav-pills.nav-wizard > li:first-child a {
-  border-radius: 5px 0 0 5px;
-}
-.nav-pills.nav-wizard > li:last-child {
-  border-right: 0;
-}
-.nav-pills.nav-wizard > li:last-child a {
-  border-radius: 0 5px 5px 0;
-}
-.nav-pills.nav-wizard > li a {
-  border-radius: 0;
-  background-color: #eee;
-}
-.nav-pills.nav-wizard > li:not(:last-child) a:after {
-  position: absolute;
-  content: "";
-  top: 0px;
-  right: -20px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 20px 0 20px 20px;
-  border-color: transparent transparent transparent #eee;
-  z-index: 150;
-}
-.nav-pills.nav-wizard > li:not(:first-child) a:before {
-  position: absolute;
-  content: "";
-  top: 0px;
-  left: -20px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 20px 0 20px 20px;
-  border-color: #eee #eee #eee transparent;
-  z-index: 150;
-}
-.nav-pills.nav-wizard > li:hover:not(:last-child) a:after {
-  border-color: transparent transparent transparent #aaa;
-}
-.nav-pills.nav-wizard > li:hover:not(:first-child) a:before {
-  border-color: #aaa #aaa #aaa transparent;
-}
-.nav-pills.nav-wizard > li:hover a {
-  background-color: #aaa;
-  color: #fff;
-}
-.nav-pills.nav-wizard > li.active:not(:last-child) a:after {
-  border-color: transparent transparent transparent #428bca;
-}
-.nav-pills.nav-wizard > li.active:not(:first-child) a:before {
-  border-color: #428bca #428bca #428bca transparent;
-}
-.nav-pills.nav-wizard > li.active a {
-  background-color: #428bca;
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
 }
 
+.permiso.mostrar {
+    background-color: rgba(0,0,0,.5);
+    opacity: 1;
+    visibility: visible;
+}
+.permiso {
+    align-items: flex-start;
+    background-color: #fff;
+    display: flex !important;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+    transition: all 0.40s cubic-bezier(0.39, 0.575, 0.565, 1);
+    z-index: 5000;
+}
 
+  	.permiso.mostrar .permiso-content {
+        opacity: 1;
+        transform: scale(1.1);
+        visibility: visible;
+    }
+    .permiso .permiso-content {
+		background: #fff;
+        border-radius: 3px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        margin-top: 50px;
+        opacity: 0;
+        padding: 4px;
+        transform: scale(1);
+        transition: all .40s cubic-bezier(0.39, 0.575, 0.565, 1);
+        visibility: hidden;
+    }
 </style>

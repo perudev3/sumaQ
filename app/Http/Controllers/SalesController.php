@@ -10,6 +10,7 @@ use App\tbl_sales;
 use App\tbl_sales_details;
 use App\tbl_inventories;
 use App\purchase_order_details;
+use Carbon\Carbon;
 
 class SalesController extends Controller
 {
@@ -108,6 +109,46 @@ class SalesController extends Controller
     public function GetSalesDetails()
     {
         return tbl_sales_details::with(['products','customers','sucursals','sales'])->get();
+    }
+
+    public function UpdateStatus(Request $request)
+    {
+        $date=Carbon::now();
+        if ($request['status']==1) {
+            $tbl_sales = tbl_sales::where('sales_id', $request['sales_id'])->update([
+                'sales_status' => $request['status'],
+                'sales_despacho_date' => $date,
+            ]);
+    
+            if ($tbl_sales==true) {
+                return ['status' => 'success'];
+            };
+        }else{
+            if ($request['status']==2) {
+                $tbl_sales = tbl_sales::where('sales_id', $request['sales_id'])->update([
+                    'sales_status' => $request['status'],
+                    'sales_entrega_date' => $date,
+                ]);
+        
+                if ($tbl_sales==true) {
+                    return ['status' => 'success'];
+                };
+            }else{
+                if ($request['status']==3) {
+                    $tbl_sales = tbl_sales::where('sales_id', $request['sales_id'])->update([
+                        'sales_status' => $request['status'],
+                        'sales_canceled_date' => $date,
+                        'sales_canceled_reason' => $request['sales_canceled_reason'],
+                    ]);
+            
+                    if ($tbl_sales==true) {
+                        return ['status' => 'success'];
+                    };
+                }
+            }
+    
+        }
+        
     }
 
 }

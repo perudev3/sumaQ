@@ -24,10 +24,10 @@
 
 						<div class="form-group">
 							<label>Precio</label>
-							<input type="text"  class="form-control" :value="data_products.products_net_price ? data_products.products_net_price : data_products.products_net_price" disabled>
+							<input type="text"  class="form-control" :value="data_products.discounts_group==[] ? (data_products.discounts_group[0].discounts[0].discounts_porcentaje*data_products.products_price)/100  : data_products.products_price" disabled>
 						</div>
 						<div class="form-group">
-							<button type="button" class="btn btn-primary" @click="Agregar_Pedido(data_products.inventories_codigo)">
+							<button type="button" class="btn btn-primary" @click="Agregar_Pedido()">
 								Agregar a Carrito
 							</button>
 						</div>
@@ -77,6 +77,7 @@ export default {
 	    return {
 			data_products:[],
 			array_pedidos:[],
+			inventories_codigo:'',
 			neworder: null,
 	    }
 	},
@@ -92,8 +93,9 @@ export default {
             });
 		},
 
-		Agregar_Pedido(inventories_codigo){
-			this.neworder = inventories_codigo;
+		Agregar_Pedido(){
+			console.log(this.inventories_codigo);
+			this.neworder = this.inventories_codigo;
             if(!this.neworder) return;
 			this.array_pedidos.push(this.neworder);
             this.neworder = '';
@@ -131,7 +133,6 @@ export default {
 			        fetch(url)
 			          .then((response) => response.json())
 			          .then((data) => {
-						console.log(data);
 			            resolve(data)
 			          })
 			      })
@@ -139,12 +140,14 @@ export default {
 
 		// Mostrar en el select los resultados
 		getResultValueProduct(result) {
-			return result.inventories_codigo;
+			return result.products.products_name;
 		},
 
 		// Cuando se selecciona un codigo de inventario
 		onSubmitProducto(result) {
-			this.data_products = result;
+			this.data_products = result.products;
+			this.inventories_codigo = result.inventories_codigo;
+			console.log(this.data_products.products_image_url);
 		}
 	},
 
