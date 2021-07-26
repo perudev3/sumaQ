@@ -25,7 +25,8 @@
 												class="form-control" 
 												:value="data.products_id" 
 												:id="data.products_id"
-												@click="Checked($event)"></td>
+												@click="Checked($event)"
+												style="width: 19px;"></td>
                                 </tr>
                             </tbody>
                         </table>

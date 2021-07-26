@@ -104,7 +104,7 @@ export default {
             	});
               axios.get('/inventory_details/'+me.products_id).then(function(response){
                 me.data_inventory = response.data.lista;
-				me.data_products = response.data.product.products;
+				me.data_products = response.data.product;
 				swal.close();
                 console.log(me.data_inventory, me.data_products);
           });

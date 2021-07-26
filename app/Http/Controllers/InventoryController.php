@@ -37,7 +37,6 @@ class InventoryController extends Controller
                                     ->where('products_id', $products_id)
                                     ->where('sales_id', NULL)
                                     ->get();
-        //return dd($product[0]->products['products_name']);
         return view('generate_QR.inventorie_qr', compact('product'));
     }
 
@@ -62,12 +61,9 @@ class InventoryController extends Controller
                                 ->where('sales_id', NULL)
                                 ->get();
                                 
-        $product = tbl_inventories::with(['products' => function($query) {
-                                    return $query->with('category', 'collection', 'material', 'discountsGroup');
-                                }])
-                                ->with('sizes')
+         
+        $product = tbl_products::with(['category', 'collection', 'material', 'discountsGroup'])
                                 ->where('products_id', $products_id)
-                                ->where('sales_id', NULL)
                                 ->first();
 
         return [
@@ -86,6 +82,7 @@ class InventoryController extends Controller
             for ($i=0; $i < $value['cantidad']; $i++) { 
                 $inventario = tbl_inventories::create([
                     'products_id' => $request->products_id,
+                    'sucursals_id' => session('sucursal_id'),
                     'inventories_codigo' =>Str::random(4),
                     'sizes_id' => $size->sizes_id,
                     'user_id' => $user->id

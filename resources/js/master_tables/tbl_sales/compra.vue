@@ -30,7 +30,7 @@
 							<div
 								class="flex px-3 py-2 border rounded cursor-pointer"
 								>
-								<div class="bg-black h-28 w-28 bg-center bg-cover" :style="{backgroundImage: `url('/img_products/${data.products_image_url}')`}"></div>
+								<div class="h-28 w-28 bg-center bg-cover" :style="{backgroundImage: `url('/img_products/${data.products_image_url}')`}"></div>
 								<div class="grid px-4">
 									<div class="font-bold flex items-center justify-between gap-3">
 										<div class="uppercase">

@@ -71,7 +71,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="tg-bannercontent">
                                                 <div class="container">                                                    
-                                                    <div class="tg-logingarea" style="border-radius: 23px;width: 42%;background: white;">
+                                                    <div class="tg-logingarea col-sm-12 col-lg-4" style="border-radius: 23px;background: white;">
                                                         <h2 style="color: black;padding: 22px;">
                                                             <div align="center">
                                                                 <img src="{{asset('img/logo.jpeg')}}" class="img-responsive" style="width: 50%;">
