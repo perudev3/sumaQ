@@ -68,7 +68,7 @@
                             <figcaption>
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="col-sm-12 col-lg-11">
                                             <div class="tg-bannercontent">
                                                 <div class="container">                                                    
                                                     <div class="tg-logingarea col-sm-12 col-lg-4" style="border-radius: 23px;background: white;">

@@ -195,9 +195,6 @@ const routes = [
         name:'user/edit',
         component: require('./master_tables/mae_user/edit.vue').default
     },
-
-
-
 ]
 
 const router = new VueRouter({

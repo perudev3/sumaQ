@@ -32,7 +32,7 @@ class ProductsController extends Controller
                 'products_caracts' => $request['products_caracts'],
                 'products_price' => $request['products_price'],
                 'products_is_active'=> $request['products_is_active'],
-    
+                'suplidor'=> $request['suplidor'],
             ]);
 
             $cont = 0;
@@ -69,6 +69,7 @@ class ProductsController extends Controller
             'products_caracts' => $request['products_caracts'],
             'products_price' => $request['products_price'],
             'products_is_active'=> $request['products_is_active'],
+            'suplidor'=> $request['suplidor'],
         ]);
 
         // Si el usuario modifico la imagen

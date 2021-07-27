@@ -67,7 +67,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Total a Pagar:</label>
-                                    <label>{{ total }}</label>
+                                    <label>$ {{ total }}</label>
                                 </div>
                             </div>
                             <div class="col-md-4">

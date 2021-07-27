@@ -19,6 +19,14 @@
                       </div>
                       <div class="col-md-6">
                           <div class="form-group">
+                              <label for="">Suplidor</label>
+                              <input type="text" disabled :value="user['name']" class="form-control">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
                               <label for="">Caracteristicas del Producto</label>
                               <textarea  v-model="products_caracts" class="form-control"></textarea>
                           </div>
@@ -62,7 +70,7 @@
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                          <label for="">Precio del Producto</label>
+                          <label for="">Costo del Producto</label>
                           <input v-model="products_price" class="form-control"/>
                       </div>
                     </div>
@@ -97,6 +105,8 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
 
+  props:['user'],
+
   components: {
        vue2Dropzone
   },
@@ -106,7 +116,7 @@ export default {
         data_category:[],
         data_collection:[],
         data_material:[],
-        
+        suplidor: this.user['id'],
         products_name:'',
         collection_id:'',
         category_id:'',
@@ -185,6 +195,7 @@ export default {
                 data.append("products_caracts", this.products_caracts)
                 data.append("products_price", this.products_price)
                 data.append("products_is_active", this.products_is_active)
+                data.append("suplidor", this.suplidor)
                 axios.post('/post_products', data,{ headers: {'Content-Type': 'multipart/form-data'}})
                     .then(response => {
                         if (response.data.status==='success') {

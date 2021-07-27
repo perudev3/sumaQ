@@ -19,7 +19,7 @@
                             <tbody style="height: 258px;overflow: hidden;overflow-y: scroll;">
                                 <tr v-for="(data, index) in data_products">
                                     <td>{{data.products_name}}</td>
-                                    <td> {{data.products_price}} </td>
+                                    <td>$ {{data.products_price}} </td>
                                     <td> <input type="checkbox"  
 												v-model="check" 
 												class="form-control" 

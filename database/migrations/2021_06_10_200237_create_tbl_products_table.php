@@ -25,6 +25,7 @@ class CreateTblProductsTable extends Migration
             $table->string('products_image_url')->nullable();
             $table->integer('discounts_id')->nullable();
             $table->integer('products_is_active')->nullable();
+            $table->integer('suplidor')->nullable();
             $table->timestamps();
 
             $table->foreign('collections_id')->references('collections_id')->on('mae_collections');

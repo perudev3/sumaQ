@@ -15,6 +15,12 @@
                       <input type="text"  v-model="name" class="form-control">
                   </div>
                   <div class="form-group">
+                      <label>Cargo</label>
+                      <select class="form-control" v-model="roles_id">
+                          <option v-for="data in data_roles" :value="data.roles_id">{{ data.rol_name }}</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
                       <label for="">E-mail</label>
                       <input type="text"  v-model="email" class="form-control">
                   </div>
@@ -45,14 +51,24 @@
 export default {
     data:function(){
         return {
+            data_roles:[],
+            roles_id:'',
             name:'',
             email:'',
             password:'',
         }
     },
   methods:{
+
+        GetRoles(){
+          let me = this;
+          axios.get('/get_roles').then(function(response){
+              me.data_roles=response.data;
+          })
+        },
         PostUsers(){
                 axios.post('/post_users',{
+                    'roles_id':this.roles_id,
                     'name': this.name,
                     'email': this.email,
                     'password': this.password,
@@ -78,6 +94,11 @@ export default {
                 });
         },
   },
+
+  mounted() {
+    	let self = this
+    	self.GetRoles();
+  }
   
 };
 </script>

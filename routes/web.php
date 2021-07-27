@@ -195,24 +195,26 @@ Route::post('edit_providers', 'ProviderController@EditProviders');
 Route::prefix('products')->group(function () {
 	Route::get('/', function () {
 		$name_view = 'PRODUCTOS';
-		return view('processes_tables.tbl_products', compact('name_view'));
+		$user = \Auth::user();
+		return view('processes_tables.tbl_products', compact('name_view', 'user'));
 	});
 
 	Route::get('/create', function () {
 		$name_view = 'PRODUCTOS';
-		return view('processes_tables.tbl_products', compact('name_view'));
+		$user = \Auth::user();
+		return view('processes_tables.tbl_products', compact('name_view', 'user'));
 	});
 
 	Route::get('/edit', function () {
 		$name_view = 'PRODUCTOS';
-		return view('processes_tables.tbl_products', compact('name_view'));
+		$user = \Auth::user();
+		return view('processes_tables.tbl_products', compact('name_view', 'user'));
 	});
 
 	Route::get('/search_products', 'ProductsController@SearchProducts');
 });
 
 Route::get('get_products', 'ProductsController@GetProducts');
-//Route::post('post_products', 'ProductsController@PostProducts');
 Route::post('/post_products', 'ProductsController@PostProducts');
 Route::post('/put_products', 'ProductsController@PutProducts');
 Route::get('/generate_qr/{id}', 'ProductsController@GenerateQR');
@@ -275,6 +277,8 @@ Route::prefix('user')->group(function () {
 });
 
 Route::get('/get_users', 'UserController@GetUsers');
+Route::get('/get_roles', 'UserController@GetRoles');
+Route::post('/post_users', 'UserController@PostUsers');
 Route::put('/update_user', 'UserController@UpdateUser');
 
 /***Inventories***/

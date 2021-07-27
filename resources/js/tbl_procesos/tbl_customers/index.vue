@@ -12,7 +12,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-left">
                                         <div  class="form-group tg-inputwithicon">
-                                            <router-link to="/products/create">
+                                            <router-link >
                                                 <button class="btn btn-primary">
                                                     + Nuevo Cliente
                                                 </button>

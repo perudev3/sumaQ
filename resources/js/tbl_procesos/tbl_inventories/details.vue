@@ -12,12 +12,13 @@
 								<div class="col-md-12">
 										<div class="card">
 											<div class="col-lg-6">
-												<img :src="'/img_products/'+data_products.products_image_url" />
+												<img :src="'/img_products/'+data_products.products_image_url"  style="width: 53%;"/>
 											</div>
 											<div class="col-lg-6">
 												<div class="card-header">
 													<p><b>{{ data_products.products_name }}</b></p>
-													<p><b>Precio - S/ {{data_products.products_price }}</b></p>
+													<p>Precio - <b>$ {{data_products.products_price }}</b></p>
+													<p>Categoria - <b>{{data_products.category.categories_name}}</b></p>
 												</div>
 												<div class="card-body">
 
@@ -81,11 +82,14 @@
 											<h3>{{data.inventories_codigo}}</h3>
 										</td>
 										<td>
-											<a :href="'/generate_qr_byinventorie/'+data.inventories_codigo" target="_blank">Generar QR</a>
+											<a :href="'/generate_qr_byinventorie/'+data.inventories_codigo" target="_blank">
+												<button class="btn btn-primary">
+													Generar QR
+												</button>
+											</a>
 										</td>
 										<td data-title="Action">
 											<div class="tg-btnsactions">
-												<a class="tg-btnaction tg-btnactionview" ><i class="fa fa-pencil"></i></a>
 												<a class="tg-btnaction tg-btnactiondelete" ><i class="fa fa-trash"></i></a>
 												<label class="custom-file-upload" @click="Input(data.inventories_codigo)">
 													<i class="fa fa-cloud-upload"></i> Subir Imagen

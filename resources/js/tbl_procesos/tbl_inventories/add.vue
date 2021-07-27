@@ -11,13 +11,15 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                                 <div class="card">
+                                                    
                                                     <div class="col-lg-6">
-                                                        <img :src="'/img_products/'+data_products.products_image_url" />
+                                                        <img :src="'/img_products/'+data_products.products_image_url" style="width: 53%;" />
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="card-header">
                                                             <p><b>{{ data_products.products_name }}</b></p>
-                                                            <p><b>Precio - S/ {{data_products.products_price }}</b></p>
+                                                            <p>Precio - <b>$ {{data_products.products_price }}</b></p>
+                                                            <p>Categoria - <b>{{data_products.category.categories_name}}</b></p>
                                                         </div>
                                                         <div class="card-body">
 
@@ -34,7 +36,10 @@
                                 <div class="tg-dashboardholder">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button class="btn btn-primary" @click="create_inputs">+ Agregar</button>
+                                            <div class="card-header">
+                                                <button class="btn btn-primary" @click="create_inputs">+ Agregar</button>
+                                                <button class="btn btn-success" @click="GuardarInventario()">Guardar</button>
+                                            </div>
                                         </div> <br><br>
                                         <div class="col-md-12" v-for="(inp, index) in inputs_add">
                                             <div class="col-md-4">
@@ -57,9 +62,6 @@
                                                     </button>
                                                 </div>
                                             </div>                                   
-                                        </div>
-                                        <div class="footer">
-                                            <button class="btn btn-primary" @click="GuardarInventario()">Guardar</button>
                                         </div>
                                     </div>
                                 

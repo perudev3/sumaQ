@@ -33,6 +33,7 @@
 	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
 	                      <thead>
 	                        <tr>
+							  <th>Cargo</th>
 	                          <th>Nombre</th>
 	                          <th>E-mail</th>
                               <th>Fecha de Creación</th>
@@ -41,6 +42,9 @@
 	                      </thead>
 	                      <tbody>
 	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
+							  <td data-title="Cargo">
+								  {{data.roles.rol_name}}
+							  </td>
 	                          <td data-title="Nombre">
 	                            <h3>{{data.name}}</h3>
 	                          </td>

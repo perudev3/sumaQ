@@ -14,6 +14,12 @@
                       <input type="text"  v-model="name" class="form-control">
                   </div>
                   <div class="form-group">
+                      <label>Cargo</label>
+                      <select class="form-control" v-model="roles_id">
+                          <option v-for="data in data_roles" :value="data.roles_id">{{ data.rol_name }}</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
                       <input type="email"  v-model="email" class="form-control">
                   </div>
 
@@ -43,6 +49,8 @@ export default {
   data:function(){
       return {
         data_users: this.$route.params.data_users,
+        data_roles:[],
+        roles_id:'',
         id:'',
         name:'',
         email:'',
@@ -52,9 +60,17 @@ export default {
 
   methods:{
 
+        GetRoles(){
+          let me = this;
+          axios.get('/get_roles').then(function(response){
+              me.data_roles=response.data;
+          })
+        },
+
         UpdateUsers(){
                 let me = this;
                 axios.put('/update_user', {
+                    'roles_id':me.roles_id,
                     'name' : me.name,
                     'email' : me.email,
                     'id': me.id,
@@ -77,7 +93,9 @@ export default {
 
   mounted() {
     	let self = this
+      self.GetRoles();
     	self.data_users;
+      self.roles_id = self.data_users['roles_id'];
         self.name = self.data_users['name'];
         self.email = self.data_users['email'];
         self.id = self.data_users['id'];
