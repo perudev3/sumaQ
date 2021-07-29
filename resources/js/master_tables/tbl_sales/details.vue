@@ -30,23 +30,29 @@
 	      </div><br>
 		  <transition name="fade">
 				<div class="row" v-if="busquedadetails">
-						<div class="form-grou´p">
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<label> Fecha de Inicio</label>
-								<input type="date" class="form-control">
+								<input type="date" class="form-control" v-model="date_init">
 							</div>
-						</div>
-						<div class="form-grou´p">
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<label> Fecha de Fin</label>
-								<input type="date" class="form-control">
+								<input type="date" class="form-control" v-model="date_end">
 							</div>
-						</div>				
+							<div class="col-md-3">
+								<button class="btn btn-success" style="margin-top: 35px;" @click="FilterByDate()">
+									Burcar <i class="fa fa-filter"></i>
+								</button>
+							</div>
+							<div class="col-md-3">
+								<button class="btn btn-primary" style="margin-top: 35px;" @click="GetSalesDetails()">
+									Todos <i class="fa fa-search"></i>
+								</button>
+							</div>
 				</div>
 		  </transition>
 		</section>
 		<section class="tg-dbsectionspace tg-haslayout">
-            <div class="row" style="padding-top: 2%;">
+            <div class="row">
 	          <div class="tg-formtheme tg-formdashboard">
 	            <fieldset>
 	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -121,6 +127,8 @@ export default {
 			sales_id:'',
 			modal:0,
 			sales_canceled_reason:'',
+			date_init:'',
+			date_end:'',
 	    }
 	},
 
@@ -169,6 +177,16 @@ export default {
 					}
 				});
 			}
+		},
+
+		FilterByDate(){
+			let me = this;
+			axios.post('/findBysalesDate',{
+				'date_init': me.date_init, 
+				'date_end': me.date_end
+			}).then(function(response){
+				me.data_details_sales = response.data;
+			});
 		}
 
 

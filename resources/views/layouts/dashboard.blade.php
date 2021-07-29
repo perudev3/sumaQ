@@ -154,6 +154,24 @@
                                     </span>
                                     <a>
                                         <i class="icon-layers"></i>
+                                        <span>Reportes</span>
+                                    </a>
+                                    <ul class="sub-menu" style="border-left: 1px solid #49506708 !important;background: rgba(0, 0, 0, 0.15);">
+                                        <li>
+                                            <a href="{{url('/sales/report')}}">
+                                                <i class="fa fa-dashboard"></i>
+                                                <span> Ventas</span>
+                                            </a>
+                                        </li>  
+                                    </ul>
+                                </li>
+
+                                <li class="menu-item-has-children">
+                                    <span class="tg-dropdowarrow">
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                    <a>
+                                        <i class="icon-layers"></i>
                                         <span>PUNTO DE VENTA</span>
                                     </a>
                                     <ul class="sub-menu" style="border-left: 1px solid #49506708 !important;background: rgba(0, 0, 0, 0.15);">

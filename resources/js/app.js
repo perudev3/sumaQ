@@ -153,6 +153,13 @@ const routes = [
         name:'sales/details',
         component: require('./master_tables/tbl_sales/details.vue').default
     },
+
+/***Sales***/
+{
+    path:'/sales/report',
+    name:'sales/report',
+    component: require('./tbl_procesos/tbl_sales_reports/index.vue').default
+},
 /***Products***/
     {
         path:'/products',

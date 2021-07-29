@@ -23,7 +23,7 @@ class tbl_sales_details extends Model
 
     public function customers()
     {
-        return $this->belongsTo('App\tbl_customers','customers_id');
+        return $this->belongsTo('App\tbl_customers','customers_id')->groupBy('customers_name');
     }
 
     public function sucursals()

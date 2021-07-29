@@ -254,6 +254,19 @@ Route::prefix('sales')->group(function () {
 
 Route::post('get_sales_details', 'SalesController@GetSalesDetails');
 Route::put('update_statussales', 'SalesController@UpdateStatus');
+Route::post('findBysalesDate', 'SalesController@findBySalesDetailsDate');
+
+
+/***Sales Report***/
+Route::prefix('sales')->group(function () {
+	Route::get('/report', function () {
+		$name_view = 'REPORTE DE VENTAS';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_sales_reports', compact('name_view', 'user'));
+	});
+});
+
+
 
 /***Usuarios***/
 Route::prefix('user')->group(function () {

@@ -45,9 +45,7 @@ class SalesController extends Controller
             $data[] = $row;
         }
 
-        return response()->json($data);
-
-        
+        return response()->json($data);        
     }
 
     public function PostSales(Request $request)
@@ -148,6 +146,16 @@ class SalesController extends Controller
             }
     
         }
+        
+    }
+
+
+    public function findBySalesDetailsDate(Request $request)
+    {
+       
+            return tbl_sales_details::with(['products','customers','sucursals','sales'])
+                                ->whereBetween('created_at', [$request['date_init'], $request['date_end']])
+                                ->get();
         
     }
 
