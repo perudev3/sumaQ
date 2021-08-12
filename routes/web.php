@@ -21,7 +21,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('chart_provider', 'ChartController@ChartProvider');
-
+Route::get('get_data_Dash', 'DashboardController@GetData');
 
 
 /***Category***/
@@ -238,6 +238,12 @@ Route::prefix('sales')->group(function () {
 		$user = \Auth::user();
 		return view('processes_tables.tbl_sales', compact('name_view', 'user'));
 	});
+
+	Route::get('/finish_sales', function () {
+		$name_view = 'GENERAR VENTA';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_sales', compact('name_view', 'user'));
+	});
 });
 Route::post('sales_products', 'SalesController@Data_Products');
 Route::post('get_products_pedidos', 'SalesController@Data_Products_Pedidos');
@@ -264,6 +270,9 @@ Route::prefix('sales')->group(function () {
 		$user = \Auth::user();
 		return view('processes_tables.tbl_sales_reports', compact('name_view', 'user'));
 	});
+
+	Route::get('/search_users', 'UserController@SearchUsers');
+
 });
 
 
@@ -329,14 +338,14 @@ Route::post('uploadimage_inventorie', 'InventoryController@UploadImageInventorie
 Route::get('data_districts', 'DistrictsController@GetDistricts');
 
 /**PurcheaseOrders**/
-Route::get('/search_producto/{products_name}', 'ControllerPurchase_Orders@SearchProducto');
-Route::get('/search_proveedor/{providers_name}', 'ControllerPurchase_Orders@SearchProveedor');
-Route::post('/post_order', 'ControllerPurchase_Orders@CreateListOrder');
-Route::get('/get_purchaseorder', 'ControllerPurchase_Orders@GetPurchaseOrder');
-Route::post('/post_confirm_order', 'ControllerPurchase_Orders@Confirm_Order');
-Route::post('/post_recibido_order', 'ControllerPurchase_Orders@Recibido_Order');
-Route::post('/get_pedidos', 'ControllerPurchase_Orders@GetPedidos');
-Route::post('/post_pedido', 'ControllerPurchase_Orders@UpdatePedido');
+Route::get('/search_producto/{products_name}', 'Purchase_OrdersController@SearchProducto');
+Route::get('/search_proveedor/{providers_name}', 'Purchase_OrdersController@SearchProveedor');
+Route::post('/post_order', 'Purchase_OrdersController@CreateListOrder');
+Route::get('/get_purchaseorder', 'Purchase_OrdersController@GetPurchaseOrder');
+Route::post('/post_confirm_order', 'Purchase_OrdersController@Confirm_Order');
+Route::post('/post_recibido_order', 'Purchase_OrdersController@Recibido_Order');
+Route::post('/get_pedidos', 'Purchase_OrdersController@GetPedidos');
+Route::post('/post_pedido', 'Purchase_OrdersController@UpdatePedido');
 Route::post('/get_list_products', 'ProductsController@GetListProducts');
 Route::post('/create_groupdiscounts', 'DiscountController@CreateGroupDiscounts');
 

@@ -1,142 +1,137 @@
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
-    <meta name="description" content="Sómos un nuevo canal de comercio electronico nacidos en Perú para ser el nuevo  canal entre los comercios y los clientes, plataforma web para comercios, ventas online, posicionados en piura, ecommerce, perú, emprendimientos.">
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
-    <link rel="icon" href="/logo/loading.jpg" type="image/gif" />
-
-    <title> {{ config('app.name', 'Laravel') }} </title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/transitions.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/flags.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/owl.carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/prettyPhoto.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/scrollbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/chartist.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/color.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
-    <script src="{{ asset('js/vendor/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
-
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="#">
+    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="#">
+    <!-- Favicon icon -->
+    <link rel="icon" href="{{ asset('new_sumaq/assets/images/favicon.ico') }}" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/icon/themify-icons/themify-icons.css') }}">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/icon/icofont/css/icofont.css') }}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/css/style.css') }}">
 </head>
-<body class="tg-home tg-homeone">
-    <div id="app2">
-        <div id="tg-wrapper" class="tg-wrapper tg-haslayout">
 
-
-          <!--  <header id="tg-header" class="tg-header tg-haslayout">
-                <div class="tg-navigationarea">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <strong class="tg-logo">
-                                    <a href="{{ url('/') }}">
-                                       <img src="{{asset('img/logo.jpeg')}}" style="width: 184px; height: 39px;">
-                                    </a>
-                                </strong>
-                            </div>
-                        </div>
-                    </div>
+<body class="fix-menu">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring">
+                    <div class="frame"></div>
                 </div>
-            </header> -->
-
-            <div id="tg-homebanner" class="tg-homebanner tg-haslayout">
-                <figure style="background-image: url(/bg/bg-1.jpg);width: 100%;height: 100%;background-repeat: no-repeat;">
-                    <div style="position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; overflow: hidden; background-size: cover; background-color: transparent; background-repeat: no-repeat; background-position: 50% 50%;">
-                    </div>
-                            <figcaption>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                            <div class="tg-bannercontent">
-                                                <div class="container">                                                    
-                                                    <div class="tg-logingarea" style="border-radius: 23px;width: 42%;background: white;">
-                                                        <h2 style="color: black;padding: 22px;">
-                                                            <div align="center">
-                                                                <img src="{{asset('img/logo.jpeg')}}" class="img-responsive" style="width: 50%;">
-                                                            </div>
-                                                            Sucursal
-                                                        </h2>
-                                                        <div>
-                                                            <span style="color: #bbb2b2;">Seleccione Sucursal</span>
-                                                        </div>
-                                                        <form method="POST" class="tg-formtheme tg-formloging" action="{{ route('sucursal.seleccionar.post') }}">
-
-
-                                                            @csrf
-                                                            <fieldset>
-                                                                <div class="form-group">
-                                                                    <div class="input-group">
-                                                                        <span class="input-group-addon" id="input-user" style="background:#efefef;padding: 14px;">
-                                                                            <i class="fa fa-user"></i>
-                                                                        </span>
-                                                                        <select type="text" name="sucursal_id" class="form-control" 
-                                                                                placeholder="Sucursal" required autofocus>
-
-                                                                            @foreach ($sucursales as $item)
-                                                                                <option value="{{$item->sucursals_id}}">{{$item->sucursals_name}}</option>
-                                                                            @endforeach
-
-                                                                        </select>
-                                                                    </div>           
-                                                                </div>
-                                                                <button class="tg-btn" type="submit">
-                                                                    SELECCIONAR
-                                                                </button>
-                                                            </fieldset>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </figcaption>
-                </figure>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
             </div>
         </div>
     </div>
+    <!-- Pre-loader end -->
 
-    <!-- Scripts -->    
-    <script src="{{ asset('js/vendor/jquery-library.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
-    <script src="http://maps.google.com/maps/api/js?key=AIzaSyB5bTMMQr0xyw58_8cYbc9LNYlerGz8ats&amp;language=en"></script>
-    <script src="{{ asset('js/tinymce/tinymce.min4bb5.js?apiKey=4cuu2crphif3fuls3yb1pe4qrun9pkq99vltezv2lv6sogci') }}"></script>
-    <!-- <script src="{{ asset('js/responsivethumbnailgallery.html') }}"></script> -->
-    <script src="{{ asset('js/jquery.flagstrap.min.js') }}"></script>
-    <script src="{{ asset('js/backgroundstretch.js') }}"></script>
-    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.vide.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.collapse.js') }}"></script>
-    <script src="{{ asset('js/scrollbar.min.js') }}"></script>
-    <!-- <script src="{{ asset('js/chartist.min.html') }}"></script> -->
-    <script src="{{ asset('js/prettyPhoto.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.js') }}"></script>
-    <script src="{{ asset('js/countTo.js') }}"></script>
-    <script src="{{ asset('js/appear.js') }}"></script>
-    <script src="{{ asset('js/gmap3.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+    <section class="login-block">
+        <!-- Container-fluid starts -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Authentication card start -->
 
-    <script src="https://checkout.culqi.com/js/v3"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    
+                    <form method="POST" class="md-float-material form-material" action="{{ route('sucursal.seleccionar.post') }}">
+                        @csrf
+                        <div class="text-center">
+                            <img src="{{ asset('new_sumaq/assets/images/logo.png') }}" alt="logo.png">
+                        </div>
+                        <div class="auth-box card">
+                            <div class="card-block">
+                                <div class="row m-b-20">
+                                    <div class="col-md-12">
+                                        <h3 class="text-center">Seleccionar Sucursal</h3>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="input-user" style="background:#efefef;padding: 14px;">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <select type="text" name="sucursal_id" class="form-control" placeholder="Sucursal" required autofocus>
+
+                                        @foreach ($sucursales as $item)
+                                            <option value="{{$item->sucursals_id}}">{{$item->sucursals_name}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                <div class="row m-t-30">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">SELECCIONAR</button>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                        </div>
+                    </form>
+                    <!-- end of form -->
+                </div>
+                <!-- end of col-sm-12 -->
+            </div>
+            <!-- end of row -->
+        </div>
+        <!-- end of container-fluid -->
+    </section>
+    <!-- Warning Section Starts -->
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/modernizr/modernizr.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/modernizr/feature-detects/css-scrollbars.js') }}"></script>
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/i18next/i18next.min.js') }}"></script>
+    <script type="text/javascript"
+        src="{{ asset('new_sumaq/bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js') }}"></script>
+    <script type="text/javascript"
+        src="{{ asset('new_sumaq/bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('new_sumaq/bower_components/jquery-i18next/jquery-i18next.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('new_sumaq/assets/js/common-pages.js') }}"></script>
 </body>
 </html>

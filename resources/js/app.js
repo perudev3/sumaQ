@@ -136,17 +136,22 @@ const routes = [
     {
         path:'/sales/pedidos',
         name:'sales/pedidos',
-        component: require('./master_tables/tbl_sales/index.vue').default
+        component: require('./master_tables/tbl_sales/procesos_sales/index.vue').default
     },
     {
         path:'/sales/compra',
         name:'sales/compra',
-        component: require('./master_tables/tbl_sales/compra.vue').default
+        component: require('./master_tables/tbl_sales/procesos_sales/compra.vue').default
     },
     {
         path:'/sales/pago',
         name:'sales/pago',
-        component: require('./master_tables/tbl_sales/pago.vue').default
+        component: require('./master_tables/tbl_sales/procesos_sales/pago.vue').default
+    },
+    {
+        path:'/sales/finish_sales',
+        name:'sales/finish_sales',
+        component: require('./master_tables/tbl_sales/procesos_sales/finish_sales.vue').default
     },
     {
         path:'/sales/details',

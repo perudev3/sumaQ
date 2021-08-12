@@ -43,5 +43,4 @@ class User extends Authenticatable
         return $this->belongsTo('App\mae_roles','roles_id'); 
     }
 
-
 }

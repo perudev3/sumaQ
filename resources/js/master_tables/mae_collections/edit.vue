@@ -1,34 +1,63 @@
 <template>
+  <div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- Main-body start -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                          <div class="page-header-title">
+                              <div class="d-inline">
+                                  <h4>Actualizar Coleccion</h4>                                                        
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
-		<section class="tg-dbsectionspace tg-haslayout">
-        <div class="tg-formtheme tg-formdashboard">
-          <fieldset>
-            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 tg-lgcolwidthhalf">
-              <div class="tg-dashboardbox">
-                <div class="tg-dashboardboxtitle">
-                  <h2>Actualizar Colección</h2>
+                <div class="page-body">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <!-- Basic Form Inputs card start -->
+                          <div class="card">
+                              <div class="card-block">
+                                <form>
+                                  <div class="row">
+                                      <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"  id="basic-addon1">Nombre de la Coleccion</span></div>
+                                                <input type="text"  v-model="collections_name" class="form-control">
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <div class="col-lg-12">
+                                              <vue2Dropzone ref="collections_image_url" id="dropzone"
+                                                  v-on:vdropzone-max-files-exceeded="maxFilesAlert"
+                                                  :options="dropzoneOptions">
+                                              </vue2Dropzone>
+                                          </div>
+                                      </div>
+                                  </div>                                        
+                                  <br><br>
+                                  <div class=" ">
+                                        <button class="btn btn-primary" type="button" @click="PostCollection">Registrar</button>
+                                        <router-link :to="{path: '/collection'}">
+                                          <button class="btn btn-danger" type="button" >Cancelar</button>
+                                        </router-link>
+                                  </div>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 </div>
-                <div class="tg-dashboardholder">
-                  <div class="form-group">
-                      <input type="text"  v-model="collections_name" class="form-control" placeholder="Nombre de la Coleccion">
-                  </div>
-                  <div class="form-group">
-                        <vue2Dropzone ref="collections_image_url" id="dropzone"
-                            v-on:vdropzone-max-files-exceeded="maxFilesAlert"
-                            :options="dropzoneOptions">
-                        </vue2Dropzone>
-                  </div>
-                  <div class="form-group">
-                    <button class="btn btn-primary" type="button" @click="PostCategory" >Registrar</button>
-                  </div>
-                </div>
-              </div>
             </div>
-          </fieldset>
         </div>
-		</section>
-	</main>
+    </div>
+  </div>	
 	
 </template>
 
@@ -79,7 +108,7 @@ export default {
         },
         
 
-        PostCategory(){
+        PostCollection(){
                 this.$refs.collections_image_url.processQueue();
                 let images  = this.$refs.collections_image_url.getAcceptedFiles();
                 let index = 0;

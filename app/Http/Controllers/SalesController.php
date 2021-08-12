@@ -10,6 +10,7 @@ use App\tbl_sales;
 use App\tbl_sales_details;
 use App\tbl_inventories;
 use App\purchase_order_details;
+use App\tbl_sales_profits;
 use Carbon\Carbon;
 
 class SalesController extends Controller
@@ -36,11 +37,20 @@ class SalesController extends Controller
         $data = [];
 
         for ($i=0; $i < count($array_data) ; $i++) {             
-            $row = \DB::table('tbl_inventories')
+            /*$row = \DB::table('tbl_inventories')
                     ->select('tbl_products.*', 'tbl_inventories.*')
                     ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
                     ->where('tbl_inventories.inventories_codigo', $array_data[$i])
-                    ->first();
+                    ->first();*/
+            
+            $row  = tbl_inventories::with([
+                'products' => function($query){
+                        return $query->with(['discountsGroup'=> function($query){
+                            return $query->with('discounts');
+                        }
+                    ]);
+                }
+            ])->where('inventories_codigo', $array_data[$i])->first();
             
             $data[] = $row;
         }
@@ -77,6 +87,11 @@ class SalesController extends Controller
             'sales_payment_method' => $request->sales_payment_method,
             'sales_payment_date' => $request->sales_payment_date,
             'sales_status' => 0,
+        ]);
+
+        $tbl_sales_profits = tbl_sales_profits::create([
+            'sales_id' => $tbl_sales->sales_id,
+            'total_bussines' => $request['total_bussines'],
         ]);
 
 
@@ -154,6 +169,7 @@ class SalesController extends Controller
     {
        
             return tbl_sales_details::with(['products','customers','sucursals','sales'])
+                                ->where('customers_name',$request->customers_name)
                                 ->whereBetween('created_at', [$request['date_init'], $request['date_end']])
                                 ->get();
         

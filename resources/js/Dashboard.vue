@@ -1,80 +1,92 @@
 <template>
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
 
-    <main id="tg-main" class="tg-main tg-haslayout">
-        <section class="tg-dbsectionspace tg-haslayout tg-statistics">
-				<div class="row">
-					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
-						<div class="tg-dashboardbox tg-statistic">
-							<figure>
-                  <i class="fa fa-database fa-3x"></i>
-              </figure>
-							<div class="tg-contentbox">
-                <h3>Capacity</h3><br>
-								<span style="font-size: 30px;">150GB</span>							
-								<a class="tg-btnviewdetail" href="javascript:void(0);" style="left: 15px !important;">
-                    <i class="fa fa-refresh" aria-hidden="true"></i> Update Now
-                </a>
-							</div>
-						</div>
-					</div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
-						<div class="tg-dashboardbox tg-statistic">
-							<figure>
-                                <i class="fa fa-google-wallet fa-3x"></i>
-                            </figure>
-							<div class="tg-contentbox">
-                                <h3>Revenue</h3><br>
-								<span style="font-size: 30px;">$1,345</span>							
-								<a class="tg-btnviewdetail" href="javascript:void(0);" style="left: 15px !important;">
-                                    <i class="fa fa-calendar" aria-hidden="true"></i> Last Day
-                                </a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
-						<div class="tg-dashboardbox tg-statistic">
-							<figure>
-                                <i class="fa fa-pie-chart fa-3x"></i>
-                            </figure>
-							<div class="tg-contentbox">
-                                <h3>Error</h3><br>
-								<span style="font-size: 30px;">23</span>							
-								<a class="tg-btnviewdetail" href="javascript:void(0);" style="left: 15px !important;">
-                                    <i class="fa fa-calendar" aria-hidden="true"></i> Last Day
-                                </a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
-						<div class="tg-dashboardbox tg-statistic">
-							<figure>
-                                <i class="fa fa-twitter fa-3x"></i>
-                            </figure>
-							<div class="tg-contentbox">
-                                <h3>Follower</h3><br>
-								<span style="font-size: 30px;">+45</span>							
-								<a class="tg-btnviewdetail" href="javascript:void(0);" style="left: 15px !important;">
-                                    <i class="fa fa-refresh" aria-hidden="true"></i> Update Now
-                                </a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-		</section>
-
-        <section class="tg-dbsectionspace tg-haslayout tg-statistics">
-          <br><br>
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                    <canvas id="Linechart"></canvas>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                    <canvas id="Doughnutchart"></canvas>
+                    <div class="page-body">
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-c-yellow update-card">
+                                    <div class="card-block">
+                                        <div class="row align-items-end">
+                                            <div class="col-8">
+                                                <h4 class="text-white">$30200</h4>
+                                                <h6 class="text-white m-b-0">All Earnings</h6>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <canvas id="update-chart-1" height="50"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-c-green update-card">
+                                    <div class="card-block">
+                                        <div class="row align-items-end">
+                                            <div class="col-8">
+                                                <h4 class="text-white">290+</h4>
+                                                <h6 class="text-white m-b-0">Page Views</h6>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <canvas id="update-chart-2" height="50"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update: 2:15 am</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-c-pink update-card">
+                                    <div class="card-block">
+                                        <div class="row align-items-end">
+                                            <div class="col-8">
+                                                <h4 class="text-white">145</h4>
+                                                <h6 class="text-white m-b-0">Task Completed</h6>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <canvas id="update-chart-3" height="50"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update: 2:15 am</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-c-lite-green update-card">
+                                    <div class="card-block">
+                                        <div class="row align-items-end">
+                                            <div class="col-8">
+                                                <h4 class="text-white">500</h4>
+                                                <h6 class="text-white m-b-0">Downloads</h6>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <canvas id="update-chart-4" height="50"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update: 2:15 am</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-md-12">
+                                <canvas id="Linechart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
 </template>
 
@@ -84,6 +96,7 @@ import ChartJS from 'chart.js/auto';
 export default {
     data:function(){
         return {
+            count_products:'',
             data_provider:[],
             data_sales:[],
             years: [],
@@ -137,12 +150,33 @@ export default {
             });
         },
 
+        getDatadash(){
+          let me=this;
+            axios.get('/get_data_Dash').then(function(response){ 
+                const array_data = response.data;
+                //return the sum of all keys
+                const groupAll = list => list.reduce((acc, item) => {
+                    const accAmout = acc[item.person_id] || 0;
+                    return Object.assign({}, acc, {[item.person_id]: accAmout + parseInt(item.amount, 10)});
+                }, {});
+
+                console.log("groupAll", groupAll(me.count_products));
+
+                return array_data.forEach(element => {
+                    me.count_products = element.products;
+                    const productsByname = me.count_products.reduce((acc, value) =>{
+                        console.log(acc);
+                    },{});
+                });          
+            })
+		},
   
   },
 
   mounted() {
 		  let self = this
             self.ChartProvider();
+            self.getDatadash();
 	}
 }
 

@@ -5,12 +5,17 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\User;
 use App\mae_roles;
+use App\tbl_customer_users;
 
 class UserController extends Controller
 {
     public function GetUsers()
     {
-        return User::with('roles')->get();
+        return tbl_customer_users::with([
+            'user'=>function($query){
+                return $query->with('roles');
+            }
+        ])->get();
     }
 
     public function GetRoles()
@@ -27,6 +32,14 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        tbl_customer_users::create([
+            'identification_document' => $request->identification_document, 
+            'movil' => $request->movil, 
+            'address' => $request->address, 
+            'area' => $request->area, 
+            'id' => $user->id,
+        ]);
+
         if ($user==true) {
             return [ 'status'=>'success', 'menssage'=>'Usuario Creado' ];
         }
@@ -37,6 +50,13 @@ class UserController extends Controller
             'roles_id' => $request->roles_id, 
             'name' => $request->name, 
             'email' => $request->email,
+        ]);
+
+        tbl_customer_users::where('id', $request['id'])->update([
+            'identification_document' => $request->identification_document, 
+            'movil' => $request->movil, 
+            'address' => $request->address, 
+            'area' => $request->area,
         ]);
 
         return ['status' => 'success'];

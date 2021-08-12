@@ -1,53 +1,74 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
-		<section class="tg-dbsectionspace tg-haslayout">
-	      <div class="row">
-				<div class="col-md-6">
-					<input type="text" class="form-control" placeholder="Digite el nombre del producto"  v-model="products_name">
-				</div>
-				<div class="col-md-3">
-					<button class="btn btn-primary" @click="searchProducts()"><i class="fa fa-search"></i> Buscar</button>
-				</div>
-				<div class="col-md-3">
-					<router-link to="/products/create">
-						<button class="btn btn-primary">
-							+ Nuevo Producto
-						</button>
-					</router-link>
-				</div>
-	      </div>
-		</section>
-		<section class="tg-dbsectionspace tg-haslayout">
-	      <div class="row">
-				<div class="tg-formtheme tg-formdashboard">
-					<fieldset>
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div class="tg-dashboardbox">
-						<div class="tg-dashboardholder">
-							<div class="row">
-								<div class="col-md-6" v-for="(data, index) in searchInUsers" >
-										<div class="card">
-											<div class="col-lg-6">
-												<img :src="'/img_products/'+data.products_image_url" />
-											</div>
-											<div class="col-lg-6">
-												<div class="card-header">
-													<p><b>{{ data.products_name }}</b></p>
-													<p><b>Precio - $ {{data.products_price }}</b></p>
-													<p>Descuento - $ {{ data.discounts_group.length ? (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100 : 'No tiene descuento'}}</p>
-												</div>
-												<div class="card-body">
+	<div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- Page-header start -->
+                    <div class="page-header">
+                        <div class="row align-items-end">
+                            <div class="col-lg-3">
+                            	<div class="page-header-title">
+                                    <div class="d-inline">
+                                        <h4>PRODUCTOS</h4>
+                                    </div>
+                            	</div>
+                            </div>
+							<div class="col-lg-8">
+								<div class="page-header-breadcrumb">
+									<div class="col-lg-7">
+										<input type="text" class="form-control" placeholder="Digite el nombre del producto"  v-model="products_name">
+									</div>
+									<div class="col-lg-3">
+										<button class="btn btn-primary" @click="searchProducts()"><i class="fa fa-search"></i> Buscar</button>
+									</div>
+									<div class="col-lg-4">
+										<router-link to="/products/create">
+											<button class="btn btn-primary">
+												+ Nuevo Producto
+											</button>
+										</router-link>
+									</div>										
+								</div>
+								
+							</div>
+                        </div>
+                    </div>
+                    <!-- Page-header end -->
 
+                    <!-- Page-body start -->
+                    <div class="page-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+								<div class="card">
+									<div class="card-block">
+										<div class="row">
+											<div class="col-lg-4" v-for="(data, index) in searchInUsers">
+                                                <div class="card-sub" align="center">
+                                                    <img class="card-img-top img-fluid"
+                                                        :src="'/img_products/'+data.products_image_url" 
+                                                        alt="Card image cap"
+														style="width: 40%;">
+                                                    <div class="card-block">
+                                                        <h4>{{ data.products_name }}</h4>
+                                                        <p class="card-text">
+															<p><b>Precio : $ {{data.products_price }}</b></p>
+															<p>Descuento : $ {{ data.discounts_group.length ? (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100 : 'No tiene descuento'}} </p>
+														</p>
+                                                    </div>
+                                                </div>
+												<div class="card-footer" align="center">	
+													<button class="btn btn-primary" @click="editProducto()">Editar <i class="fa fa-pencil fa-1x"></i></button>
+													<button class="btn btn-primary">Eliminar <i class="fa fa-trash fa-1x"></i></button>
 												</div>
-											</div>
+                                            </div>
 										</div>
-										<div class="card-footer">
-											<button class="btn btn-primary">Editar <i class="fa fa-pencil fa-1x"></i></button>
-											<button class="btn btn-primary">Eliminar <i class="fa fa-trash fa-1x"></i></button>
-										</div>
+									</div>
 								</div>
 							</div>
+						</div>
+						
 							<div class="row">
 								<div class="card-footer" style="background-color: rgb(0 0 0 / 0%) !important;border-top: 1px solid rgb(255 255 255 / 13%) !important;">
 									<nav aria-label="Page navigation" class="float-left">
@@ -117,15 +138,13 @@
 									</nav>
 								</div>
 							</div>
-						</div>
 
-						</div>
+
 					</div>
-					</fieldset>
 				</div>
-	      </div>
-		</section>
-	</main>
+			</div>
+		</div>
+	</div>
 	
 </template>
 

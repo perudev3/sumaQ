@@ -53,12 +53,20 @@ class InventoryController extends Controller
 
     public function DetailsInventory($products_id)
     {
-        $listainventory = tbl_inventories::with(['products' => function($query) {
-                                    return $query->with('category', 'collection', 'material', 'discountsGroup');
+        /* $listainventory = tbl_inventories::with(['products' => function($query) {
+                                    return $query->with(['category', 'collection', 'material', 'discountsGroup']);
                                 }])
-                                ->with('sizes')
+                                ->with(['sizes', 'sales'])
                                 ->where('products_id', $products_id)
                                 ->where('sales_id', NULL)
+                                ->orderBy('inventories_id')
+                                ->get(); */
+        $listainventory = tbl_inventories::with(['products' => function($query) {
+                                    return $query->with(['category', 'collection', 'material', 'discountsGroup']);
+                                }])
+                                ->with(['sizes', 'sales'])
+                                ->where('products_id', $products_id)
+                                ->orderBy('inventories_id')
                                 ->get();
                                 
          

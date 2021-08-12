@@ -1,165 +1,206 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
-		<section class="tg-dbsectionspace tg-haslayout">
-	      <div class="row">
-				<ul class="nav nav-pills nav-wizard">
-						<li class="active" style="width:50%;">
-							<router-link to="/provider">
-							Proveedores
-							</router-link>
-						</li>			
-            <li style="width:50%;">
-							<router-link to="/provider/purchase_orders/lista">
-							Ordenes Solicitadas
-							</router-link>
-						</li>
-				</ul>
-	          <div class="tg-formtheme tg-formdashboard">
-	            <fieldset>
-	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	                <div class="tg-dashboardbox" style="margin-top: 40px;">
-	                  <div class="tg-dashboardholder">
-                      <div class="tg-otherfilters">
-                        <div class="row">
-                          <div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-left">
-                            <div  class="form-group tg-inputwithicon">
-                              <router-link to="/provider/create">
-                                <button class="btn btn-primary">
-                                  + Nuevo Proveedor
-                                </button>
-                              </router-link>
-                            </div>
-                          </div>
-                          <div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 pull-right">
-                            <div class="form-group tg-inputwithicon">
-                              <i class="icon-magnifier"></i>
-                              <input type="search" class="form-control" placeholder="Nombre del Proveedor"  v-model="providers_name" v-on:keyup="searchProviders">
+  <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                  <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <div class="card">
+                            <div class="card-block">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div id="wizard1">
+                                    <section>
+                                      <div class="wizard-form wizard clearfix" id="basic-forms">
+                                          <div class="steps clearfix">
+                                            <ul role="tablist">
+                                              <li style="width: 50% !important;" role="tab" class="first current" aria-disabled="false" aria-selected="true" align="center">
+                                                  <a href="/provider" id="basic-forms-t-0" aria-controls="basic-forms-p-0">
+                                                    <span class="current-info audible">current step: </span>
+                                                    <span class="number"><i class="fa fa-building fa-3x" aria-hidden="true"></i></span> 
+                                                  </a>
+                                                  
+                                              </li>
+                                              <li style="width: 50% !important;" role="tab" class="done" aria-disabled="false" aria-selected="false" @click="Compra" align="center">
+                                                  <a href="/provider/purchase_orders/lista">
+                                                    <span class="number"><i class="fa fa-list fa-3x" aria-hidden="true"></i></span> 
+                                                  </a>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                          <div class="clearfix" style="margin-top: 50px;">
+                                            <fieldset id="basic-forms-p-0" role="tabpanel" aria-labelledby="basic-forms-h-0" class="body current" aria-hidden="false" style="left: 0px;">
+                                                <div class="row">	
+                                                    <div class="main-body">
+                                                        <div class="page-wrapper">
+                                                            <!-- Page-header start -->
+                                                            <div class="page-header">
+                                                                <div class="align-items-end">
+                                                                  
+                                                                  <div class="row">
+                                                                      <div class="input-group">
+                                                                          <div class="input-group-prepend">
+                                                                          <span class="input-group-text"  id="basic-addon1">Digite nombre del proveedor</span></div>
+                                                                          <input type="search" class="form-control" v-model="users_name" v-on:keyup="searchUsers">
+                                                                      </div>
+                                                                  </div>
+                                                                  
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                      <!-- Zero config.table start -->
+                                                      <div class="card">  
+                                                        <div class="card-header">
+                                                          <div class="col-lg-4">
+                                                                  <a href="/provider/create">
+                                                                      <button class="btn btn-primary">
+                                                                           + Registrar Proveedor
+                                                                       </button>
+                                                                  </a>
+                                                          </div>
+                                                        </div>
+                                                        <div class="card-block">
+                                                            <div class="card-block table-border-style">
+                                                                <div class="dt-responsive table-responsive">
+                                                                  <table class="table">
+                                                                      <thead>
+                                                                        <tr>
+                                                                          <th>Nombre</th>
+                                                                          <th>Numero</th>
+                                                                          <th>Dirección</th>
+                                                                          <th>Encargado</th>
+                                                                          <th>Mobile</th>
+                                                                          <th>Estado</th>
+                                                                          <th>Opciones</th>
+                                                                        </tr>
+                                                                      </thead>
+                                                                      <tbody>
+                                                                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
+                                                                          <td data-title="Nombre">
+                                                                            <h3>{{data.providers_name}}</h3>
+                                                                          </td>
+                                                                          <td data-title="Numero">
+                                                                            <h3>{{data.providers_id_number}}</h3>
+                                                                          </td>
+                                                                          <td data-title="Dirección">
+                                                                            <h3>{{data.providers_address}}</h3>
+                                                                          </td>
+                                                                          <td data-title="Encargado">
+                                                                            <h3>{{data.providers_encargado}}</h3>
+                                                                          </td>
+                                                                          <td data-title="Mobile">
+                                                                            <h3>{{data.providers_mobile}}</h3>
+                                                                          </td>
+                                                                          <td data-title="Estado" v-if="data.providers_is_active==1">
+                                                                            <h3>Activo</h3>
+                                                                          </td>
+                                                                          <td data-title="Estado" v-if="data.providers_is_active==0">
+                                                                            <h3>Inactivo</h3>
+                                                                          </td>
+                                                                          <td data-title="Opciones">
+                                                                            <div class="tg-btnsactions">
+                                                                              <a class="tg-btnaction tg-btnactionview" @click="EditProviders(data)"><i class="fa fa-pencil"></i></a>
+                                                                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
+                                                                            </div>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </tbody>
+                                                                  </table>
+                                                                  <div class="card-footer" style="background-color: rgb(0 0 0 / 0%) !important;border-top: 1px solid rgb(255 255 255 / 13%) !important;">
+                                                                      <nav aria-label="Page navigation" class="float-left">
+                                                                          <ul class="pagination">
+                                                                          <!--Botones anteriores-->
+                                                                              <li v-if="pagination.currentPage == 1" class="page-item disabled">
+                                                                                  <a class="page-link" href="#" aria-label="Previous">
+                                                                                      <span aria-hidden="true"><i class="fa fa-fast-backward"></i></span>
+                                                                                      <span class="sr-only">Previous</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                              <li v-else class="page-item">
+                                                                                  <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(1)">
+                                                                                      <span aria-hidden="true"><i class="fa fa-fast-backward"></i></span>
+                                                                                      <span class="sr-only">Previous</span>
+                                                                                  </a>
+                                                                              </li>
+
+
+                                                                              <li v-if="pagination.currentPage == 1" class="page-item disabled">
+                                                                                  <a class="page-link" href="#" aria-label="Previous">
+                                                                                      <span aria-hidden="true"><i class="fa fa-step-backward"></i></span>
+                                                                                      <span class="sr-only">Previous</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                              <li v-else class="page-item">
+                                                                                  <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(pagination.currentPage - 1)">
+                                                                                      <span aria-hidden="true"><i class="fa fa-step-backward"></i></span>
+                                                                                      <span class="sr-only">Previous</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                          <!--Botones anteriores-->
+
+                                                                              <li v-for="(page,index) in getLinksPages" class="page-item" :class="[page === isCurrentPage ? 'active':'' ]">
+                                                                                  <span v-if="page === isCurrentPage" class="page-link">{{ page }}</span>
+                                                                                  <a v-else class="page-link" href="#" @click.prevent="changePage(page)" >{{page}}</a>
+                                                                              </li>
+
+                                                                          <!--Botones posteriores-->
+                                                                              <li v-if="pagination.currentPage == pagination.lastPage" class="page-item disabled">
+                                                                                  <a class="page-link" href="#" aria-label="Previous">
+                                                                                      <span aria-hidden="true"><i class="fa fa-step-forward"></i></span>
+                                                                                      <span class="sr-only">Next</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                              <li v-else class="page-item">
+                                                                                  <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pagination.currentPage + 1)">
+                                                                                      <span aria-hidden="true"><i class="fa fa-step-forward"></i></span>
+                                                                                      <span class="sr-only">Next</span>
+                                                                                  </a>
+                                                                              </li>
+
+                                                                              <li v-if="pagination.currentPage == pagination.lastPage" class="page-item disabled">
+                                                                                  <a class="page-link" href="#" aria-label="Previous">
+                                                                                      <span aria-hidden="true"><i class="fa fa-fast-forward"></i></i></span>
+                                                                                      <span class="sr-only">Next</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                              <li v-else class="page-item">
+                                                                                  <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pagination.lastPage)">
+                                                                                      <span aria-hidden="true"><i class="fa fa-fast-forward"></i></i></span>
+                                                                                      <span class="sr-only">Next</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                          <!--Botones posteriores-->  
+                                                                          </ul>
+                                                                      </nav>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                          </div>
+                                      </div>
+                                    </section>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
-	                      <thead>
-	                        <tr>
-	                          <th>Nombre</th>
-	                          <th>Numero</th>
-	                          <th>Dirección</th>
-	                          <th>Encargado</th>
-	                          <th>Mobile</th>
-	                          <th>Estado</th>
-	                          <th>Opciones</th>
-	                        </tr>
-	                      </thead>
-	                      <tbody>
-	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
-	                          <td data-title="Nombre">
-	                            <h3>{{data.providers_name}}</h3>
-	                          </td>
-	                          <td data-title="Numero">
-	                            <h3>{{data.providers_id_number}}</h3>
-	                          </td>
-	                          <td data-title="Dirección">
-	                            <h3>{{data.providers_address}}</h3>
-	                          </td>
-	                          <td data-title="Encargado">
-	                            <h3>{{data.providers_encargado}}</h3>
-	                          </td>
-	                          <td data-title="Mobile">
-	                            <h3>{{data.providers_mobile}}</h3>
-	                          </td>
-	                          <td data-title="Estado" v-if="data.providers_is_active==1">
-	                            <h3>Activo</h3>
-	                          </td>
-	                          <td data-title="Estado" v-if="data.providers_is_active==0">
-	                          	<h3>Inactivo</h3>
-	                          </td>
-	                          <td data-title="Opciones">
-	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" @click="EditProviders(data)"><i class="fa fa-pencil"></i></a>
-	                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
-	                            </div>
-	                          </td>
-	                        </tr>
-	                      </tbody>
-	                    </table>
-
-	                    <div class="card-footer" style="background-color: rgb(0 0 0 / 0%) !important;border-top: 1px solid rgb(255 255 255 / 13%) !important;">
-	                        <nav aria-label="Page navigation" class="float-left">
-	                            <ul class="pagination">
-	                            <!--Botones anteriores-->
-	                                <li v-if="pagination.currentPage == 1" class="page-item disabled">
-	                                    <a class="page-link" href="#" aria-label="Previous">
-	                                        <span aria-hidden="true"><i class="fa fa-fast-backward"></i></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                </li>
-	                                <li v-else class="page-item">
-	                                    <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(1)">
-	                                        <span aria-hidden="true"><i class="fa fa-fast-backward"></i></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                </li>
-
-
-	                                <li v-if="pagination.currentPage == 1" class="page-item disabled">
-	                                    <a class="page-link" href="#" aria-label="Previous">
-	                                        <span aria-hidden="true"><i class="fa fa-step-backward"></i></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                </li>
-	                                <li v-else class="page-item">
-	                                    <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(pagination.currentPage - 1)">
-	                                        <span aria-hidden="true"><i class="fa fa-step-backward"></i></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                </li>
-	                            <!--Botones anteriores-->
-
-	                                <li v-for="(page,index) in getLinksPages" class="page-item" :class="[page === isCurrentPage ? 'active':'' ]">
-	                                    <span v-if="page === isCurrentPage" class="page-link">{{ page }}</span>
-	                                    <a v-else class="page-link" href="#" @click.prevent="changePage(page)" >{{page}}</a>
-	                                </li>
-
-	                            <!--Botones posteriores-->
-	                                <li v-if="pagination.currentPage == pagination.lastPage" class="page-item disabled">
-	                                    <a class="page-link" href="#" aria-label="Previous">
-	                                        <span aria-hidden="true"><i class="fa fa-step-forward"></i></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </li>
-	                                <li v-else class="page-item">
-	                                    <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pagination.currentPage + 1)">
-	                                        <span aria-hidden="true"><i class="fa fa-step-forward"></i></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </li>
-
-	                                <li v-if="pagination.currentPage == pagination.lastPage" class="page-item disabled">
-	                                    <a class="page-link" href="#" aria-label="Previous">
-	                                        <span aria-hidden="true"><i class="fa fa-fast-forward"></i></i></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </li>
-	                                <li v-else class="page-item">
-	                                    <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pagination.lastPage)">
-	                                        <span aria-hidden="true"><i class="fa fa-fast-forward"></i></i></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </li>
-	                            <!--Botones posteriores-->  
-	                            </ul>
-	                        </nav>
-	                    </div>
-	                  </div>
-
-	                </div>
-	              </div>
-	            </fieldset>
-	          </div>
-	      </div>
-		</section>
-	</main>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+  </div>
 	
 </template>
 

@@ -1,46 +1,64 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
-		<section class="card tg-dbsectionspace tg-haslayout">
-        <div class="tg-formtheme tg-formdashboard">
-          <fieldset>
-            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 tg-lgcolwidthhalf">
-              <div class="tg-dashboardbox">
-                <div class="card-header tg-dashboardboxtitle">
-                  <h2>Registrar Descuento</h2>
+  <div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- Main-body start -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                          <div class="page-header-title">
+                              <div class="d-inline">
+                                  <h4>REGISTRAR DESCUENTO</h4>                                                        
+                              </div>
+                          </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body tg-dashboardholder">
-                  <div class="form-group">
-                      <input type="text"  v-model="discounts_name" class="form-control" placeholder="Nombre del descuento">
-                  </div>
-                  <div class="form-group">
-                      <input type="number"  v-model="discounts_porcentaje" class="form-control" placeholder="tasa de porcentaje">
-                  </div>
-                  <div class="form-group">
-                      <label >Fecha de Inicio</label>
-                      <input type="date"  v-model="discounts_start_date" class="form-control" >
-                  </div>
-                  <div class="form-group">
-                    <label> Fecha de Finalización</label>
-                      <input type="date"  v-model="discounts_end_date" class="form-control" >
-                  </div>
-                  <div class="form-group">
-                      <input type="text"  v-model="discounts_stock_max" class="form-control" placeholder="Stock maximo">
-                  </div>
-                  <div class="form-group">
-                      <button class="btn btn-primary" type="button" @click="PostDiscount">Registrar</button>
-                      <router-link to="/discount">
-                        <button class="btn btn-warning" type="button">Cancelar</button>
-                      </router-link>
-                      
+
+                <div class="page-body">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <!-- Basic Form Inputs card start -->
+                          <div class="card">
+                              <div class="card-block">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="text"  v-model="discounts_name" class="form-control" placeholder="Nombre del descuento">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number"  v-model="discounts_porcentaje" class="form-control" placeholder="tasa de porcentaje">
+                                    </div>
+                                    <div class="form-group">
+                                        <label >Fecha de Inicio</label>
+                                        <input type="date"  v-model="discounts_start_date" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                      <label> Fecha de Finalización</label>
+                                        <input type="date"  v-model="discounts_end_date" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text"  v-model="discounts_stock_max" class="form-control" placeholder="Stock maximo">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="button" @click="PostDiscount">Registrar</button>
+                                        <router-link to="/discount">
+                                          <button class="btn btn-warning" type="button">Cancelar</button>
+                                        </router-link>
+                                        
+                                    </div>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
                   </div>
                 </div>
-              </div>
             </div>
-          </fieldset>
         </div>
-		</section>
-	</main>
+    </div>
+  </div>	
 	
 </template>
 
