@@ -261,6 +261,9 @@ Route::prefix('sales')->group(function () {
 Route::post('get_sales_details', 'SalesController@GetSalesDetails');
 Route::put('update_statussales', 'SalesController@UpdateStatus');
 Route::post('findBysalesDate', 'SalesController@findBySalesDetailsDate');
+Route::post('getsalesdate', 'SalesController@GetSalesDate');
+Route::post('getsalesmonth', 'SalesController@GetSalesMonth');
+Route::post('getsalesyear', 'SalesController@GetSalesYear');
 
 
 /***Sales Report***/
@@ -275,7 +278,52 @@ Route::prefix('sales')->group(function () {
 
 });
 
+/***LayAway***/
+Route::prefix('layaway')->group(function () {
+	Route::get('/pedidos', function () {
+		$name_view = 'GENERAR LAYAWAY';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_layaway', compact('name_view', 'user'));
+	});
 
+	Route::get('/compra', function () {
+		$name_view = 'GENERAR LAYAWAY';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_layaway', compact('name_view', 'user'));
+	});
+
+	Route::get('/pago', function () {
+		$name_view = 'GENERAR LAYAWAY';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_layaway', compact('name_view', 'user'));
+	});
+
+	Route::get('/finish_layaway', function () {
+		$name_view = 'GENERAR LAYAWAY';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_layaway', compact('name_view', 'user'));
+	});
+});
+Route::post('layaway_products', 'LayawayController@Data_Products');
+Route::post('layaway_get_products_pedidos', 'LayawayController@Data_Products_Pedidos');
+Route::post('/layaway_post_pago_efectivo', 'LayawayController@PostLayaway');
+
+
+/***layaway Detail***/
+Route::prefix('layaway')->group(function () {
+	Route::get('/details', function () {
+		$name_view = 'DETALLES LAYAWAY';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_layaway', compact('name_view', 'user'));
+	});
+});
+
+Route::post('get_layaway_details', 'LayAwayController@GetLayawayDetails');
+Route::put('update_statuslayaway', 'LayAwayController@UpdateStatus');
+Route::post('findBylayawayDate', 'LayAwayController@findByLayawayDetailsDate');
+Route::post('getlayawaydate', 'LayAwayController@GetLayawayDate');
+Route::post('getlayawaymonth', 'LayAwayController@GetLayawayMonth');
+Route::post('getlayawayyear', 'LayAwayController@GetLayawayYear');
 
 /***Usuarios***/
 Route::prefix('user')->group(function () {

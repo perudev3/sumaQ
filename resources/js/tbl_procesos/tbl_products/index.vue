@@ -45,21 +45,34 @@
 									<div class="card-block">
 										<div class="row">
 											<div class="col-lg-4" v-for="(data, index) in searchInUsers">
+												
                                                 <div class="card-sub" align="center">
+													<div class="alert alert-danger background-danger">
+														<span v-if="data.count_inventory.length < 500">Se agota Stock de este producto</span>
+													</div>
                                                     <img class="card-img-top img-fluid"
                                                         :src="'/img_products/'+data.products_image_url" 
                                                         alt="Card image cap"
-														style="width: 40%;">
+														style="width: 28%;">
                                                     <div class="card-block">
-                                                        <h4>{{ data.products_name }}</h4>
-                                                        <p class="card-text">
-															<p><b>Precio : $ {{data.products_price }}</b></p>
-															<p>Descuento : $ {{ data.discounts_group.length ? (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100 : 'No tiene descuento'}} </p>
-														</p>
+														<b>{{ data.products_name }}</b>
                                                     </div>
+													<div class="card-body">
+														<div class="alert alert-success background-success">
+															<b>Detalles del Producto</b>
+														</div>
+														<template v-if="data.discounts_group.length">
+															<p><h5>Precio - <b><del> $ {{ data.products_price }}</del></b></h5></p>
+															<p><h5>Precio + Descuento - <b> $ {{ data.discounts_group.length ?  (data.products_price - (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100) : 'No tiene descuento'}} </b> </h5> </p>
+														</template>		
+														<template v-else>
+															<p><h5>Precio - <b>{{ data.products_price }}</b></h5></p>
+														</template>		
+														<p><h5>Descuento del <b> {{data.discounts_group[0].discounts[0].discounts_porcentaje}} %</b></h5></p>
+													</div>
                                                 </div>
 												<div class="card-footer" align="center">	
-													<button class="btn btn-primary" @click="editProducto()">Editar <i class="fa fa-pencil fa-1x"></i></button>
+													<button class="btn btn-primary" @click="editProducto(data)">Editar <i class="fa fa-pencil fa-1x"></i></button>
 													<button class="btn btn-primary">Eliminar <i class="fa fa-trash fa-1x"></i></button>
 												</div>
                                             </div>

@@ -1,119 +1,129 @@
 <template>
-
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
-		<section class="tg-dbsectionspace tg-haslayout">
-            <div class="row">
-                <ul class="nav nav-pills nav-wizard">
-						<li style="width:50%;">
-							<router-link to="/provider">
-							Proveedores
-							</router-link>
-						</li>					
-						<li style="width:50%;">
-							<router-link to="/purchase_orders/lista">
-							Ordenes Solicitadas
-							</router-link>
-						</li>
-				</ul>
-                <div class="tg-formtheme tg-formdashboard">
-                <fieldset>
-                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-12 tg-lgcolwidthhalf">
-                    <div class="tg-dashboardbox"  style="margin-top: 40px;">
-                        <div class="tg-dashboardboxtitle">
-                        <h2>Registrar Orden</h2>
+  <div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- Main-body start -->
+        <div class="main-body">
+              <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                          <div class="page-header-title">
+                              <div class="d-inline">
+                                  <h4>REGISTRAR ORDEN</h4>                                                        
+                              </div>
+                          </div>
                         </div>
-                        <div class="tg-dashboardholder">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                      <label>Orden de compra solicitada por:</label>      
-                                      <input type="text" class="form-control" disabled :value="user['name']">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                      <label>Fecha de solicitud:</label>  
-                                      <label><b> {{fecha}} </b></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                      <label>Digite Nombre de Proveedor</label>
-                                      <autocomplete :search="search_proveedor"
-                                                    :get-result-value="getResultValueProveedor"
-                                                    @submit="onSubmitProveedor"> 
-                                      </autocomplete>
-                                    </div>
-                                </div>
-                            </div><br><br>
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="form-group">
-                                      <label>Fecha de llegada prevista de la Orden:</label>  
-                                      <input type="date" class="form-control" v-model="preview_arrival_date">
-                                  </div>
-                                </div>
-                                <div class="col-md-8">
-                                  <div class="form-group">
-                                      <label>Observaciones de la Compra:</label> 
-                                      <textarea  v-model="purchase_orders_observation" placeholder="Observaciones de la compra" class="form-control"></textarea>
-                                  </div>
-                                </div>
-                            </div><br><br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                      <autocomplete :search="search_producto"
-                                                    placeholder="Nombre del Producto"
-                                                    :get-result-value="getResultValueProduct"
-                                                    @submit="onSubmitProducto"> 
-                                      </autocomplete>
-                                  </div>  
-                                </div>
-                                <div class="col-md-6">
-                                    <table class="table table-responsive">
-                                        <thead>
-                                            <tr>
-                                              <td>Nombre del producto</td>
-                                              <td>Cantidad</td>
-                                              <td>Sub-Monto</td>
-                                              <td></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(data, index) in data_order">
-                                              <td>{{data.products_name}}</td>
-                                              <td> <input type="text" class="form-control" v-model="data.total_products"> </td>
-                                              <td>{{ parseFloat(data.products_price* data.total_products ).toFixed(2)}}</td>
-                                              <td> <button @click="removeOrder(index)"><i class="fa fa-trash"> </i></button></td>
-                                            </tr>
-                                            <tr>
-                                              <td></td>
-                                              <td>Total</td>
-                                              <td>{{ purchase_orders_total_price= parseFloat(Total).toFixed(2)}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                                               
-                        </div>
-                        <div class="container-fluid" style="margin: 44px;">
-                            <div class="row">
-                                <button class="btn btn-primary" type="button" @click="PostProvider">Registrar</button>
-                                <router-link to="/provider">
-                                    <button class="btn btn-default" type="button">Cancelar</button>
-                                </router-link>                
-                            </div>
-                        </div> 
                     </div>
-                    </div>
-                </fieldset>
                 </div>
-                
-            </div>
-		</section>
-	</main>
+
+                <div class="page-body">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="card">
+                                <div class="card-block">
+                                  <div>
+                                    <div class="row">
+                                      <div class="col-lg-4">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"  id="basic-addon1">Compra solicitada por:</span></div>
+                                                <input type="text" class="form-control" disabled :value="user['name']">
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"  id="basic-addon1">Fecha:</span></div>
+                                                <input type="text" class="form-control" disabled :value="fecha">
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-5">
+                                            <div class="input-group">
+                                                
+                                                <autocomplete :search="search_proveedor"
+                                                              placeholder="Proveedor"
+                                                              :get-result-value="getResultValueProveedor"
+                                                              @submit="onSubmitProveedor"> 
+                                                </autocomplete>
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"  id="basic-addon1">Fecha prevista de llegada</span></div>
+                                                <input type="date" class="form-control" v-model="preview_arrival_date">
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"  id="basic-addon1">Observaciones de la compra</span></div>
+                                                <textarea  v-model="purchase_orders_observation" class="form-control"></textarea>
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <autocomplete :search="search_producto"
+                                                              placeholder="Nombre de Producto"
+                                                              :get-result-value="getResultValueProduct"
+                                                              @submit="onSubmitProducto"> 
+                                                </autocomplete>
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <div class="card">  
+                                            <div class="card-block">
+                                              <div class="card-block table-border-style">
+                                                <div class="dt-responsive table-responsive">
+                                                  <table class="table">
+
+                                                      <thead>
+                                                        <tr>
+                                                           <th>Producto</th>
+                                                          <th>Cantidad</th>
+                                                          <th>Sub-total</th>
+                                                          <th>Opciones</th>
+                                                        </tr>
+                                                      </thead>
+
+                                                      <tbody>
+                                                        <tr v-for="(data, index) in data_order">
+                                                          <td>{{data.products_name}}</td>
+                                                          <td> <input type="text" class="form-control" v-model="data.total_products"> </td>
+                                                          <td>{{ parseFloat(data.products_price* data.total_products ).toFixed(2)}}</td>
+                                                          <td> <button @click="removeOrder(index)"><i class="fa fa-trash"> </i></button></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td></td>
+                                                          <td>Total</td>
+                                                          <td>{{ purchase_orders_total_price= parseFloat(Total).toFixed(2)}}</td>
+                                                        </tr>
+                                                      </tbody>
+
+                                                  </table>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                      </div>                                        
+                                    </div>
+                                  </div>
+                                  <div class="card-footer">
+                                      <button class="btn btn-primary" @click="PostProvider">Registrar</button>
+                                      <router-link to="/provider">
+                                          <button class="btn btn-danger">Cancelar</button>
+                                      </router-link>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        </div>
+    </div>
+  </div>
 	
 </template>
 

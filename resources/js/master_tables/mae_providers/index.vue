@@ -24,7 +24,7 @@
                                                   </a>
                                                   
                                               </li>
-                                              <li style="width: 50% !important;" role="tab" class="done" aria-disabled="false" aria-selected="false" @click="Compra" align="center">
+                                              <li style="width: 50% !important;" role="tab" class="done" aria-disabled="false" aria-selected="false" align="center">
                                                   <a href="/provider/purchase_orders/lista">
                                                     <span class="number"><i class="fa fa-list fa-3x" aria-hidden="true"></i></span> 
                                                   </a>
@@ -38,17 +38,23 @@
                                                         <div class="page-wrapper">
                                                             <!-- Page-header start -->
                                                             <div class="page-header">
-                                                                <div class="align-items-end">
-                                                                  
+                                                                <div class="align-items-end">                                                                  
                                                                   <div class="row">
-                                                                      <div class="input-group">
-                                                                          <div class="input-group-prepend">
-                                                                          <span class="input-group-text"  id="basic-addon1">Digite nombre del proveedor</span></div>
-                                                                          <input type="search" class="form-control" v-model="users_name" v-on:keyup="searchUsers">
+                                                                      <div class="col-lg-8">
+                                                                          <div class="input-group">
+                                                                              <div class="input-group-prepend">
+                                                                              <span class="input-group-text"  id="basic-addon1">Digite nombre del proveedor</span></div>
+                                                                              <input type="search" class="form-control" v-model="providers_name" v-on:keyup="searchProviders">
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="col-lg-6">
+                                                                          <a href="/provider/create">
+                                                                              <button class="btn btn-primary">
+                                                                                  + Registrar Proveedor
+                                                                              </button>
+                                                                          </a>
                                                                       </div>
                                                                   </div>
-                                                                  
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -58,11 +64,7 @@
                                                       <div class="card">  
                                                         <div class="card-header">
                                                           <div class="col-lg-4">
-                                                                  <a href="/provider/create">
-                                                                      <button class="btn btn-primary">
-                                                                           + Registrar Proveedor
-                                                                       </button>
-                                                                  </a>
+                                                                  
                                                           </div>
                                                         </div>
                                                         <div class="card-block">
@@ -81,33 +83,36 @@
                                                                         </tr>
                                                                       </thead>
                                                                       <tbody>
-                                                                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
-                                                                          <td data-title="Nombre">
-                                                                            <h3>{{data.providers_name}}</h3>
+                                                                        <tr v-for="(data, index) in searchInUsers">
+                                                                          <td >
+                                                                              {{data.providers_name}}
                                                                           </td>
-                                                                          <td data-title="Numero">
-                                                                            <h3>{{data.providers_id_number}}</h3>
+                                                                          <td >
+                                                                              {{data.providers_id_number}}
                                                                           </td>
-                                                                          <td data-title="Dirección">
-                                                                            <h3>{{data.providers_address}}</h3>
+                                                                          <td>
+                                                                              {{data.providers_address}}
                                                                           </td>
-                                                                          <td data-title="Encargado">
-                                                                            <h3>{{data.providers_encargado}}</h3>
+                                                                          <td >
+                                                                              {{data.providers_encargado}}
                                                                           </td>
-                                                                          <td data-title="Mobile">
-                                                                            <h3>{{data.providers_mobile}}</h3>
+                                                                          <td >
+                                                                              {{data.providers_mobile}}
                                                                           </td>
-                                                                          <td data-title="Estado" v-if="data.providers_is_active==1">
-                                                                            <h3>Activo</h3>
+                                                                          <td  v-if="data.providers_is_active==1">
+                                                                              Activo
                                                                           </td>
-                                                                          <td data-title="Estado" v-if="data.providers_is_active==0">
-                                                                            <h3>Inactivo</h3>
+                                                                          <td  v-if="data.providers_is_active==0">
+                                                                              Inactivo
                                                                           </td>
-                                                                          <td data-title="Opciones">
-                                                                            <div class="tg-btnsactions">
-                                                                              <a class="tg-btnaction tg-btnactionview" @click="EditProviders(data)"><i class="fa fa-pencil"></i></a>
-                                                                              <a class="tg-btnaction tg-btnactiondelete" href="javascript:void(0);"><i class="fa fa-trash"></i></a>
-                                                                            </div>
+                                                                          <td >
+                                                                              <a  @click="EditProviders(data)">
+                                                                                <button class="btn btn-primary"><i class="feather icon-edit"></i></button>
+                                                                              </a>
+                                                                              <a  href="javascript:void(0);">
+                                                                                <button class="btn btn-danger"><i class="feather icon-trash"></i></button>
+                                                                              </a>
+                                                                            
                                                                           </td>
                                                                         </tr>
                                                                       </tbody>

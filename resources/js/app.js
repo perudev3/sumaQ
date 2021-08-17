@@ -159,7 +159,7 @@ const routes = [
         component: require('./master_tables/tbl_sales/details.vue').default
     },
 
-/***Sales***/
+/***SalesReport***/
 {
     path:'/sales/report',
     name:'sales/report',
@@ -207,6 +207,33 @@ const routes = [
         name:'user/edit',
         component: require('./master_tables/mae_user/edit.vue').default
     },
+
+/***Layaway***/
+{
+    path:'/layaway/pedidos',
+    name:'layaway/pedidos',
+    component: require('./tbl_procesos/tbl_layaway/procesos_layaway/index.vue').default
+},
+{
+    path:'/layaway/compra',
+    name:'layaway/compra',
+    component: require('./tbl_procesos/tbl_layaway/procesos_layaway/compra.vue').default
+},
+{
+    path:'/layaway/pago',
+    name:'layaway/pago',
+    component: require('./tbl_procesos/tbl_layaway/procesos_layaway/pago.vue').default
+},
+{
+    path:'/layaway/finish_layaway',
+    name:'layaway/finish_layaway',
+    component: require('./tbl_procesos/tbl_layaway/procesos_layaway/finish_layaway.vue').default
+},
+{
+    path:'/layaway/details',
+    name:'layaway/details',
+    component: require('./tbl_procesos/tbl_layaway/details.vue').default
+},
 ]
 
 const router = new VueRouter({

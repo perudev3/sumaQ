@@ -15,6 +15,7 @@
                                     </div>
                             	</div>
                             </div>
+                            
                             <div class="col-lg-4">
                                 <div class="page-header-breadcrumb">
                                     <router-link to="/user/create">
@@ -31,15 +32,17 @@
                     <!-- Page-body start -->
                     <div class="page-body">
                         <div class="row">
+                            
                             <div class="col-sm-12">
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text"  id="basic-addon1">Escriba nombre del usuario</span></div>
+                                        <input type="search" class="form-control" v-model="users_name" v-on:keyup="searchUsers">
+                                    </div>											
+                                </div>
                                 <!-- Zero config.table start -->
                                 <div class="card">
-									<div class="card-header">
-										<div class="form-group col-lg-4">
-											<label>Escriba nombre del Usuario</label>
-											<input type="search" class="form-control" v-model="users_name" v-on:keyup="searchUsers">
-										</div>
-									</div>
                                     <div class="card-block">
                                         <div class="card-block table-border-style">
                                             <div class="dt-responsive table-responsive">

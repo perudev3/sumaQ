@@ -21,6 +21,7 @@ class CreateTblInventoriesTable extends Migration
             $table->string('inventories_image_url')->nullable();
             $table->string('inventories_codigo')->nullable();
             $table->integer('sales_id')->unsigned()->nullable();
+            $table->integer('layaway_id')->unsigned()->nullable();
             $table->integer('purchase_orders_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();

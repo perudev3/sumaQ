@@ -28,17 +28,17 @@
 										<div class="row">
 											<div class="col-lg-12">
                                                 <div class="card-sub" align="center">
+                                                    <div class="alert alert-warning background-warning">
+														{{ data_products.products_name }}   
+													</div>
                                                     <img class="card-img-top img-fluid"
                                                         :src="'/img_products/'+data_products.products_image_url" 
                                                         alt="Card image cap"
-														style="width: 40%;">
-                                                    <div class="card-block">
-                                                        <h4>{{ data_products.products_name }}</h4>
-                                                    </div>
+														style="width: 20%;">    
 													<div class="card-body">
-														<div class="card-header" style="background: #00000026;">
-															<h3><b>Detalles del Producto</b></h3>
-														</div>														
+														<div class="alert alert-success background-success">
+															<b>Detalles del Producto</b>
+														</div>													
 														<p><h5>Precio - <b>$ {{data_products.products_price }}</b> </h5> </p>
 														<p><h5>Categoria - <b>{{data_products.category.categories_name}}</b> </h5> </p>
 													</div>
@@ -48,7 +48,7 @@
 									</div>
 								</div>
 							</div>  
-							<div class="col-sm-6">
+							<div class="col-sm-12">
 								<div class=" ">
                                     <div class="card-block">
                                         <div class="card-block table-border-style">
@@ -58,7 +58,6 @@
                                                         <tr>
 															<th>Producto</th>
 															<th>Imagen</th>
-															<th>Categoria</th>
 															<th>Material</th>
 															<th>Coleccion</th>
 															<th>Tamaño</th>
@@ -76,9 +75,6 @@
 																<img style="width: 120px;" :src="data.inventories_image_url ? '/img_inventories/'+data.inventories_image_url : '/img/logo.jpeg'">
 															</td>
 															
-															<td>
-																{{data.products.category.categories_name }}
-															</td>
 															<td>
 																{{data.products.material.materials_name}}
 															</td>

@@ -12,4 +12,5 @@ class tbl_sales_profits extends Model
     ];
 
     protected $primaryKey = "sales_profits_id";
+
 }

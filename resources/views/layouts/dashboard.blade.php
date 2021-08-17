@@ -127,20 +127,20 @@
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
                                             <a href="{{url('/category')}}">
-                                                <i class="fa fa-dashboard"></i>
+                                                <i class="fa fa-sitemap"></i>
                                                 <span class="pcoded-mtext"> Categorias</span>
                                             </a>
                                         </li>
                                         <li class=" ">
                                             <a href="{{url('/collection')}}">
-                                                <i class="fa fa-dashboard"></i>
+                                                <i class="fa fa-sitemap"></i>
                                                 <span class="pcoded-mtext"> Colección</span>
                                             </a>
                                         </li>  
 
                                         <li class=" ">
                                             <a href="{{url('/material')}}">
-                                                <i class="fa fa-dashboard"></i>
+                                                <i class="fa fa-sitemap"></i>
                                                 <span class="pcoded-mtext"> Material</span>
                                             </a>
                                         </li>
@@ -154,67 +154,86 @@
                                     <ul class="pcoded-submenu">
                                         <li>
                                             <a href="{{url('/sales/pedidos')}}">
-                                                <i class="fa fa-dashboard"></i>
+                                                <i class="fa fa-sitemap"></i>
                                                 <span class="pcoded-mtext">Ventas</span>
                                             </a>                                    
                                         </li> 
                                         <li>
                                             <a href="{{url('/sales/details')}}">
-                                                <i class="fa fa-dashboard"></i>
+                                                <i class="fa fa-sitemap"></i>
                                                 <span class="pcoded-mtext">Detalles Ventas</span>
-                                            </a>                                    
-                                        </li>
-                                        <li>
-                                            <a href="{{url('/provider')}}">
-                                                <i class="fa fa-dashboard"></i>
-                                                <span class="pcoded-mtext">Provedores</span>
-                                            </a>                                    
-                                        </li>
-
-                                        <li>
-                                            <a href="{{url('/products')}}">
-                                                <i class="fa fa-dashboard"></i>
-                                                <span class="pcoded-mtext">Productos</span>
-                                            </a>                                    
-                                        </li>
-
-                                        <li>
-                                            <a href="{{url('/inventory')}}">
-                                                <i class="fa fa-dashboard"></i>
-                                                <span class="pcoded-mtext">Inventario</span>
                                             </a>                                    
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="">
+                                    <a href="{{url('/provider')}}">
+                                        <span class="pcoded-micon"><i class="fa fa-sitemap"></i></span>
+                                        <span class="pcoded-mtext">Provedores</span>
+                                    </a> 
+                                </li>
+                                <li class="">
+                                    <a href="{{url('/products')}}">
+                                        <span class="pcoded-micon"><i class="fa fa-sitemap"></i></span>
+                                        <span class="pcoded-mtext">Productos</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{{url('/inventory')}}">
+                                        <span class="pcoded-micon"><i class="fa fa-sitemap"></i></span>
+                                        <span class="pcoded-mtext">Inventario</span>
+                                    </a>   
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-sidebar"></i></span>
+                                        <span class="pcoded-mtext">LAYAWAY</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li>
+                                            <a href="{{url('/layaway/pedidos')}}">
+                                                <i class="fa fa-sitemap"></i>
+                                                <span class="pcoded-mtext">Ventas</span>
+                                            </a>                                    
+                                        </li> 
+                                        <li>
+                                            <a href="{{url('/layaway/details')}}">
+                                                <i class="fa fa-sitemap"></i>
+                                                <span class="pcoded-mtext">Detalles Ventas</span>
+                                            </a>                                    
+                                        </li>
+
+                                    </ul>
+                                </li>
                                 <li>
                                     <a href="{{url('/customers')}}">
-                                        <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                                        <span class="pcoded-micon"><i class="feather icon-users"></i></span>
                                         <span class="pcoded-mtext"> Clientes</span>
                                     </a>
                                 </li>  
 
                                 <li>
                                     <a href="{{url('/sucursal')}}">
-                                        <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
-                                        <span class="pcoded-mtext"> Sucursal</span>
+                                        <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                        <span class="pcoded-mtext"> Sucursales</span>
                                     </a>
                                 </li>  
 
                                 <li>
                                     <a href="{{url('/discount')}}">
-                                        <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                                        <span class="pcoded-micon"><i class="feather icon-percent"></i></span>
                                         <span class="pcoded-mtext">Descuentos</span>
                                     </a>
                                 </li>
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
+                                        <span class="pcoded-micon"><i class="feather icon-list"></i></span>
                                         <span class="pcoded-mtext">Reportes</span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
                                             <a href="{{url('/sales/report')}}">
-                                                <i class="fa fa-dashboard"></i>
+                                                <i class="fa fa-sitemap"></i>
                                                 <span class="pcoded-mtext"> Ventas</span>
                                             </a>
                                         </li> 

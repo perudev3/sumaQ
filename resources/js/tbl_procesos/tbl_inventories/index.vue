@@ -28,17 +28,20 @@
 										<div class="row">
 											<div class="col-lg-4" v-for="(data, index) in searchInUsers">
                                                 <div class="card-sub" align="center">
+													<div class="alert alert-warning background-warning">
+														{{ data.products_name }}   
+													</div>
                                                     <img class="card-img-top img-fluid"
                                                         :src="'/img_products/'+data.products_image_url" 
                                                         alt="Card image cap"
-														style="width: 40%;">
-                                                    <div class="card-block">
-                                                        <h4>{{ data.products_name }}</h4>
-                                                        <p class="card-text">
-															<p><b>Categoria : {{data.category.categories_name }}</b></p>
-															<p>Inventario :{{ data.count_inventory.length }} </p>
-														</p>
-                                                    </div>
+														style="width: 28%;">
+													<div class="card-body">
+														<div class="alert alert-success background-success">
+															<b>Detalles del Producto</b>
+														</div>
+														<p><h5> Categoria : <b>{{ data.category.categories_name }}</b></h5> </p>	
+														<p><h5> Stock : <b>{{ data.count_inventory.length }}</b></h5> </p>
+													</div>
                                                 </div>
 												<div class="card-footer" align="center">	
 													<router-link :to="`/inventory/add/${data.products_id}`">										

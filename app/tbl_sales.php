@@ -23,4 +23,18 @@ class tbl_sales extends Model
 
     protected $primaryKey = "sales_id";
 
+    public function customers()
+    {
+        return $this->belongsTo('App\tbl_customers','customers_id')->groupBy('customers_name');
+    }
+
+    public function sucursals()
+    {
+        return $this->belongsTo('App\mae_sucursals','sucursals_id');
+    }
+
+    public function sales_profits()
+    {
+        return $this->hasMany('App\tbl_sales_profits','sales_id');
+    }
 }

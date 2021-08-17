@@ -14,7 +14,7 @@
                                     <div class="col-md-12">
                                       <div id="wizard1">
                                         <section>
-                                          <form class="wizard-form wizard clearfix" id="basic-forms">
+                                          <div class="wizard-form wizard clearfix" id="basic-forms">
                                             <div class="steps clearfix">
                                               <ul role="tablist">
                                                 <li role="tab" class="done" aria-disabled="false" aria-selected="false" @click="Pedidos" align="center">
@@ -41,48 +41,63 @@
                                               </ul>
                                             </div>
                                             <div class="clearfix" style="margin-top: 50px;">
-                                              <table id="simpletable" class="table table-responsive ">
-                                                <thead>
-                                                  <tr>
-                                                    <th>Nombre</th> 
-                                                    <th>Codigo</th> 
-                                                    <th>Precio</th> 
-                                                    <th>Imagen</th> 
-                                                    <th>Opciones</th>
-                                                  </tr>
-                                                </thead> 
-                                                <tbody>
-                                                  <tr v-for="(data, index) in data"
-                                                        :key="index">
-                                                    <td>
-                                                        {{ data.products.products_name }}
-                                                    </td> 
-                                                    <td>
-                                                        {{ data.inventories_codigo }}
-                                                    </td> 
-                                                    <td>
-                                                        $ {{ data.products.products_price }}
-                                                    </td> 
-                                                    <td align="center">
-                                                      <img :src="data.products.products_image_url ? '/img_products/'+data.products.products_image_url : '/img/logo.jpeg'" style="width: 25%;"/>
-                                                    </td> 
-                                                    <td>
-                                                      <a>
-                                                        Quitar
-                                                        <div class="feather icon-trash"></div>
-                                                      </a>
-                                                    </td>
-                                                  </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <div class="input-group">
-                                                      <div class="input-group-prepend">
-                                                        <span class="input-group-text"  id="basic-addon1">Total <i class="fa fa-dollar"></i> </span>
-                                                      </div>
-                                                      <input type="text"  :value="totalPrice" disabled class="form-control">
+                                              <div class="page-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <!-- Zero config.table start -->
+                                                        <div class="card">
+                                                            <div class="card-block">
+                                                                <div class="card-block table-border-style">
+                                                                    <div class="dt-responsive table-responsive">
+                                                                        <table id="simpletable" class="table ">
+                                                                          <thead>
+                                                                            <tr>
+                                                                              <th>Nombre</th> 
+                                                                              <th>Codigo</th> 
+                                                                              <th>Precio</th> 
+                                                                              <th>Imagen</th> 
+                                                                              <th>Opciones</th>
+                                                                            </tr>
+                                                                          </thead> 
+                                                                          <tbody>
+                                                                            <tr v-for="(data, index) in data"
+                                                                                  :key="index">
+                                                                              <td>
+                                                                                  {{ data.products.products_name }}
+                                                                              </td> 
+                                                                              <td>
+                                                                                  {{ data.inventories_codigo }}
+                                                                              </td> 
+                                                                              <td>
+                                                                                  $ {{ data.products.discounts_group.length ? (data.products.products_price - (data.products.discounts_group[0].discounts[0].discounts_porcentaje*data.products.products_price)/100) : data.products.products_price}}
+                                                                              </td> 
+                                                                              <td align="center">
+                                                                                <img :src="data.products.products_image_url ? '/img_products/'+data.products.products_image_url : '/img/logo.jpeg'" style="width: 25%;"/>
+                                                                              </td> 
+                                                                              <td>
+                                                                                <a>
+                                                                                  Quitar
+                                                                                  <div class="feather icon-trash"></div>
+                                                                                </a>
+                                                                              </td>
+                                                                            </tr>
+                                                                          </tbody>
+                                                                          <tfoot>
+                                                                              <div class="input-group">
+                                                                                <div class="input-group-prepend">
+                                                                                  <span class="input-group-text"  id="basic-addon1">Total <i class="fa fa-dollar"></i> </span>
+                                                                                </div>
+                                                                                <input type="text"  :value="totalPrice" disabled class="form-control">
+                                                                              </div>
+                                                                          </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </tfoot>
-                                              </table>
+                                                </div>
+                                              </div>
                                             </div>
                                             <fieldset id="basic-forms-p-0" role="tabpanel" aria-labelledby="basic-forms-h-0" class="body current" aria-hidden="false" style="left: 0px;">
                                                   <div class="mt-4 mb-28 bg-white rounded w-full shadow px-4 py-4">
@@ -96,7 +111,7 @@
                                                     </div>
                                                   </div>
                                             </fieldset>
-                                          </form>
+                                          </div>
                                         </section>
                                       </div>
                                     </div>
@@ -134,9 +149,11 @@ export default {
 
   computed: {
 		totalPrice () {
-			return this.data.reduce(
-					(y, x) => y + parseFloat(x.products.products_price), 0)
-				.toFixed(2);
+			var total = 0.0;
+			for (var index = 0; index < this.data.length; index++) {
+                total = total + (this.data[index].products.products_price - (this.data[index].products.discounts_group[0].discounts[0].discounts_porcentaje*this.data[index].products.products_price)/100);
+            }
+            return total;
 		},
 
   },

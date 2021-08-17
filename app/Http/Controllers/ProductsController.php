@@ -18,7 +18,7 @@ class ProductsController extends Controller
         return  tbl_products::with(['discountsGroup' => function($query) {
             return $query->with('discounts');
         }])
-        ->with(['category', 'collection', 'material'])->get();
+        ->with(['category', 'collection', 'material','countInventory'])->get();
     }
 
     public function PostProducts(Request $request)

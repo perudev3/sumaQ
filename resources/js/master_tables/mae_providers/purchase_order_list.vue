@@ -1,192 +1,230 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
-		<section class="tg-dbsectionspace tg-haslayout">
-	      <div class="row">
-        <!--Modal-->
-			    <div  class="permiso" :class="{'mostrar' : modal}" style="overflow-y: auto;padding-top: 50px;">
-	            <div class="permiso-content">
-                      <div class="modal-header">
-                          <button @click="Cerrar"> X </button>
-                      </div>
-	                    <div class="modal-body">
-	                        <div class="row">
-                              <div class="form-group">
-                                <label>Porfavor, escriba su queja</label>
-                                <input type="text" class="form-control" v-model="purchase_orders_complain">
-                              </div>
-	                        </div>
-                          <div class="row">
-                                    <table class="table table-responsive">
-                                        <thead>
-                                            <tr>
-                                              <td>Nombre del producto</td>
-                                              <td>Cantidad</td>
-                                              <td>Sub-Monto</td>
-                                              <td></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(data, index) in data_order">
-                                              <td>{{data.products_name}}</td>
-                                              <td> <input type="text" class="form-control" v-model="data.total_products"> </td>
-                                              <td>{{ parseFloat(data.products_price* data.total_products ).toFixed(2)}}</td>
-                                              <td> <button ><i class="fa fa-trash"> </i></button></td>
-                                            </tr>
-                                            <tr>
-                                              <td></td>
-                                              <td>Total</td>
-                                              <td>{{ purchase_orders_total_price= parseFloat(Total_Pedidos).toFixed(2)}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+  <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                  <div class="page-body">
+                    <div class="row">
+                        <!--Modal-->
+                          <div  class="permiso" :class="{'mostrar' : modal}" style="overflow-y: auto;padding-top: 50px;">
+                              <div class="permiso-content">
+                                      <div class="modal-header">
+                                          <button @click="Cerrar"> X </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <div class="row">
+                                              <div class="form-group">
+                                                <label>Porfavor, escriba su queja</label>
+                                                <input type="text" class="form-control" v-model="purchase_orders_complain">
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                                    <table class="table table-responsive">
+                                                        <thead>
+                                                            <tr>
+                                                              <td>Nombre del producto</td>
+                                                              <td>Cantidad</td>
+                                                              <td>Sub-Monto</td>
+                                                              <td></td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(data, index) in data_order">
+                                                              <td>{{data.products_name}}</td>
+                                                              <td> <input type="text" class="form-control" v-model="data.total_products"> </td>
+                                                              <td>{{ parseFloat(data.products_price* data.total_products ).toFixed(2)}}</td>
+                                                              <td> <button ><i class="fa fa-trash"> </i></button></td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td></td>
+                                                              <td>Total</td>
+                                                              <td>{{ purchase_orders_total_price= parseFloat(Total_Pedidos).toFixed(2)}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                          </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-primary" @click="ActualizarPedido">Guardar</button>
+                                      </div>
+                              </div>            
                           </div>
-	                    </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" @click="ActualizarPedido">Guardar</button>
-                      </div>
-	            </div>            
-	        </div>
-        <!--Cerrar Modal-->
+                        <!--Cerrar Modal-->
+                        <div class="col-sm-12">
+                          <div class="card">
+                            <div class="card-block">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div id="wizard1">
+                                    <section>
+                                      <div class="wizard-form wizard clearfix" id="basic-forms">
+                                          <div class="steps clearfix">
+                                            <ul role="tablist">
+                                              <li style="width: 50% !important;" role="tab" class="done" aria-disabled="false" aria-selected="true" align="center">
+                                                  <a href="/provider" id="basic-forms-t-0" aria-controls="basic-forms-p-0">
+                                                    <span class="current-info audible">current step: </span>
+                                                    <span class="number"><i class="fa fa-building fa-3x" aria-hidden="true"></i></span> 
+                                                  </a>
+                                                  
+                                              </li>
+                                              <li style="width: 50% !important;" role="tab" class="first current" aria-disabled="false" aria-selected="false" align="center">
+                                                  <a href="/provider/purchase_orders/lista">
+                                                    <span class="number"><i class="fa fa-list fa-3x" aria-hidden="true"></i></span> 
+                                                  </a>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                          <div class="clearfix" style="margin-top: 50px;">
+                                            <fieldset id="basic-forms-p-0" role="tabpanel" aria-labelledby="basic-forms-h-0" class="body current" aria-hidden="false" style="left: 0px;">
+                                                <div class="row">	
+                                                    <div class="main-body">
+                                                        <div class="page-wrapper">
+                                                            <!-- Page-header start -->
+                                                            <div class="page-header">
+                                                                <div class="align-items-end">                                                                  
+                                                                  <div class="row">
+                                                                      <router-link to="/purchase_orders/create">
+                                                                          <button class="btn btn-primary">
+                                                                              + Crear Orden
+                                                                          </button>
+                                                                      </router-link>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                      <!-- Zero config.table start -->
+                                                      <div class="card">  
+                                                        <div class="card-block">
+                                                            <div class="card-block table-border-style">
+                                                                <div class="dt-responsive table-responsive">
+                                                                  <table class="table">
+                                                                      <thead>
+                                                                        <tr>
+                                                                          <th>Ordenado por:</th>
+                                                                          <th>Fecha orden realizada</th>
+                                                                          <th>Proveedor</th>
+                                                                          <th>Estado</th>
+                                                                          <th>Opciones</th>
+                                                                        </tr>
+                                                                      </thead>
+                                                                      <tbody>
+                                                                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
+                                                                          <td >
+                                                                            {{data.name}}
+                                                                          </td>
+                                                                          <td >
+                                                                            {{data.purchase_orders_solicited_date}}
+                                                                          </td>
+                                                                          <td >
+                                                                            {{data.providers_name}}
+                                                                          </td>
+                                                                          <td style="text-align: center;">
+                                                                              <span v-if="data.purchase_orders_status==0" style="background: rgb(115, 232, 115);border-radius: 8px;margin: 6px;padding: 5px;">Solicitado</span>
+                                                                              <span v-if="data.purchase_orders_status==1" style="background: #ecd324;border-radius: 8px;margin: 6px;padding: 5px;">Confirmado</span>
+                                                                              <span v-if="data.purchase_orders_status==2" style="background: #f05a5a;border-radius: 8px;margin: 6px;padding: 5px;">Entregado</span>
+                                                                          </td>
+                                                                          <td >
+                                                                              <a v-if="data.purchase_orders_status==0"  @click="Confirmacion(data.purchase_orders_id)"><button class="btn btn-primary"><i class="fa fa-check"></i></button></a>
+                                                                              <a v-if="data.purchase_orders_status==1" @click="Recibido(data.purchase_orders_id)"><button class="btn btn-primary"><i class="fa fa-check"></i></button> </a>
+                                                                              <a ><button class="btn btn-warning"><i class="fa fa-pencil"></i></button></a>
+                                                                              <a ><button class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </tbody>
+                                                                  </table>
+                                                                  <div class="card-footer" style="background-color: rgb(0 0 0 / 0%) !important;border-top: 1px solid rgb(255 255 255 / 13%) !important;">
+                                                                      <nav aria-label="Page navigation" class="float-left">
+                                                                          <ul class="pagination">
+                                                                          <!--Botones anteriores-->
+                                                                              <li v-if="pagination.currentPage == 1" class="page-item disabled">
+                                                                                  <a class="page-link" href="#" aria-label="Previous">
+                                                                                      <span aria-hidden="true"><i class="fa fa-fast-backward"></i></span>
+                                                                                      <span class="sr-only">Previous</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                              <li v-else class="page-item">
+                                                                                  <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(1)">
+                                                                                      <span aria-hidden="true"><i class="fa fa-fast-backward"></i></span>
+                                                                                      <span class="sr-only">Previous</span>
+                                                                                  </a>
+                                                                              </li>
 
-				<ul class="nav nav-pills nav-wizard">
-						<li style="width:50%;">
-							<router-link to="/provider">
-							Proveedores
-							</router-link>
-						</li>			
-                        <li class="active" style="width:50%;">
-							<router-link to="/provider/purchase_orders/lista">
-							Ordenes Solicitadas
-							</router-link>
-						</li>	
-				</ul>
-	          <div class="tg-formtheme tg-formdashboard">
-	            <fieldset>
-	              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	                <div class="tg-dashboardbox" style="margin-top: 40px;">
-	                  <div class="tg-dashboardboxtitle">
-	                    <router-link to="/purchase_orders/create">
-		                      <button class="btn btn-primary">
-		                          + Crear Orden
-		                      </button>
-		                  </router-link>
-	                  </div>
-	                  <div class="tg-dashboardholder">
-	                    <table id="tg-adstype" class="table tg-dashboardtable tg-payments">
-	                      <thead>
-	                        <tr>
-	                          <th>Ordenado por:</th>
-	                          <th>Fecha orden realizada</th>
-	                          <th>Proveedor</th>
-	                          <th>Estado</th>
-	                          <th>Opciones</th>
-	                        </tr>
-	                      </thead>
-	                      <tbody>
-	                        <tr data-category="packageone" v-for="(data, index) in searchInUsers">
-	                          <td data-title="Ordenado por:">
-	                            <h3>{{data.name}}</h3>
-	                          </td>
-	                          <td data-title="Fecha orden realizada">
-	                            <h3>{{data.purchase_orders_solicited_date}}</h3>
-	                          </td>
-	                          <td data-title="Proveedor">
-	                            <h3>{{data.providers_name}}</h3>
-	                          </td>
-	                          <td data-title="Estado" style="text-align: center;">
-	                            <h3 v-if="data.purchase_orders_status==0" style="background: rgb(115, 232, 115);border-radius: 8px;margin: 6px;padding: 5px;">Solicitado</h3>
-                                <h3 v-if="data.purchase_orders_status==1" style="background: #ecd324;border-radius: 8px;margin: 6px;padding: 5px;">Confirmado</h3>
-                                <h3 v-if="data.purchase_orders_status==2" style="background: #f05a5a;border-radius: 8px;margin: 6px;padding: 5px;">Entregado</h3>
-	                          </td>
-	                          <td data-title="Opciones">
-	                            <div class="tg-btnsactions">
-	                              <a class="tg-btnaction tg-btnactionview" v-if="data.purchase_orders_status==0"  @click="Confirmacion(data.purchase_orders_id)"><i class="fa fa-check"></i></a>
-                                <a class="tg-btnaction tg-btnactionview" v-if="data.purchase_orders_status==1" @click="Recibido(data.purchase_orders_id)"><i class="fa fa-check"></i></a>
-                                <a class="tg-btnaction tg-btnactionview" ><i class="fa fa-pencil"></i></a>
-	                              <a class="tg-btnaction tg-btnactiondelete" ><i class="fa fa-trash"></i></a>
-	                            </div>
-	                          </td>
-	                        </tr>
-	                      </tbody>
-	                    </table>
 
-	                    <div class="card-footer" style="background-color: rgb(0 0 0 / 0%) !important;border-top: 1px solid rgb(255 255 255 / 13%) !important;">
-	                        <nav aria-label="Page navigation" class="float-left">
-	                            <ul class="pagination">
-	                            <!--Botones anteriores-->
-	                                <li v-if="pagination.currentPage == 1" class="page-item disabled">
-	                                    <a class="page-link" href="#" aria-label="Previous">
-	                                        <span aria-hidden="true"><i class="fa fa-fast-backward"></i></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                </li>
-	                                <li v-else class="page-item">
-	                                    <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(1)">
-	                                        <span aria-hidden="true"><i class="fa fa-fast-backward"></i></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                </li>
+                                                                              <li v-if="pagination.currentPage == 1" class="page-item disabled">
+                                                                                  <a class="page-link" href="#" aria-label="Previous">
+                                                                                      <span aria-hidden="true"><i class="fa fa-step-backward"></i></span>
+                                                                                      <span class="sr-only">Previous</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                              <li v-else class="page-item">
+                                                                                  <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(pagination.currentPage - 1)">
+                                                                                      <span aria-hidden="true"><i class="fa fa-step-backward"></i></span>
+                                                                                      <span class="sr-only">Previous</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                          <!--Botones anteriores-->
 
+                                                                              <li v-for="(page,index) in getLinksPages" class="page-item" :class="[page === isCurrentPage ? 'active':'' ]">
+                                                                                  <span v-if="page === isCurrentPage" class="page-link">{{ page }}</span>
+                                                                                  <a v-else class="page-link" href="#" @click.prevent="changePage(page)" >{{page}}</a>
+                                                                              </li>
 
-	                                <li v-if="pagination.currentPage == 1" class="page-item disabled">
-	                                    <a class="page-link" href="#" aria-label="Previous">
-	                                        <span aria-hidden="true"><i class="fa fa-step-backward"></i></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                </li>
-	                                <li v-else class="page-item">
-	                                    <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(pagination.currentPage - 1)">
-	                                        <span aria-hidden="true"><i class="fa fa-step-backward"></i></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                </li>
-	                            <!--Botones anteriores-->
+                                                                          <!--Botones posteriores-->
+                                                                              <li v-if="pagination.currentPage == pagination.lastPage" class="page-item disabled">
+                                                                                  <a class="page-link" href="#" aria-label="Previous">
+                                                                                      <span aria-hidden="true"><i class="fa fa-step-forward"></i></span>
+                                                                                      <span class="sr-only">Next</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                              <li v-else class="page-item">
+                                                                                  <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pagination.currentPage + 1)">
+                                                                                      <span aria-hidden="true"><i class="fa fa-step-forward"></i></span>
+                                                                                      <span class="sr-only">Next</span>
+                                                                                  </a>
+                                                                              </li>
 
-	                                <li v-for="(page,index) in getLinksPages" class="page-item" :class="[page === isCurrentPage ? 'active':'' ]">
-	                                    <span v-if="page === isCurrentPage" class="page-link">{{ page }}</span>
-	                                    <a v-else class="page-link" href="#" @click.prevent="changePage(page)" >{{page}}</a>
-	                                </li>
-
-	                            <!--Botones posteriores-->
-	                                <li v-if="pagination.currentPage == pagination.lastPage" class="page-item disabled">
-	                                    <a class="page-link" href="#" aria-label="Previous">
-	                                        <span aria-hidden="true"><i class="fa fa-step-forward"></i></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </li>
-	                                <li v-else class="page-item">
-	                                    <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pagination.currentPage + 1)">
-	                                        <span aria-hidden="true"><i class="fa fa-step-forward"></i></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </li>
-
-	                                <li v-if="pagination.currentPage == pagination.lastPage" class="page-item disabled">
-	                                    <a class="page-link" href="#" aria-label="Previous">
-	                                        <span aria-hidden="true"><i class="fa fa-fast-forward"></i></i></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </li>
-	                                <li v-else class="page-item">
-	                                    <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pagination.lastPage)">
-	                                        <span aria-hidden="true"><i class="fa fa-fast-forward"></i></i></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </li>
-	                            <!--Botones posteriores-->  
-	                            </ul>
-	                        </nav>
-	                    </div>
-	                  </div>
-
-	                </div>
-	              </div>
-	            </fieldset>
-	          </div>
-	      </div>
-		</section>
-	</main>
+                                                                              <li v-if="pagination.currentPage == pagination.lastPage" class="page-item disabled">
+                                                                                  <a class="page-link" href="#" aria-label="Previous">
+                                                                                      <span aria-hidden="true"><i class="fa fa-fast-forward"></i></i></span>
+                                                                                      <span class="sr-only">Next</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                              <li v-else class="page-item">
+                                                                                  <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pagination.lastPage)">
+                                                                                      <span aria-hidden="true"><i class="fa fa-fast-forward"></i></i></span>
+                                                                                      <span class="sr-only">Next</span>
+                                                                                  </a>
+                                                                              </li>
+                                                                          <!--Botones posteriores-->  
+                                                                          </ul>
+                                                                      </nav>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                          </div>
+                                      </div>
+                                    </section>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+  </div>
 	
 </template>
 

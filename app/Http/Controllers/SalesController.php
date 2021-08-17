@@ -36,13 +36,7 @@ class SalesController extends Controller
 
         $data = [];
 
-        for ($i=0; $i < count($array_data) ; $i++) {             
-            /*$row = \DB::table('tbl_inventories')
-                    ->select('tbl_products.*', 'tbl_inventories.*')
-                    ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
-                    ->where('tbl_inventories.inventories_codigo', $array_data[$i])
-                    ->first();*/
-            
+        for ($i=0; $i < count($array_data) ; $i++) {    
             $row  = tbl_inventories::with([
                 'products' => function($query){
                         return $query->with(['discountsGroup'=> function($query){
@@ -121,7 +115,46 @@ class SalesController extends Controller
 
     public function GetSalesDetails()
     {
-        return tbl_sales_details::with(['products','customers','sucursals','sales'])->get();
+        $id_sucursal = session('sucursal')[0]->sucursals_id;        
+        return tbl_sales::with([ 'customers', 'sucursals', 'sales_profits'])
+                        ->where('sucursals_id', $id_sucursal)
+                        ->get();
+        
+    }
+
+    public function GetSalesDate(Request $request)
+    {
+        $id_sucursal = session('sucursal')[0]->sucursals_id;
+        return tbl_sales::with([ 'customers', 'sucursals', 'sales_profits'])
+                         ->where('sucursals_id', $id_sucursal)
+                         ->whereDay('created_at', $request['day'])
+                         ->get();
+    }
+
+    public function GetSalesMonth(Request $request)
+    {
+        $id_sucursal = session('sucursal')[0]->sucursals_id;
+        return tbl_sales::with([ 'customers', 'sucursals', 'sales_profits'])
+                         ->where('sucursals_id', $id_sucursal)
+                         ->whereMonth('created_at', $request['month'])
+                         ->get();
+    }
+
+    public function GetSalesYear(Request $request)
+    {
+        $id_sucursal = session('sucursal')[0]->sucursals_id;
+        return tbl_sales::with([ 'customers', 'sucursals', 'sales_profits'])
+                         ->where('sucursals_id', $id_sucursal)
+                         ->whereYear('created_at', $request['year'])
+                         ->get();
+    }
+
+    public function findBySalesDetailsDate(Request $request)
+    {       
+            return tbl_sales_details::with(['products','customers','sucursals','sales'])
+                                ->where('customers.customers_name',$request->customers_name)
+                                ->whereBetween('created_at', [$request['date_init'], $request['date_end']])
+                                ->get();
     }
 
     public function UpdateStatus(Request $request)
@@ -162,17 +195,7 @@ class SalesController extends Controller
     
         }
         
-    }
+    }    
 
-
-    public function findBySalesDetailsDate(Request $request)
-    {
-       
-            return tbl_sales_details::with(['products','customers','sucursals','sales'])
-                                ->where('customers_name',$request->customers_name)
-                                ->whereBetween('created_at', [$request['date_init'], $request['date_end']])
-                                ->get();
-        
-    }
 
 }

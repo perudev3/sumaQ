@@ -60,7 +60,7 @@
 																		</div>
 																		<div class="col-lg-6">
 																			<div class="card">
-																				<div class="card-header" align="center" style="background: #0000001f;">
+																				<div class="alert alert-success background-success" align="center">
 																					<h3>Detalles del Producto</h3>
 																				</div>
 																				<div class="card-body">

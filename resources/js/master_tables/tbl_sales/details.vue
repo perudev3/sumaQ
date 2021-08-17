@@ -28,12 +28,27 @@
                     <!-- Page-header start -->
                     <div class="page-header">
                         <div class="row align-items-end">
-                            <div class="col-lg-8">
+                            <div class="col-lg-12">
                             	<div class="page-header-title">
                                     <div class="d-inline">
                                         <h4>DETALLES DE VENTAS</h4>
                                     </div>
                             	</div>
+                            </div>
+							<div class="col-lg-3">
+                                <div class="card bg-c-yellow update-card">
+                                    <div class="card-block">
+                                        <div class="row align-items-end">
+                                            <div class="col-8">
+                                                <h4 class="text-white">$ {{ parseFloat(calcularTotal).toFixed(2) }}</h4>
+                                                <h6 class="text-white m-b-0">TOTAL</h6>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <canvas id="update-chart-1" height="50"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -47,9 +62,13 @@
                                 <div class="card">
 									<div class="card-header">
 										<div class="row">
-												<div class="col-md-6">
+											<div class="col-md-3">
 												<button class="btn btn-primary" v-on:click="busquedadetails = !busquedadetails">Filtrar Busqueda</button>
-												</div>
+											</div>
+											<div class="col-md-3">
+												<button class="btn btn-primary" v-on:click="busquedafechas = !busquedafechas">Filtrar por Día/Mes/Año</button>
+											</div>
+											
 										</div><br>
 										<transition name="fade">
 												<div class="row" v-if="busquedadetails">
@@ -77,6 +96,35 @@
 															</div>
 												</div>
 										</transition>
+										<transition name="fade">
+											<div class="row" v-if="busquedafechas">
+												<div class="col-md-3">
+													<div class="form-group">
+														<label>Seleccionar Día</label>
+														<input type="date" class="form-control" v-model="day" @change="onChangeDay($event)">
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="form-group">
+														<label>Seleccionar Mes</label>
+														<input type="month" class="form-control" v-model="month" @change="onChangeMonth($event)">
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="form-group">
+														<label>Seleccionar Año</label>
+														<select class="form-control" @change="onChangeYear($event)" v-model="year">
+															<option v-for="data in years" :value="data">{{ data }}</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-2">
+													<button class="btn btn-primary" style="margin-top: 30px;" @click="GetSalesDetails()">
+														Todos <i class="fa fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</transition>
 									</div>
                                     <div class="card-block">
                                         <div class="card-block table-border-style">
@@ -95,25 +143,25 @@
                                                     <tbody>
                                                         <tr  v-for="(data, index) in data_details_sales" :key="index">
                                                            <td>
-																<h3>{{data.customers.customers_name ? data.customers.customers_name : ''}}</h3>
+																{{data.customers ? data.customers.customers_name : ''}}
 															</td>
 															<td>
-																<h3>{{data.customers.customers_phone}}</h3>
+																{{data.customers.customers_phone}}
 															</td>
 															<td>
-																<h3>{{data.sales.sales_payment_method}}</h3>
+																{{data.sales_payment_method}}
 															</td>
 															<td>
-																<h3>{{data.sales.sales_payment_date}}</h3>
+																{{data.sales_payment_date}}
 															</td>
 															<td align="center">
-																<label v-if="data.sales.sales_status==0">En Tienda</label>
-																<label v-if="data.sales.sales_status==1">Despachado</label>
-																<label v-if="data.sales.sales_status==2">Entregado</label>
-																<label v-if="data.sales.sales_status==3">Cencelado</label>
+																<label v-if="data.sales_status==0">En Tienda</label>
+																<label v-if="data.sales_status==1">Despachado</label>
+																<label v-if="data.sales_status==2">Entregado</label>
+																<label v-if="data.sales_status==3">Cencelado</label>
 															</td>
 															<td>
-																<select class="form-control" @change="onChange($event,data.sales.sales_id)" v-model="data.sales.sales_status" >
+																<select class="form-control" @change="onChange($event,data.sales_id)" v-model="data.sales_status" >
 																	<option value="1">Despachado</option>
 																	<option value="2">Entregado</option>
 																	<option value="3">Cancelado</option>
@@ -144,14 +192,35 @@ export default {
 	    return {
 			data_details_sales:[],
 			busquedadetails:false,
+			busquedafechas:false,
 			status:'',
 			sales_id:'',
 			modal:0,
+			day:'',
+			month:'',
+			year:'',
 			sales_canceled_reason:'',
 			date_init:'',
 			date_end:'',
 			customers_name:'',
+			total_count:'',
 	    }
+	},
+
+	computed : {
+		years () {
+			const year = new Date().getFullYear()
+			return Array.from({length: year - 1900}, (value, index) => 1901 + index)
+		},
+
+		calcularTotal(){
+			var resultado=0.0;
+			for(var i=0;i<this.total_count.length;i++){
+				resultado= resultado + this.total_count[i].sales_profits[i].total_bussines;
+			}
+			return resultado;
+		}
+
 	},
 
 	methods:{
@@ -164,6 +233,7 @@ export default {
 			let me = this;		
 			axios.post('/get_sales_details').then(function(response){
 				me.data_details_sales = response.data;
+				me.total_count = response.data;
 			});
 		},
 
@@ -184,7 +254,6 @@ export default {
 		onChange(event, sales_id){
 			let me = this;
 			me.status = event.target.value;	
-			console.log(me.status,sales_id);
 			if (me.status==3) {
 				me.modal = 1;
 				me.sales_id = sales_id;
@@ -201,6 +270,42 @@ export default {
 			}
 		},
 
+		onChangeDay(event){
+			let me = this;
+			var changeDay= event.target.value;
+			var day = changeDay.split("-");
+			axios.post('/getsalesdate',{
+				'day': day[2],
+			}).then(function(response){
+				me.data_details_sales = response.data;
+				me.total_count = response.data;
+			});
+			
+		},
+
+		onChangeMonth(event){
+			let me = this;
+			var changeMonth= event.target.value;
+			var month = changeMonth.split("-");
+			axios.post('/getsalesmonth',{
+				'month': month[1],
+			}).then(function(response){
+				me.data_details_sales = response.data;
+				me.total_count = response.data;
+			});
+		},
+
+		onChangeYear(event){
+			let me = this;
+			var changeYear= event.target.value;
+			axios.post('/getsalesyear',{
+				'year': changeYear,
+			}).then(function(response){
+				me.data_details_sales = response.data;
+				me.total_count = response.data;
+			});			
+		},
+
 		FilterByDate(){
 			let me = this;
 			axios.post('/findBysalesDate',{
@@ -209,6 +314,7 @@ export default {
 				'date_end': me.date_end
 			}).then(function(response){
 				me.data_details_sales = response.data;
+				me.total_count = response.data;
 			});
 		}
 

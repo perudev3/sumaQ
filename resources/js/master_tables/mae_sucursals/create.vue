@@ -1,39 +1,73 @@
 <template>
 
-	<main id="tg-main" class="tg-main tg-haslayout" style="background: rgb(219, 219, 219);">
-		<section class="tg-dbsectionspace tg-haslayout">
-        <div class="tg-formtheme tg-formdashboard">
-          <fieldset>
-            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 tg-lgcolwidthhalf">
-              <div class="tg-dashboardbox">
-                <div class="tg-dashboardboxtitle">
-                  <h2>Registrar Sucursal</h2>
+  <div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- Main-body start -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-header start -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                          <div class="page-header-title">
+                              <div class="d-inline">
+                                  <h4>REGISTRAR SUCURSAL</h4>                                                        
+                              </div>
+                          </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="tg-dashboardholder">
-                  <div class="form-group">
-                      <input type="text"  v-model="sucursals_name" class="form-control" placeholder="Nombre del Sucursal">
-                  </div>
-                  <div class="form-group">
-                      <input type="text"  v-model="sucursals_address" class="form-control" placeholder="Dirección del Sucursal">
-                  </div>
-                  <div class="form-group">
-                     <select class="form-control" v-model="sucursals_is_active">
-                         <option value="1">Ativo</option>
-                         <option value="0">Inactivo</option>
-                     </select>
+
+                <div class="page-body">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <!-- Basic Form Inputs card start -->
+                          <div class="card">
+                              <div class="card-block">
+                                <form>
+                                  <div class="row">
+                                      <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"  id="basic-addon1">Nombre deL Sucursal</span></div>
+                                                <input type="text"  v-model="sucursals_name" class="form-control">
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"  id="basic-addon1">Dirección del Sucursal</span></div>
+                                                <input type="text"  v-model="sucursals_address" class="form-control">
+                                            </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text"  id="basic-addon1">Estado</span></div>
+                                                <select class="form-control" v-model="sucursals_is_active">
+                                                    <option value="1">Ativo</option>
+                                                    <option value="0">Inactivo</option>
+                                                </select>
+                                            </div>
+                                      </div>
+                                  </div>                                        
+                                  <br><br>
+                                  <div class=" ">
+                                        <button class="btn btn-primary" type="button" @click="PostSucusals">Registrar</button>
+                                        <router-link :to="{path: '/sucursal'}">
+                                          <button class="btn btn-danger" type="button" >Cancelar</button>
+                                        </router-link>
+                                  </div>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
                   </div>
                 </div>
-              </div>
             </div>
-          </fieldset>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <button class="btn btn-primary" type="button" @click="PostSucusals">Registrar</button>
-            </div>
-        </div> 
-		</section>
-	</main>
+    </div>
+  </div>
 	
 </template>
 
