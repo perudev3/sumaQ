@@ -57,6 +57,7 @@
                                                     <thead>
                                                         <tr>
 															<th>Producto</th>
+															<th>Estado</th>
 															<th>Imagen</th>
 															<th>Material</th>
 															<th>Coleccion</th>
@@ -67,9 +68,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for="(data, index) in searchInUsers" v-bind:class="{ 'marcado' : data.sales_id }">
+                                                        <tr v-for="(data, index) in searchInUsers">															
 															<td>
 																{{data.products.products_name}}
+															</td>
+															<td>
+																<span v-if="data.sales_id || data.layaway_id" style="background: #008000a8;padding: 3px;border-radius: 4px;color: #fff;"> Vendido </span>
 															</td>
 															<td>
 																<img style="width: 120px;" :src="data.inventories_image_url ? '/img_inventories/'+data.inventories_image_url : '/img/logo.jpeg'">

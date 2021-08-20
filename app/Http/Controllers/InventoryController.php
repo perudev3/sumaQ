@@ -36,6 +36,7 @@ class InventoryController extends Controller
         $product = tbl_inventories::with('products','sizes','sales')
                                     ->where('products_id', $products_id)
                                     ->where('sales_id', NULL)
+                                    ->where('layaway_id', NULL)
                                     ->get();
         return view('generate_QR.inventorie_qr', compact('product'));
     }
@@ -47,6 +48,7 @@ class InventoryController extends Controller
                 ->join('tbl_products','tbl_products.products_id', '=', 'tbl_inventories.products_id')
                 ->where('tbl_inventories.inventories_codigo', $inventories_codigo)
                 ->where('tbl_inventories.sales_id', NULL)
+                ->where('tbl_inventories.layaway_id', NULL)
                 ->get();
         return view('generate_QR.by_inventorie_qr', compact('product'));
     }
@@ -62,9 +64,9 @@ class InventoryController extends Controller
                                 ->orderBy('inventories_id')
                                 ->get(); */
         $listainventory = tbl_inventories::with(['products' => function($query) {
-                                    return $query->with(['category', 'collection', 'material', 'discountsGroup']);
+                                    return $query->with(['collection', 'material', 'discountsGroup']);
                                 }])
-                                ->with(['sizes', 'sales'])
+                                ->with(['sizes', 'sales', 'layaway'])
                                 ->where('products_id', $products_id)
                                 ->orderBy('inventories_id')
                                 ->get();

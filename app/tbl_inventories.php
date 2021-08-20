@@ -28,4 +28,9 @@ class tbl_inventories extends Model
         return $this->belongsTo('App\tbl_sales','sales_id');
     }
 
+    public function layaway()
+    {
+        return $this->belongsTo('App\tbl_layaway','layaway_id');
+    }
+
 }

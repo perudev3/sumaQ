@@ -24,6 +24,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/icon/icofont/css/icofont.css') }}">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/css/style.css') }}">
+
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/icon/feather/css/feather.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/css/font-awesome.min.css') }}">
 </head>
 
 <body class="fix-menu">
@@ -86,8 +90,8 @@
                                     </div>
                                 </div>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="input-user" style="background:#efefef;padding: 14px;">
-                                        <i class="fa fa-user"></i>
+                                    <span class="input-group-addon" id="input-user" style="padding: 8px;">
+                                        <i class="fa fa-home"></i>
                                     </span>
                                     <select type="text" name="sucursal_id" class="form-control" placeholder="Sucursal" required autofocus>
 

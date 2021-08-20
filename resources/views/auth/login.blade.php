@@ -24,6 +24,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/icon/icofont/css/icofont.css') }}">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/css/style.css') }}">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/icon/feather/css/feather.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/css/font-awesome.min.css') }}">
 </head>
 
 <body class="fix-menu">
@@ -86,7 +89,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group form-primary">
-                                    <input type="text" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="E-mail">
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" id="input-user" style="padding: 8px;">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                        <input type="text" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="E-mail">
+                                    </div>                                     
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -94,7 +102,12 @@
                                     @enderror
                                 </div>
                                 <div class="form-group form-primary">
-                                    <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" required autocomplete="current-password" placeholder="Contraseña">
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" id="input-user" style="padding: 8px;">
+                                            <i class="fa fa-unlock-alt"></i>
+                                        </span>
+                                        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" required autocomplete="current-password" placeholder="Contraseña">
+                                    </div>                                    
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
