@@ -144,6 +144,13 @@
                                                 <span class="pcoded-mtext"> Material</span>
                                             </a>
                                         </li>
+
+                                        <li>
+                                            <a href="{{url('/discount')}}">
+                                                <i class="feather icon-percent"></i>
+                                                <span class="pcoded-mtext">Descuentos</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="pcoded-hasmenu">
@@ -218,13 +225,13 @@
                                         <span class="pcoded-mtext"> Sucursales</span>
                                     </a>
                                 </li>  
-
-                                <li>
-                                    <a href="{{url('/discount')}}">
-                                        <span class="pcoded-micon"><i class="feather icon-percent"></i></span>
-                                        <span class="pcoded-mtext">Descuentos</span>
-                                    </a>
+                                <li class="">
+                                    <a href="{{url('/solicitudes')}}">
+                                        <span class="pcoded-micon"><i class="fa fa-sitemap"></i></span>
+                                        <span class="pcoded-mtext">Solicitudes de Inventario</span>
+                                    </a> 
                                 </li>
+                                
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="feather icon-list"></i></span>

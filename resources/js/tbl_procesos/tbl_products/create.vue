@@ -36,7 +36,7 @@
                                         <div class="col-lg-6">
                                               <div class="input-group">
                                                   <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Suplidos</span></div>
+                                                  <span class="input-group-text"  id="basic-addon1">Suplidor</span></div>
                                                   <input type="text" disabled :value="user['name']" class="form-control">
                                               </div>
                                         </div>

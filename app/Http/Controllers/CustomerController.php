@@ -28,6 +28,7 @@ class CustomerController extends Controller
         return DB::table('tbl_customers')
         ->select('tbl_customers.*', 'tbl_addresses.*')
         ->join('tbl_addresses','tbl_addresses.addresses_id', '=', 'tbl_customers.addresses_id')
+        ->groupBy('tbl_customers.customers_name')
         ->get();
 
     }

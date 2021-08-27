@@ -14,12 +14,12 @@
 										<div class="container">
 										<div class="form-group">
 											<label>Por favor, ingresar motivo de la cancelacion de pedido</label>
-											<input type="text" class="form-control" v-model="sales_canceled_reason">
+											<input type="text" class="form-control" v-model="layaway_canceled_reason">
 										</div>
 										</div>
 									</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" @click="CanceledSales()">Guardar</button>
+									<button type="button" class="btn btn-primary" @click="Canceledlayaway()">Guardar</button>
 								</div>
 						</div>            
 					</div>
@@ -90,7 +90,7 @@
 																</button>
 															</div>
 															<div class="col-md-2">
-																<button class="btn btn-primary" style="margin-top: 35px;" @click="GetSalesDetails()">
+																<button class="btn btn-primary" style="margin-top: 35px;" @click="GetlayawayDetails()">
 																	Todos <i class="fa fa-search"></i>
 																</button>
 															</div>
@@ -119,7 +119,7 @@
 													</div>
 												</div>
 												<div class="col-md-2">
-													<button class="btn btn-primary" style="margin-top: 30px;" @click="GetSalesDetails()">
+													<button class="btn btn-primary" style="margin-top: 30px;" @click="GetlayawayDetails()">
 														Todos <i class="fa fa-search"></i>
 													</button>
 												</div>
@@ -141,7 +141,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr  v-for="(data, index) in data_details_sales" :key="index">
+                                                        <tr  v-for="(data, index) in data_details_layaway" :key="index">
                                                            <td>
 																{{data.customers ? data.customers.customers_name : ''}}
 															</td>
@@ -149,19 +149,19 @@
 																{{data.customers.customers_phone}}
 															</td>
 															<td>
-																{{data.sales_payment_method}}
+																{{data.layaway_payment_method}}
 															</td>
 															<td>
-																{{data.sales_payment_date}}
+																{{data.layaway_payment_date}}
 															</td>
 															<td align="center">
-																<label v-if="data.sales_status==0">En Tienda</label>
-																<label v-if="data.sales_status==1">Despachado</label>
-																<label v-if="data.sales_status==2">Entregado</label>
-																<label v-if="data.sales_status==3">Cencelado</label>
+																<label v-if="data.layaway_status==0">En Tienda</label>
+																<label v-if="data.layaway_status==1">Despachado</label>
+																<label v-if="data.layaway_status==2">Entregado</label>
+																<label v-if="data.layaway_status==3">Cencelado</label>
 															</td>
 															<td>
-																<select class="form-control" @change="onChange($event,data.sales_id)" v-model="data.sales_status" >
+																<select class="form-control" @change="onChange($event,data.layaway_id)" v-model="data.layaway_status" >
 																	<option value="1">Despachado</option>
 																	<option value="2">Entregado</option>
 																	<option value="3">Cancelado</option>
@@ -190,16 +190,16 @@ export default {
 
 	data:function(){
 	    return {
-			data_details_sales:[],
+			data_details_layaway:[],
 			busquedadetails:false,
 			busquedafechas:false,
 			status:'',
-			sales_id:'',
+			layaway_id:'',
 			modal:0,
 			day:'',
 			month:'',
 			year:'',
-			sales_canceled_reason:'',
+			layaway_canceled_reason:'',
 			date_init:'',
 			date_end:'',
 			customers_name:'',
@@ -214,9 +214,10 @@ export default {
 		},
 
 		calcularTotal(){
+			let me = this;	
 			var resultado=0.0;
-			for(var i=0;i<this.total_count.length;i++){
-				resultado= resultado + this.total_count[i].sales_profits[i].total_bussines;
+			for(var i=0;i< me.total_count.length;i++){
+				resultado= resultado + me.total_count[i].layaway_profits[i]['total_bussines_layaway'];
 			}
 			return resultado;
 		}
@@ -229,42 +230,42 @@ export default {
 			this.modal=0;
 		},
 
-		GetSalesDetails(){
+		GetlayawayDetails(){
 			let me = this;		
 			axios.post('/get_layaway_details').then(function(response){
-				me.data_details_sales = response.data;
+				me.data_details_layaway = response.data;
 				me.total_count = response.data;
 			});
 		},
 
-		CanceledSales(){
+		Canceledlayaway(){
 			let me = this;
 			axios.put('/update_statuslayaway',{
-				'layaway_canceled_reason':me.sales_canceled_reason,
+				'layaway_canceled_reason':me.layaway_canceled_reason,
 				'status': me.status, 
-				'layaway_id': me.sales_id
+				'layaway_id': me.layaway_id
 			}).then(function(response){
 				if (response.data.status=='success') {
-					me.GetSalesDetails();
+					me.GetlayawayDetails();
 					me.modal=0;
 				}
 			});
 		},
 
-		onChange(event, sales_id){
+		onChange(event, layaway_id){
 			let me = this;
 			me.status = event.target.value;	
 			if (me.status==3) {
 				me.modal = 1;
-				me.sales_id = sales_id;
+				me.layaway_id = layaway_id;
 			}else{
-				me.sales_id = sales_id;
+				me.layaway_id = layaway_id;
 				axios.put('/update_statuslayaway',{
 					'status': me.status, 
-					'layaway_id': me.sales_id
+					'layaway_id': me.layaway_id
 				}).then(function(response){
 					if (response.data.status=='success') {
-						me.GetSalesDetails();
+						me.GetlayawayDetails();
 					}
 				});
 			}
@@ -277,7 +278,7 @@ export default {
 			axios.post('/getlayawaydate',{
 				'day': day[2],
 			}).then(function(response){
-				me.data_details_sales = response.data;
+				me.data_details_layaway = response.data;
 				me.total_count = response.data;
 			});
 			
@@ -290,7 +291,7 @@ export default {
 			axios.post('/getlayawaymonth',{
 				'month': month[1],
 			}).then(function(response){
-				me.data_details_sales = response.data;
+				me.data_details_layaway = response.data;
 				me.total_count = response.data;
 			});
 		},
@@ -301,7 +302,7 @@ export default {
 			axios.post('/getlayawayyear',{
 				'year': changeYear,
 			}).then(function(response){
-				me.data_details_sales = response.data;
+				me.data_details_layaway = response.data;
 				me.total_count = response.data;
 			});			
 		},
@@ -313,7 +314,7 @@ export default {
 				'date_init': me.date_init, 
 				'date_end': me.date_end
 			}).then(function(response){
-				me.data_details_sales = response.data;
+				me.data_details_layaway = response.data;
 				me.total_count = response.data;
 			});
 		}
@@ -323,7 +324,7 @@ export default {
 
 	mounted() {
         let self = this
-        self.GetSalesDetails();
+        self.GetlayawayDetails();
     }
 
   

@@ -46,7 +46,7 @@
 										<div class="row">
 											<div class="col-lg-4" v-for="(data, index) in searchInUsers">
 												
-                                                <div class="card-sub" align="center">
+                                                <div class="card-sub" align="center" style="box-shadow: 0 0 25px -5px #9e9c9e;">
 													<div class="alert alert-danger background-danger">
 														<span v-if="data.count_inventory.length < 500">Se agota Stock de este producto</span>
 													</div>
@@ -64,17 +64,19 @@
 														<template v-if="data.discounts_group.length">
 															<p><h5>Precio - <b><del> $ {{ data.products_price }}</del></b></h5></p>
 															<p><h5>Precio + Descuento - <b> $ {{ data.discounts_group.length ?  (data.products_price - (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100) : 'No tiene descuento'}} </b> </h5> </p>
+															<p><h5>Descuento del <b> {{ data.discounts_group[0].discounts[0].discounts_porcentaje}} %</b></h5></p>
 														</template>		
 														<template v-else>
 															<p><h5>Precio - <b>{{ data.products_price }}</b></h5></p>
 														</template>		
-														<p><h5>Descuento del <b> {{data.discounts_group[0].discounts[0].discounts_porcentaje}} %</b></h5></p>
+														
+													</div>
+													<div class="card-footer" align="center">	
+														<button class="btn btn-primary" @click="editProducto(data)">Editar <i class="fa fa-pencil fa-1x"></i></button>
+														<button class="btn btn-primary">Eliminar <i class="fa fa-trash fa-1x"></i></button>
 													</div>
                                                 </div>
-												<div class="card-footer" align="center">	
-													<button class="btn btn-primary" @click="editProducto(data)">Editar <i class="fa fa-pencil fa-1x"></i></button>
-													<button class="btn btn-primary">Eliminar <i class="fa fa-trash fa-1x"></i></button>
-												</div>
+												
                                             </div>
 										</div>
 									</div>

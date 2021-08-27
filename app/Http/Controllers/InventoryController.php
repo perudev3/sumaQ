@@ -26,7 +26,7 @@ class InventoryController extends Controller
                 }
             ])
             ->where('inventories_codigo', 'like', "%$codigo%")
-            ->where('sucursals_id', session('sucursal_id'))
+            ->where('sucursals_id', session('sucursal')[0]->sucursals_id)
             ->get();
     }
 
@@ -68,6 +68,7 @@ class InventoryController extends Controller
                                 }])
                                 ->with(['sizes', 'sales', 'layaway'])
                                 ->where('products_id', $products_id)
+                                ->where('sucursals_id', session('sucursal')[0]->sucursals_id)
                                 ->orderBy('inventories_id')
                                 ->get();
                                 
@@ -92,7 +93,7 @@ class InventoryController extends Controller
             for ($i=0; $i < $value['cantidad']; $i++) { 
                 $inventario = tbl_inventories::create([
                     'products_id' => $request->products_id,
-                    'sucursals_id' => session('sucursal_id'),
+                    'sucursals_id' => session('sucursal')[0]->sucursals_id,
                     'inventories_codigo' =>Str::random(4),
                     'sizes_id' => $size->sizes_id,
                     'user_id' => $user->id
@@ -116,4 +117,20 @@ class InventoryController extends Controller
             return [ "status" => "success", "message" => "Imagen Subido con Exito"];
         }
     }
+
+    public function TransferenciaInventorie(Request $request)
+    {
+        for ($i=0; $i < $request['quanty'] ; $i++) { 
+            $inventario = tbl_inventories::where('products_id', $request['products_id'])
+            ->where('sales_id', NULL)
+            ->where('layaway_id', NULL)
+            ->update([
+                'sucursals_id' => $request['sucursals_id']
+            ]);
+        }
+
+    }
+
+
+
 }

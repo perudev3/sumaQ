@@ -27,7 +27,8 @@ class tbl_products extends Model
     {
         return $this->hasMany('App\tbl_inventories', 'products_id')->where([
             'sales_id' => NULL,
-            'sucursals_id' => session('sucursals_id'),
+            'layaway_id' => NULL,
+            'sucursals_id' => session('sucursal')[0]->sucursals_id,
         ])->orderBy('products_id', 'desc');
     }
 

@@ -382,6 +382,7 @@ Route::get('/generate_qr_inventorie/{products_id}', 'InventoryController@Generat
 Route::get('/generate_qr_byinventorie/{inventories_codigo}', 'InventoryController@GenerateQRByInventorie');
 Route::get('/find_by_code_inventory/{codigo}', 'InventoryController@findByInventoryCode');
 Route::post('uploadimage_inventorie', 'InventoryController@UploadImageInventorie');
+Route::post('tranferencia_inventorie', 'InventoryController@TransferenciaInventorie');
 
 Route::get('data_districts', 'DistrictsController@GetDistricts');
 
@@ -414,3 +415,32 @@ Route::prefix('customers')->group(function () {
 
 Route::get('get_customers', 'CustomerController@getCustomers');
 Route::get('search_customers', 'CustomerController@searchCustomers');
+
+
+
+/***SOLICITUDES***/
+Route::prefix('solicitudes')->group(function () {
+
+	Route::get('/', function () {
+		$name_view = 'Solicitudes';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_solicitudes', compact('name_view', 'user'));
+	});
+
+	Route::get('/create', function () {
+		$name_view = 'Solicitudes';
+		$user = \Auth::user();
+		return view('processes_tables.tbl_solicitudes', compact('name_view', 'user'));
+	});
+	
+});
+
+Route::get('/solicitante', function () {
+	$name_view = 'Solicitudes';
+	$user = \Auth::user();
+	return view('processes_tables.tbl_solicitudes', compact('name_view', 'user'));
+});
+
+Route::get('get_solicitudes', 'SolicitudesController@GetSolicitudes');
+Route::get('get_solicitante', 'SolicitudesController@GetSolicitante');
+Route::post('post_solicitudes', 'SolicitudesController@PostSolicitudes');

@@ -48,6 +48,29 @@
 									</div>
 								</div>
 							</div>  
+							<div class="row container">
+									<div class="col-lg-6">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"  id="basic-addon1">Seleccione Sucursal</span>
+											</div>
+											<select class="form-control" v-model="sucursals_id">
+												<option v-for="data in data_sucursals" :value="data.sucursals_id">{{ data.sucursals_name }}</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"  id="basic-addon1">Cantidad</span>
+											</div>
+											<input type="text" class="form-control" v-model="quanty">
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<button class="btn btn-primary" @click="Transferir()"> Transferir </button>
+									</div>
+							</div>
 							<div class="col-sm-12">
 								<div class=" ">
                                     <div class="card-block">
@@ -93,7 +116,7 @@
 															</td>
 															<td>
 																<a :href="'/generate_qr_byinventorie/'+data.inventories_codigo" target="_blank">
-																	<button class="btn btn-primary">
+																	<button class="btn btn-primary" :disabled="data.sales_id || data.layaway_id">
 																		Generar QR
 																	</button>
 																</a>
@@ -202,6 +225,9 @@ export default {
       return {
       		data_inventory:[],
 			data_products:[],
+			data_sucursals:[],
+			sucursals_id:'',
+			quanty:'',
 			products_id: this.$route.params.products_id,
 			inventories_codigo:'',
 			selectPerPage:6,
@@ -221,6 +247,24 @@ export default {
 
 
   methods:{
+
+	  	GetSucursals(){
+            let me=this;
+            axios.get('/get_sucursal').then(function(response){
+                me.data_sucursals = response.data;
+          	});
+        },
+
+		Transferir(){
+			let me=this;
+            axios.post('/tranferencia_inventorie', {
+				'sucursals_id' : me.sucursals_id,
+				'quanty' : me.quanty,
+				'products_id' : me.products_id
+			}).then(function(response){
+                console.log(response.data);
+          	});
+		},
 
 	  	//Pagination//
         getDetailsInventory(){
@@ -333,6 +377,7 @@ export default {
             let self = this
             setTimeout(function(){
               self.getDetailsInventory();
+			  self.GetSucursals();
             },2000);
 
   }

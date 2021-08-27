@@ -11,8 +11,8 @@
                                     <div class="card-block">
                                         <div class="row align-items-end">
                                             <div class="col-8">
-                                                <h4 class="text-white">$30200</h4>
-                                                <h6 class="text-white m-b-0">All Earnings</h6>
+                                                <h4 class="text-white">$ {{ parseFloat(calcularTotalSales).toFixed(2) }}</h4>
+                                                <h6 class="text-white m-b-0">VENTAS POS</h6>
                                             </div>
                                             <div class="col-4 text-right">
                                                 <canvas id="update-chart-1" height="50"></canvas>
@@ -20,7 +20,11 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update : 2:15 am</p>
+                                        <a href="/sales/pedidos">
+                                            <div class="btn btn-three">
+                                                <span>IR <i class="fa fa-arrow-circle-right fa-3x" aria-hidden="true"></i></span>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -29,8 +33,8 @@
                                     <div class="card-block">
                                         <div class="row align-items-end">
                                             <div class="col-8">
-                                                <h4 class="text-white">290+</h4>
-                                                <h6 class="text-white m-b-0">Page Views</h6>
+                                                <h4 class="text-white">$ {{ parseFloat(calcularTotalLayaway).toFixed(2) }}</h4>
+                                                <h6 class="text-white m-b-0">VENTAS LAYAWAY</h6>
                                             </div>
                                             <div class="col-4 text-right">
                                                 <canvas id="update-chart-2" height="50"></canvas>
@@ -38,43 +42,11 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update: 2:15 am</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-c-pink update-card">
-                                    <div class="card-block">
-                                        <div class="row align-items-end">
-                                            <div class="col-8">
-                                                <h4 class="text-white">145</h4>
-                                                <h6 class="text-white m-b-0">Task Completed</h6>
+                                        <a href="/layaway/pedidos">
+                                            <div class="btn btn-three">
+                                                <span>IR <i class="fa fa-arrow-circle-right fa-3x" aria-hidden="true"></i></span>
                                             </div>
-                                            <div class="col-4 text-right">
-                                                <canvas id="update-chart-3" height="50"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update: 2:15 am</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-c-lite-green update-card">
-                                    <div class="card-block">
-                                        <div class="row align-items-end">
-                                            <div class="col-8">
-                                                <h4 class="text-white">500</h4>
-                                                <h6 class="text-white m-b-0">Downloads</h6>
-                                            </div>
-                                            <div class="col-4 text-right">
-                                                <canvas id="update-chart-4" height="50"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update: 2:15 am</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -97,12 +69,34 @@ export default {
     data:function(){
         return {
             count_products:'',
+            total_count_layaway:'',
+            total_count_sales:'',
             data_provider:[],
             data_sales:[],
             years: [],
             labels: [],
         }
     },
+    computed : {
+		calcularTotalLayaway(){
+			let me = this;	
+			var resultado=0.0;
+			for(var i=0;i< me.total_count_layaway.length;i++){
+				resultado= resultado + me.total_count_layaway[i].layaway_profits[i].total_bussines_layaway;
+			}
+			return resultado;
+		},
+
+
+        calcularTotalSales(){
+			var resultado=0.0;
+			for(var i=0;i<this.total_count_sales.length;i++){
+				resultado= resultado + this.total_count_sales[i].sales_profits[i].total_bussines;
+			}
+			return resultado;
+		}
+
+	},
   methods:{
         ChartProvider(){
             let me=this;
@@ -170,6 +164,20 @@ export default {
                 });          
             })
 		},
+
+        GetlayawayDetails(){
+			let me = this;		
+			axios.post('/get_layaway_details').then(function(response){
+				me.total_count_layaway = response.data;
+			});
+		},
+
+        GetSalesDetails(){
+			let me = this;		
+			axios.post('/get_sales_details').then(function(response){
+				me.total_count_sales = response.data;
+			});
+		},
   
   },
 
@@ -177,7 +185,55 @@ export default {
 		  let self = this
             self.ChartProvider();
             self.getDatadash();
+            self.GetlayawayDetails();
+            self.GetSalesDetails();
 	}
 }
 
 </script>
+
+
+<style>
+/* 
+========================
+      BUTTON THREE
+========================
+*/
+.btn-three {
+  color: #FFF;
+  transition: all 0.5s;
+  position: relative;
+}
+.btn-three::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.1);
+  transition: all 0.3s;
+}
+.btn-three:hover::before {
+  opacity: 0 ;
+  transform: scale(0.5,0.5);
+}
+.btn-three::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.5);
+  transform: scale(1.2,1.2);
+}
+.btn-three:hover::after {
+  opacity: 1;
+  transform: scale(1,1);
+}
+</style>

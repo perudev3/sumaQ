@@ -234,6 +234,22 @@ const routes = [
     name:'layaway/details',
     component: require('./tbl_procesos/tbl_layaway/details.vue').default
 },
+
+/***Solicitudes***/
+{
+    path:'/solicitudes',
+    name:'solicitudes',
+    component: require('./tbl_procesos/tbl_solicitudes/index.vue').default
+},
+{
+    path:'/solicitudes/create',
+    component: require('./tbl_procesos/tbl_solicitudes/create.vue').default
+},
+{
+    path:'/solicitante',
+    component: require('./tbl_procesos/tbl_solicitudes/solicitante.vue').default
+},
+
 ]
 
 const router = new VueRouter({
