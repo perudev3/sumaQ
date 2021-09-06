@@ -424,13 +424,15 @@ Route::prefix('solicitudes')->group(function () {
 	Route::get('/', function () {
 		$name_view = 'Solicitudes';
 		$user = \Auth::user();
-		return view('processes_tables.tbl_solicitudes', compact('name_view', 'user'));
+		$sucursal = session('sucursal')[0];
+		return view('processes_tables.tbl_solicitudes', compact('name_view', 'user', 'sucursal'));
 	});
 
 	Route::get('/create', function () {
 		$name_view = 'Solicitudes';
 		$user = \Auth::user();
-		return view('processes_tables.tbl_solicitudes', compact('name_view', 'user'));
+		$sucursal = session('sucursal')[0];
+		return view('processes_tables.tbl_solicitudes', compact('name_view', 'user', 'sucursal'));
 	});
 	
 });
@@ -438,7 +440,8 @@ Route::prefix('solicitudes')->group(function () {
 Route::get('/solicitante', function () {
 	$name_view = 'Solicitudes';
 	$user = \Auth::user();
-	return view('processes_tables.tbl_solicitudes', compact('name_view', 'user'));
+	$sucursal = session('sucursal')[0];
+	return view('processes_tables.tbl_solicitudes', compact('name_view', 'user', 'sucursal'));
 });
 
 Route::get('get_solicitudes', 'SolicitudesController@GetSolicitudes');

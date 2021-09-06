@@ -129,7 +129,7 @@
 
 export default {
 
-    props:['user'],
+    props:['user', 'sucursales'],
  
     data:function(){
         return {
@@ -137,7 +137,7 @@ export default {
             data_products:[],
             hoy: new Date(),  
             solictudes_fecha:'',
-            solicitudes_from: this.user['id'],
+            solicitudes_from: this.sucursales['sucursals_id'],
             solicitudes_to:'',
             solicitudes_subject:'',
             solicitudes_message:'',
@@ -181,7 +181,7 @@ export default {
                                     type: 'success',
                                     confirmButtonText: 'OK'
                                 });
-                                this.$router.replace('/solicitudes');
+                                //this.$router.replace('/solicitudes');
                             };
                     }).catch(function (error) {
                         console.log(error);

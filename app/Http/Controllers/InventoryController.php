@@ -120,14 +120,28 @@ class InventoryController extends Controller
 
     public function TransferenciaInventorie(Request $request)
     {
-        for ($i=0; $i < $request['quanty'] ; $i++) { 
-            $inventario = tbl_inventories::where('products_id', $request['products_id'])
-            ->where('sales_id', NULL)
-            ->where('layaway_id', NULL)
-            ->update([
-                'sucursals_id' => $request['sucursals_id']
-            ]);
-        }
+        $request->validate([
+            'quanty' => 'required|numeric',
+            'products_id' => 'required|numeric',
+            'sucursals_id' => 'required|numeric',
+        ]);
+        
+        $qty = $request->quanty;
+        
+        $inventario = tbl_inventories::where('products_id', $request->products_id)
+            ->whereNull('sales_id')
+            ->whereNull('layaway_id')
+            ->where('sucursals_id', '!=' , $request->sucursals_id)
+            ->limit($request->quanty);
+        
+        abort_if($inventario->count() < $qty, 400, 'No hay inventario suficiente');
+
+        $inventario->update([
+            'sucursals_id' => $request->sucursals_id
+        ]);
+
+        return $inventario->get();
+ 
 
     }
 

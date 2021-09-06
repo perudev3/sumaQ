@@ -93,7 +93,7 @@
 
                                                                                         <tr  v-for="(data, index) in searchInUsers">
                                                                                             <td>
-                                                                                                {{ data.sucursals_name  }}
+                                                                                                {{ data.to.sucursals_name  }}
                                                                                             </td>
                                                                                             <td>
                                                                                                 {{ data.solictudes_fecha }}
@@ -102,7 +102,7 @@
                                                                                                 {{ data.solicitudes_subject }}
                                                                                             </td>
                                                                                             <td>
-                                                                                                {{ data.products_name }}
+                                                                                                {{ data.products.products_name }}
                                                                                             </td>
                                                                                             <td>
                                                                                                 {{ data.cantidad }}

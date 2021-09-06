@@ -18,11 +18,14 @@ class SolicitudesController extends Controller
     public function GetSolicitante()
     {
 
-        return  DB::table('tbl_solicitudes')->select('tbl_solicitudes.*', 'mae_sucursals.*','tbl_products.*')
+        /* return  DB::table('tbl_solicitudes')->select('tbl_solicitudes.*', 'mae_sucursals.*','tbl_products.*')
                                             ->join('mae_sucursals', 'tbl_solicitudes.solicitudes_from', '=', 'mae_sucursals.sucursals_id')
                                             ->join('tbl_products', 'tbl_solicitudes.products_id', '=', 'tbl_products.products_id')
                                             ->where('tbl_solicitudes.sucursals_id', session('sucursal')[0]->sucursals_id)
-                                            ->get();
+                                            ->get(); */
+        return tbl_solicitudes::with('To', 'products')
+                                ->where('sucursals_id', session('sucursal')[0]->sucursals_id)
+                                ->get();
     }
 
     public function PostSolicitudes(Request $request)
@@ -34,6 +37,7 @@ class SolicitudesController extends Controller
             'solicitudes_subject' => $request->solicitudes_subject,
             'solicitudes_message' => $request->solicitudes_message,
             'cantidad' => $request->cantidad,
+            'products_id' => $request->products_id,
         ]);
 
         if ($solicitud==true) {
