@@ -13,7 +13,7 @@ class CreateTblLayawaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_layaway', function (Blueprint $table) {
+        Schema::create('tbl_layaways', function (Blueprint $table) {
             $table->increments('layaway_id');
             $table->integer('user_id')->unsigned();
             $table->integer('sucursals_id')->unsigned();

@@ -40,6 +40,12 @@ const routes = [
         
     },
 
+    {
+        path:'/customers/customer_details',
+        name:'customers/customer_details',
+        component: require('./tbl_procesos/tbl_customers/customer_details.vue').default        
+    },
+
 /***Collection***/
     {
         path:'/collection',

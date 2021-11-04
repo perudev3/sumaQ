@@ -14,7 +14,7 @@
                                         <div class="col-md-12">
                                             <div id="wizard1">
                                                 <section>
-                                                    <form class="wizard-form wizard clearfix" id="basic-forms">
+                                                    <div class="wizard-form wizard clearfix" id="basic-forms">
                                                         <div class="steps clearfix">
                                                             <ul role="tablist">
                                                                 <li role="tab" class="done" aria-disabled="false" aria-selected="false" @click="Pedidos" align="center">
@@ -146,7 +146,7 @@
                                                                 </div>
                                                             </div>                                                            
                                                         </div>
-                                                    </form>
+                                                    </div>
                                                 </section>
                                             </div>
                                         </div>

@@ -57,8 +57,8 @@
                                                                 {{data.addresses_reference}}
                                                             </td>
                                                             <td>
-                                                                <a>
-                                                                    <button class="btn btn-success"><i class="feather icon-edit"></i></button>
+                                                                <a @click="customer_details(data.customers_id)">
+                                                                    <button class="btn btn-success"><i class="feather icon-eye"></i></button>
                                                                 </a>															
                                                                 <a href="javascript:void(0);">
                                                                     <button class="btn btn-danger"><i class="feather icon-trash"></i></button>
@@ -170,10 +170,10 @@ export default {
         },
 
       }
-  },
+    },
 
 
-  methods:{
+    methods:{
 
         //Paginacion vue//
         GetClientes(){
@@ -201,15 +201,15 @@ export default {
               console.log(response.data);
           })
 		},
-		
-		editProducto(data){
-			this.$router.push({
-				name: "products/edit",
-				params:{
-					data_product: data
+
+        customer_details(customers_id){
+            this.$router.push({
+                name:"customers/customer_details",
+                params:{
+					customers_id: customers_id
 				}
-			});
-		}
+            });
+        }
 
   },
   computed:{

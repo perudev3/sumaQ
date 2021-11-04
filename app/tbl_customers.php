@@ -16,4 +16,9 @@ class tbl_customers extends Model
 
     protected $primaryKey = "customers_id";
 
+    public function address()
+    {
+        return $this->belongsTo('App\tbl_addresses','addresses_id');
+    }
+
 }

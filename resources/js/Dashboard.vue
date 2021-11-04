@@ -97,97 +97,97 @@ export default {
 		}
 
 	},
-  methods:{
-        ChartProvider(){
-            let me=this;
-            axios.get('chart_provider').then(function(response){
-                me.data_provider= response.data;
-                console.log(me.data_provider);
-                me.LineChart(response.data);
-            })
-        },
+    methods:{
+            ChartProvider(){
+                let me=this;
+                axios.get('chart_provider').then(function(response){
+                    me.data_provider= response.data;
+                    console.log(me.data_provider);
+                    me.LineChart(response.data);
+                })
+            },
 
-        LineChart(data){
-        var ctx = document.getElementById('Linechart');
-        console.log(Object.values(this.data_provider))
-            var myChart = new ChartJS(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                    datasets: [
-                        {
-                            label: 'SumaQ',
-                            data: Object.values(data),
-                            backgroundColor: "rgba(54,73,93,.5)",
-                            borderColor: "#36495d",
-                            borderWidth: 3
+            LineChart(data){
+            var ctx = document.getElementById('Linechart');
+            console.log(Object.values(this.data_provider))
+                var myChart = new ChartJS(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                        datasets: [
+                            {
+                                label: 'SumaQ',
+                                data: Object.values(data),
+                                backgroundColor: "rgba(54,73,93,.5)",
+                                borderColor: "#36495d",
+                                borderWidth: 3
+                            }
+                        ],
+                    },
+                    
+                    options: {
+                        responsive: true,
+                        lineTension: 1,
+                        scales: {
+                        yAxes: [
+                            {
+                            ticks: {
+                                beginAtZero: true,
+                                padding: 25
+                            }
+                            }
+                        ]
                         }
-                    ],
-                },
-                
-                options: {
-                    responsive: true,
-                    lineTension: 1,
-                    scales: {
-                    yAxes: [
-                        {
-                        ticks: {
-                            beginAtZero: true,
-                            padding: 25
-                        }
-                        }
-                    ]
                     }
-                }
 
 
-            });
-        },
+                });
+            },
 
-        getDatadash(){
-          let me=this;
-            axios.get('/get_data_Dash').then(function(response){ 
-                const array_data = response.data;
-                //return the sum of all keys
-                const groupAll = list => list.reduce((acc, item) => {
-                    const accAmout = acc[item.person_id] || 0;
-                    return Object.assign({}, acc, {[item.person_id]: accAmout + parseInt(item.amount, 10)});
-                }, {});
+            getDatadash(){
+            let me=this;
+                axios.get('/get_data_Dash').then(function(response){ 
+                    const array_data = response.data;
+                    //return the sum of all keys
+                    const groupAll = list => list.reduce((acc, item) => {
+                        const accAmout = acc[item.person_id] || 0;
+                        return Object.assign({}, acc, {[item.person_id]: accAmout + parseInt(item.amount, 10)});
+                    }, {});
 
-                console.log("groupAll", groupAll(me.count_products));
+                    console.log("groupAll", groupAll(me.count_products));
 
-                return array_data.forEach(element => {
-                    me.count_products = element.products;
-                    const productsByname = me.count_products.reduce((acc, value) =>{
-                        console.log(acc);
-                    },{});
-                });          
-            })
-		},
+                    return array_data.forEach(element => {
+                        me.count_products = element.products;
+                        const productsByname = me.count_products.reduce((acc, value) =>{
+                            console.log(acc);
+                        },{});
+                    });          
+                })
+            },
 
-        GetlayawayDetails(){
-			let me = this;		
-			axios.post('/get_layaway_details').then(function(response){
-				me.total_count_layaway = response.data;
-			});
-		},
+            GetlayawayDetails(){
+                let me = this;		
+                axios.post('/get_layaway_details').then(function(response){
+                    me.total_count_layaway = response.data;
+                });
+            },
 
-        GetSalesDetails(){
-			let me = this;		
-			axios.post('/get_sales_details').then(function(response){
-				me.total_count_sales = response.data;
-			});
-		},
-  
-  },
+            GetSalesDetails(){
+                let me = this;		
+                axios.post('/get_sales_details').then(function(response){
+                    me.total_count_sales = response.data;
+                });
+            },
+    
+    },
 
-  mounted() {
-		  let self = this
-            self.ChartProvider();
-            self.getDatadash();
-            self.GetlayawayDetails();
-            self.GetSalesDetails();
-	}
+    mounted() {
+            let self = this
+                self.ChartProvider();
+                self.getDatadash();
+                self.GetlayawayDetails();
+                self.GetSalesDetails();
+    }
 }
 
 </script>

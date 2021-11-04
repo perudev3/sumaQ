@@ -13,6 +13,9 @@ use App\purchase_order_details;
 use App\tbl_sales_profits;
 use Carbon\Carbon;
 
+use Mail;
+use App\Mail\EnvioEmail;
+
 class SalesController extends Controller
 {
     public function index()
@@ -106,7 +109,9 @@ class SalesController extends Controller
 
         }
         
-        
+        Mail::to($request->customers_mail)->send(
+            new EnvioEmail($request->customers_phone,$request->customers_address,$array, $request->total_bussines , $request->sales_payment_date)
+        );
 
         if ($tbl_addresses && $tbl_customers && $tbl_sales_details == true) {
             return ['status' => 'success'];

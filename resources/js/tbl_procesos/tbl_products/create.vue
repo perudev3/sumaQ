@@ -130,7 +130,7 @@ export default {
 
   components: {
        vue2Dropzone
-  },
+  },    
 
   data:function(){
       return {
