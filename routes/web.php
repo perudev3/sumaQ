@@ -453,3 +453,7 @@ Route::get('/solicitante', function () {
 Route::get('get_solicitudes', 'SolicitudesController@GetSolicitudes');
 Route::get('get_solicitante', 'SolicitudesController@GetSolicitante');
 Route::post('post_solicitudes', 'SolicitudesController@PostSolicitudes');
+
+
+/**Clover Test**/
+Route::get('/clover-post', 'CloverController@authorization');
