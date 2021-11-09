@@ -9,10 +9,58 @@ class CloverController extends Controller
 {
     public function authorization()
     {
-        $response = Http::post(
-            'https://sandbox.dev.clover.com/oauth/token?client_id=QSMBNNHEBAEGM&client_secret=e3c07213-5128-2ff7-ba66-69d35c173dbd&code=7692fae7-aed9-fd4d-070c-e2e4b8f1aef6'
-        );
-        
-        return dd($response);
+        $response = Http::withBasicAuth('rivasrivas506@gmail.com', 'S@muel456')->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer '.env('API_Token'),
+            'Content-Type' => 'application/json',
+        ])->post('https://sandbox.dev.clover.com/v3/merchants/'.env('merchant_id').'/authorizations', [           
+                "payment"=>[
+                    "offline"=>"false",
+                    "transactionSettings"=> [
+                        "disableCashBack"=>"false",
+                        "cloverShouldHandleReceipts"=>"true",
+                        "forcePinEntryOnSwipe"=>"false",
+                        "disableRestartTransactionOnFailure"=>"false",
+                        "allowOfflinePayment"=>"false",
+                        "approveOfflinePaymentWithoutPrompt"=>"false",
+                        "forceOfflinePayment"=>"false",
+                        "disableReceiptSelection"=>"false",
+                        "disableDuplicateCheck"=>"false",
+                        "autoAcceptPaymentConfirmations"=>"false",
+                        "autoAcceptSignature"=>"false",
+                        "returnResultOnTransactionComplete"=>"false",
+                        "disableCreditSurcharge"=>"false"
+                    ],
+                    "transactionInfo"=> [
+                        "isTokenBasedTx"=>"false",
+                        "emergencyFlag"=>"false"
+                    ]
+                ],
+                "closingPayment"=>[
+                    "offline"=>"false",
+                    "transactionSettings"=>[
+                        "disableCashBack"=>"false",
+                        "cloverShouldHandleReceipts"=>"true",
+                        "forcePinEntryOnSwipe"=>"false",
+                        "disableRestartTransactionOnFailure"=>"false",
+                        "allowOfflinePayment"=>"false",
+                        "approveOfflinePaymentWithoutPrompt"=>"false",
+                        "forceOfflinePayment"=>"false",
+                        "disableReceiptSelection"=>"false",
+                        "disableDuplicateCheck"=>"false",
+                        "autoAcceptPaymentConfirmations"=>"false",
+                        "autoAcceptSignature"=>"false",
+                        "returnResultOnTransactionComplete"=>"false",
+                        "disableCreditSurcharge"=>"false"
+                    ],
+                    "transactionInfo"=>[
+                        "isTokenBasedTx"=>"false",
+                        "emergencyFlag"=>"false"
+                    ]
+                ]
+        ]);
+
+        return $response;
+
     }
 }

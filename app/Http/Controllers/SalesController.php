@@ -113,6 +113,9 @@ class SalesController extends Controller
             new EnvioEmail($request->customers_phone,$request->customers_address,$array, $request->total_bussines , $request->sales_payment_date)
         );
 
+
+        $this->PaymentMethods();
+
         if ($tbl_addresses && $tbl_customers && $tbl_sales_details == true) {
             return ['status' => 'success'];
         }
@@ -201,6 +204,18 @@ class SalesController extends Controller
         }
         
     }    
+
+    public function PaymentMethods()
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer '.env('API_Token'),
+            'Content-Type' => 'application/json',
+        ])->post('https://sandbox.dev.clover.com/v3/merchants/'.env('merchant_id').'/authorizations', [
+            
+        ]);
+
+    }
 
 
 }

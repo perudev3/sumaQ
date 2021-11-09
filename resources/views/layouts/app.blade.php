@@ -10,13 +10,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> {{ config('app.name', 'Laravel')  }} </title>
-
+    <!-- Favicon icon -->
+    <link rel="icon" href="{{ asset('favicon-sumaq.ico') }}" type="image/x-icon">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+    
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">

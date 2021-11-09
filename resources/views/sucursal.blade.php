@@ -13,7 +13,7 @@
     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ asset('new_sumaq/assets/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon-sumaq.ico') }}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
@@ -80,10 +80,10 @@
                     <form method="POST" class="md-float-material form-material" action="{{ route('sucursal.seleccionar.post') }}">
                         @csrf
                         <div class="text-center">
-                            <img src="{{ asset('new_sumaq/assets/images/logo.png') }}" alt="logo.png">
+                            <img src="{{ asset('img/logo-sumaq.png') }}" alt="logo.png" class="img-fluid">
                         </div>
                         <div class="auth-box card">
-                            <div class="card-block">
+                            <div class="card-block" style="box-shadow: 2px 2px 20px -15px;border-radius: 18px;">
                                 <div class="row m-b-20">
                                     <div class="col-md-12">
                                         <h3 class="text-center">Seleccionar Sucursal</h3>

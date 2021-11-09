@@ -3,7 +3,6 @@
         <div class="pcoded-inner-content">
             <div class="main-body">
                 <div class="page-wrapper">
-
                     <div class="page-body">
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
@@ -68,7 +67,6 @@ import ChartJS from 'chart.js/auto';
 export default {
     data:function(){
         return {
-            count_products:'',
             total_count_layaway:'',
             total_count_sales:'',
             data_provider:[],
@@ -82,16 +80,17 @@ export default {
 			let me = this;	
 			var resultado=0.0;
 			for(var i=0;i< me.total_count_layaway.length;i++){
-				resultado= resultado + me.total_count_layaway[i].layaway_profits[i].total_bussines_layaway;
+				resultado += +(me.total_count_layaway[i].layaway_profits[0].total_bussines_layaway);
 			}
 			return resultado;
 		},
 
 
         calcularTotalSales(){
-			var resultado=0.0;
-			for(var i=0;i<this.total_count_sales.length;i++){
-				resultado= resultado + this.total_count_sales[i].sales_profits[i].total_bussines;
+			let resultado=0;
+            let me = this;	
+			for(var i=0;i<me.total_count_sales.length;i++){
+                resultado += +(me.total_count_sales[i].sales_profits[0].total_bussines);
 			}
 			return resultado;
 		}
@@ -102,14 +101,13 @@ export default {
                 let me=this;
                 axios.get('chart_provider').then(function(response){
                     me.data_provider= response.data;
-                    console.log(me.data_provider);
                     me.LineChart(response.data);
                 })
             },
 
             LineChart(data){
             var ctx = document.getElementById('Linechart');
-            console.log(Object.values(this.data_provider))
+            //console.log(Object.values(this.data_provider))
                 var myChart = new ChartJS(ctx, {
                     type: 'line',
                     data: {
@@ -144,27 +142,6 @@ export default {
                 });
             },
 
-            getDatadash(){
-            let me=this;
-                axios.get('/get_data_Dash').then(function(response){ 
-                    const array_data = response.data;
-                    //return the sum of all keys
-                    const groupAll = list => list.reduce((acc, item) => {
-                        const accAmout = acc[item.person_id] || 0;
-                        return Object.assign({}, acc, {[item.person_id]: accAmout + parseInt(item.amount, 10)});
-                    }, {});
-
-                    console.log("groupAll", groupAll(me.count_products));
-
-                    return array_data.forEach(element => {
-                        me.count_products = element.products;
-                        const productsByname = me.count_products.reduce((acc, value) =>{
-                            console.log(acc);
-                        },{});
-                    });          
-                })
-            },
-
             GetlayawayDetails(){
                 let me = this;		
                 axios.post('/get_layaway_details').then(function(response){
@@ -173,7 +150,8 @@ export default {
             },
 
             GetSalesDetails(){
-                let me = this;		
+                let me = this;	
+                var resultado;	
                 axios.post('/get_sales_details').then(function(response){
                     me.total_count_sales = response.data;
                 });
@@ -182,11 +160,10 @@ export default {
     },
 
     mounted() {
-            let self = this
-                self.ChartProvider();
-                self.getDatadash();
-                self.GetlayawayDetails();
-                self.GetSalesDetails();
+        let self = this
+        self.ChartProvider();
+        self.GetlayawayDetails();
+        self.GetSalesDetails();
     }
 }
 
@@ -194,11 +171,6 @@ export default {
 
 
 <style>
-/* 
-========================
-      BUTTON THREE
-========================
-*/
 .btn-three {
   color: #FFF;
   transition: all 0.5s;

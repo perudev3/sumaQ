@@ -13,7 +13,7 @@
     <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="E-Pask">
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ asset('new_sumaq/assets/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon-sumaq.ico') }}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Fremwork -->
@@ -26,6 +26,12 @@
     
     <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/assets/css/jquery.mCustomScrollbar.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('new_sumaq/bower_components/jquery.steps/demo/css/jquery.steps.css') }}">
+
+    <style>
+        .logo-responsive{
+            width: 65%;
+        }
+    </style>
 </head>
 
 <body>
@@ -78,8 +84,8 @@
                         <a class="mobile-menu" id="mobile-collapse">
                             <i class="feather icon-menu"></i>
                         </a>
-                        <a href="index.html">
-                            <img class="img-fluid" src="{{ asset('new_sumaq/assets/images/logo.png') }}" alt="Theme-Logo" />
+                        <a href="{{ url('/') }}">
+                            <img class="img-fluid logo-responsive" src="{{ asset('img/logo-sumaq.png') }}" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>
@@ -96,7 +102,7 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown ">
                                     <div class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="{{ asset('new_sumaq/assets/images/avatar-4.jpg') }}" class="img-radius"
+                                        <img src="{{ asset('img/vatar-user.png') }}" class="img-radius"
                                             alt="User-Profile-Image">
                                         <span> Bienvenido(a) {{ Auth::user()->name }}  </span>
                                     </div>
@@ -287,24 +293,7 @@
                             </ul>
                         </div>
                     </nav>
-                    <!-- <div class="pcoded-content">
-                        <div class="pcoded-inner-content">
-                            <div class="main-body">
-                                <div class="page-wrapper">
-
-                                    <div class="page-body"> -->
-
-                                            <!--  Content Laravel-->
-                                                @yield('content')
-                                            <!--  Content Laravel -->
-<!-- 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
- -->
-                    
+                        @yield('content')
                 </div>
             </div>
         </div>
@@ -331,7 +320,6 @@
     <script src="{{ asset('new_sumaq/assets/js/pcoded.min.js') }}"></script>
     <!-- custom js -->
     <script src="{{ asset('new_sumaq/assets/js/vartical-layout.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('new_sumaq/assets/pages/dashboard/custom-dashboard.js') }}"></script>
     <script type="text/javascript" src="{{ asset('new_sumaq/assets/js/script.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="{{ mix('js/app.js') }}" defer></script>
