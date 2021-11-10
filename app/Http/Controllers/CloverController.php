@@ -11,9 +11,9 @@ class CloverController extends Controller
     {
         $response = Http::withBasicAuth('rivasrivas506@gmail.com', 'S@muel456')->withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer '.env('API_Token'),
+            'Authorization' => 'Bearer afe76dfc-7723-8ea3-9cf8-374a854f4b50',
             'Content-Type' => 'application/json',
-        ])->post('https://sandbox.dev.clover.com/v3/merchants/'.env('merchant_id').'/authorizations', [           
+        ])->post('https://sandbox.dev.clover.com/v3/merchants/QFZ20WHQZX651/authorizations', [           
                 "payment"=>[
                     "offline"=>"false",
                     "transactionSettings"=> [

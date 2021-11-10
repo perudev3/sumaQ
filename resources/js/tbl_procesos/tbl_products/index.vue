@@ -47,10 +47,7 @@
 											<div class="col-lg-4" v-for="(data, index) in searchInUsers">
 												
                                                 <div class="card-sub" align="center" style="box-shadow: 0 0 25px -5px #9e9c9e;">
-													<div class="alert alert-danger background-danger">
-														<span v-if="data.count_inventory.length < 500">Se agota Stock de este producto</span>
-													</div>
-                                                    <img class="card-img-top img-fluid"
+													<img class="card-img-top img-fluid"
                                                         :src="'/img_products/'+data.products_image_url" 
                                                         alt="Card image cap"
 														style="width: 28%;">
@@ -61,15 +58,10 @@
 														<div class="alert alert-success background-success">
 															<b>Detalles del Producto</b>
 														</div>
-														<template v-if="data.discounts_group.length">
-															<p><h5>Precio - <b><del> $ {{ data.products_price }}</del></b></h5></p>
-															<p><h5>Precio + Descuento - <b> $ {{ data.discounts_group.length ?  (data.products_price - (data.discounts_group[0].discounts[0].discounts_porcentaje*data.products_price)/100) : 'No tiene descuento'}} </b> </h5> </p>
-															<p><h5>Descuento del <b> {{ data.discounts_group[0].discounts[0].discounts_porcentaje}} %</b></h5></p>
-														</template>		
-														<template v-else>
-															<p><h5>Precio - <b>{{ data.products_price }}</b></h5></p>
-														</template>		
-														
+													
+														<p><h5>Antes - <b><del> $ {{ data.products_price }}</del></b></h5></p>
+														<p><h5>Ahora - <b> $ {{ data.products_discount ?  (data.products_price - (data.products_discount*data.products_price)/100) : 'No tiene descuento'}} </b> </h5> </p>
+														<p><h5>Descuento del <b> {{ data.products_discount }} %</b></h5></p>
 													</div>
 													<div class="card-footer" align="center">	
 														<button class="btn btn-primary" @click="editProducto(data)">Editar <i class="fa fa-pencil fa-1x"></i></button>
@@ -290,10 +282,6 @@ export default {
 		},
 		searchInUsers(){
 			let me =this;
-
-			/*me.data_inventarios.filter(function(element){ 
-				console.log(element.products_name.toLowerCase());
-			});*/
 			if (this.search.length > 0){
 				this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
 				this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);

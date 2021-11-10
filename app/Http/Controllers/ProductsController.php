@@ -31,6 +31,7 @@ class ProductsController extends Controller
                 'materials_id' => $request['materials_id'],
                 'products_caracts' => $request['products_caracts'],
                 'products_price' => $request['products_price'],
+                'products_discount' => $request['products_discount'],
                 'products_is_active'=> $request['products_is_active'],
                 'suplidor'=> $request['suplidor'],
             ]);
@@ -68,6 +69,7 @@ class ProductsController extends Controller
             'material_id' => $request['materials_id'],
             'products_caracts' => $request['products_caracts'],
             'products_price' => $request['products_price'],
+            'products_discount'=>$request['products_discount'],
             'products_is_active'=> $request['products_is_active'],
             'suplidor'=> $request['suplidor'],
         ]);

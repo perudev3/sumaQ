@@ -17,6 +17,7 @@ class tbl_products extends Model
         'products_price',
         'products_net_price',
         'discounts_id',
+        'products_discount',
         'products_is_active',
         'suplidor'
     ];

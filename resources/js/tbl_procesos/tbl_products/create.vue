@@ -25,78 +25,87 @@
                           <div class="card">
                               <div class="card-block">
                                   <form>
-                                      <div class="row">
-                                        <div class="col-lg-6">
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Nombre del Producto</span></div>
-                                                  <input type="text"  v-model="products_name" class="form-control">
-                                              </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Suplidor</span></div>
-                                                  <input type="text" disabled :value="user['name']" class="form-control">
-                                              </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Características del Producto</span></div>
-                                                  <textarea  v-model="products_caracts" class="form-control"></textarea>
-                                              </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Categoria</span></div>
-                                                  <select class="form-control" v-model="category_id">
-                                                      <option v-for="datacategory in data_category" :key="datacategory.categories_id" :value="datacategory.categories_id">{{datacategory.categories_name}}</option>
-                                                  </select>
-                                              </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Colección</span></div>
-                                                  <select class="form-control" v-model="collection_id">
-                                                      <option v-for="datacollections in data_collection" :key="datacollections.collections_id" :value="datacollections.collections_id">{{datacollections.collections_name}}</option>
-                                                  </select>
-                                              </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Materiales</span></div>
-                                                  <select class="form-control" v-model="materials_id">
-                                                      <option v-for="data in data_material" :key="data.materials_id" :value="data.materials_id">{{data.materials_name}}</option>
-                                                  </select>
-                                              </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Estado del Producto</span></div>
-                                                  <select class="form-control" v-model="products_is_active">
-                                                      <option value="1">Ativo</option>
-                                                      <option value="0">Inactivo</option>
-                                                  </select>
-                                              </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                              <div class="input-group">
-                                                  <div class="input-group-prepend">
-                                                  <span class="input-group-text"  id="basic-addon1">Costo del Producto</span></div>
-                                                  <input v-model="products_price" class="form-control"/>
-                                              </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                              <vue2Dropzone ref="products_image_url" id="dropzone"
-                                                    v-on:vdropzone-max-files-exceeded="maxFilesAlert"
-                                                    :options="dropzoneOptions">
-                                              </vue2Dropzone>
-                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label >Nombre del Producto</label>
+                                                            <input type="text"  v-model="products_name" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="">Suplidor</label>
+                                                            <input type="text" disabled :value="user['name']" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="">Categoria</label>
+                                                            <select class="form-control" v-model="category_id">
+                                                                <option v-for="datacategory in data_category" :key="datacategory.categories_id" :value="datacategory.categories_id">{{datacategory.categories_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="">Colección</label>
+                                                            <select class="form-control" v-model="collection_id">
+                                                                <option v-for="datacollections in data_collection" :key="datacollections.collections_id" :value="datacollections.collections_id">{{datacollections.collections_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="">Materiales</label>
+                                                            <select class="form-control" v-model="materials_id">
+                                                                <option v-for="data in data_material" :key="data.materials_id" :value="data.materials_id">{{data.materials_name}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="">Estado del producto</label>
+                                                            <select class="form-control" v-model="products_is_active">
+                                                                <option value="1">Ativo</option>
+                                                                <option value="0">Inactivo</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="">Costo del producto</label>
+                                                            <input v-model="products_price" class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="">Descuento</label>
+                                                            <input v-model="products_discount" class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="">Características del Producto</label>
+                                                        <textarea  v-model="products_caracts" class="form-control" rows="5"></textarea>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                <div class="col-lg-12">
+                                                    <vue2Dropzone ref="products_image_url" id="dropzone"
+                                                            v-on:vdropzone-max-files-exceeded="maxFilesAlert"
+                                                            :options="dropzoneOptions">
+                                                    </vue2Dropzone>
+                                                </div>
+                                            </div>
+                                        
+                                        
+                                        
                                       </div>
                                   </form>
                               </div>
@@ -147,6 +156,7 @@ export default {
         products_net_price:'',
         products_is_active:'',
         products_image_url:'',
+        products_discount:'',
 
         dropzoneOptions: {
                     url: 'empresa/producto',
@@ -217,6 +227,7 @@ export default {
                 data.append("products_price", this.products_price)
                 data.append("products_is_active", this.products_is_active)
                 data.append("suplidor", this.suplidor)
+                data.append("products_discount", this.products_discount)
                 axios.post('/post_products', data,{ headers: {'Content-Type': 'multipart/form-data'}})
                     .then(response => {
                         if (response.data.status==='success') {

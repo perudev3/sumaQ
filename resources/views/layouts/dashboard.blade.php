@@ -151,12 +151,12 @@
                                             </a>
                                         </li>
 
-                                        <li>
+                                        <!-- <li>
                                             <a href="{{url('/discount')}}">
                                                 <i class="feather icon-percent"></i>
                                                 <span class="pcoded-mtext">Descuentos</span>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </li>
                                 <li class="pcoded-hasmenu">
