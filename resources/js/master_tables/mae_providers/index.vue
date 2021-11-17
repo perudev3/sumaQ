@@ -41,9 +41,8 @@
                                                                 <div class="align-items-end">                                                                  
                                                                   <div class="row">
                                                                       <div class="col-lg-8">
-                                                                          <div class="input-group">
-                                                                              <div class="input-group-prepend">
-                                                                              <span class="input-group-text"  id="basic-addon1">Digite nombre del proveedor</span></div>
+                                                                          <div class="form-group">
+                                                                              <label for="">Digite nombre del proveedor</label>
                                                                               <input type="search" class="form-control" v-model="providers_name" v-on:keyup="searchProviders">
                                                                           </div>
                                                                       </div>
@@ -109,7 +108,7 @@
                                                                               <a  @click="EditProviders(data)">
                                                                                 <button class="btn btn-primary"><i class="feather icon-edit"></i></button>
                                                                               </a>
-                                                                              <a  href="javascript:void(0);">
+                                                                              <a >
                                                                                 <button class="btn btn-danger"><i class="feather icon-trash"></i></button>
                                                                               </a>
                                                                             

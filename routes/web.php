@@ -182,6 +182,12 @@ Route::prefix('provider')->group(function () {
 		return view('master_tables.mae_providers', compact('name_view', 'user'));
 	});
 
+	Route::get('/purchase_orders/create', function () {
+		$name_view = 'PROVEEDOR';
+		$user = \Auth::user();
+		return view('master_tables.mae_providers', compact('name_view', 'user'));
+	});
+
 	Route::get('/search_providers', 'ProviderController@SearchProviders');
 });
 

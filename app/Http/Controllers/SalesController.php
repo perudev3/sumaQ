@@ -205,17 +205,6 @@ class SalesController extends Controller
         
     }    
 
-    public function PaymentMethods()
-    {
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer '.env('API_Token'),
-            'Content-Type' => 'application/json',
-        ])->post('https://sandbox.dev.clover.com/v3/merchants/'.env('merchant_id').'/authorizations', [
-            
-        ]);
-
-    }
 
 
 }

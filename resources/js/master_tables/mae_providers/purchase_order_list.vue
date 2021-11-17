@@ -85,7 +85,7 @@
                                                             <div class="page-header">
                                                                 <div class="align-items-end">                                                                  
                                                                   <div class="row">
-                                                                      <router-link to="/purchase_orders/create">
+                                                                      <router-link to="/provider/purchase_orders/create">
                                                                           <button class="btn btn-primary">
                                                                               + Crear Orden
                                                                           </button>
@@ -130,7 +130,7 @@
                                                                           <td >
                                                                               <a v-if="data.purchase_orders_status==0"  @click="Confirmacion(data.purchase_orders_id)"><button class="btn btn-primary"><i class="fa fa-check"></i></button></a>
                                                                               <a v-if="data.purchase_orders_status==1" @click="Recibido(data.purchase_orders_id)"><button class="btn btn-primary"><i class="fa fa-check"></i></button> </a>
-                                                                              <a ><button class="btn btn-warning"><i class="fa fa-pencil"></i></button></a>
+                                                                              <a ><button class="btn btn-warning" @click="EditOrden(data)"><i class="fa fa-pencil"></i></button></a>
                                                                               <a ><button class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
                                                                           </td>
                                                                         </tr>
@@ -257,6 +257,15 @@ export default {
   },
 
   methods:{
+
+      EditOrden(data){
+          this.$router.push({
+            name: "provider/purchase_orders_edit",
+            params:{
+                data_purchase_orders: data,
+            }
+          });
+      },
 
       ShowModal(purchase_orders_id){
           let me=this;
@@ -416,12 +425,9 @@ export default {
   },
 
 
-   mounted() {
-            let self = this
-            setTimeout(function(){
-              self.GetPurchaseOrder();
-            },2000);
-
+  mounted() {
+      let self = this
+      self.GetPurchaseOrder();
   }
 
   

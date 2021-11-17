@@ -240,20 +240,6 @@
                                 
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="feather icon-list"></i></span>
-                                        <span class="pcoded-mtext">Reportes</span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="{{url('/sales/report')}}">
-                                                <i class="fa fa-sitemap"></i>
-                                                <span class="pcoded-mtext"> Ventas</span>
-                                            </a>
-                                        </li> 
-                                    </ul>
-                                </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
                                         <span class="pcoded-mtext">Configuraciones</span>
                                     </a>

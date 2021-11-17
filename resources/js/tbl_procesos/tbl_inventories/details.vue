@@ -48,7 +48,7 @@
 									</div>
 								</div>
 							</div>  
-							<div class="row container">
+							<!-- <div class="row container">
 									<div class="col-lg-6">
 										<div class="input-group">
 											<div class="input-group-prepend">
@@ -70,7 +70,7 @@
 									<div class="col-lg-3">
 										<button class="btn btn-primary" @click="Transferir()"> Transferir </button>
 									</div>
-							</div>
+							</div> -->
 							<div class="col-sm-12">
 								<div class=" ">
                                     <div class="card-block">

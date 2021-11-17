@@ -134,8 +134,14 @@ const routes = [
         component: require('./master_tables/mae_providers/purchase_order_list.vue').default
     },
     {
-        path:'/purchase_orders/create',
-        component: require('./master_tables/mae_providers/purchase_order.vue').default
+        path:'/provider/purchase_orders/create',
+        name:'provider/purchase_orders/create',
+        component: require('./master_tables/mae_providers/purchase_order_create.vue').default
+    },
+    {
+        path:'/provider/purchase_orders/edit',
+        name:'provider/purchase_orders/edit',
+        component: require('./master_tables/mae_providers/purchase_orders_edit.vue').default
     },
 
 /***Sales***/

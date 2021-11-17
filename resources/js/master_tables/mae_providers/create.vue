@@ -27,50 +27,52 @@
                                 <form>
                                   <div class="row">
                                       <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"  id="basic-addon1">Nombre de Proveedor</span></div>
-                                                <input type="text"  v-model="providers_name" class="form-control" >
-                                            </div>
+                                          <div class="row">
+                                                <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="">Nombre de Proveedor</label>
+                                                            <input type="text"  v-model="providers_name" class="form-control" >
+                                                        </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="">Documento de Proveedor</label>
+                                                            <input type="text"  v-model="providers_id_number" class="form-control">
+                                                        </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="">Dirección</label>
+                                                            <input type="text"  v-model="providers_address" class="form-control" placeholder="Dirección">
+                                                        </div>
+                                                </div>
+                                          </div>
                                       </div>
-                                      <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"  id="basic-addon1">Documento de Proveedor</span></div>
-                                                <input type="text"  v-model="providers_id_number" class="form-control">
-                                            </div>
-                                      </div>
-                                      <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"  id="basic-addon1">Dirección</span></div>
-                                                <input type="text"  v-model="providers_address" class="form-control" placeholder="Dirección">
-                                            </div>
-                                      </div>
-                                      <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"  id="basic-addon1">Encargado</span></div>
-                                                <input type="text"  v-model="providers_encargado" class="form-control" placeholder="Encargado">
-                                            </div>
-                                      </div>
-                                      <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"  id="basic-addon1">Movil</span></div>
-                                                <input type="text"  v-model="providers_mobile" class="form-control" placeholder="Movil">
-                                            </div>
-                                      </div>
-                                      <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text"  id="basic-addon1">Estado</span></div>
-                                                <select class="form-control" v-model="providers_is_active">
-                                                    <option value="1">Activo</option>
-                                                    <option value="0">Inactivo</option>
-                                                </select>
-                                            </div>
-                                      </div>
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="">Encargado</label>
+                                                            <input type="text"  v-model="providers_encargado" class="form-control" placeholder="Encargado">
+                                                        </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="">Movil</label>
+                                                            <input type="text"  v-model="providers_mobile" class="form-control" placeholder="Movil">
+                                                        </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="">Estado</label>
+                                                            <select class="form-control" v-model="providers_is_active">
+                                                                <option value="1">Activo</option>
+                                                                <option value="0">Inactivo</option>
+                                                            </select>
+                                                        </div>
+                                                </div>
+                                          </div>    
+                                        </div>
                                   </div>
                                   <div class="card-footer">
                                       <button class="btn btn-primary" type="button" @click="PostProvider">Registrar</button>

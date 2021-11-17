@@ -299,10 +299,10 @@ export default {
 		searchInUsers(){
 			let me =this;
 
-			/*me.data_inventarios.filter(function(element){ 
+			me.data_products.filter(function(element){ 
 				console.log(element.products_name.toLowerCase());
-			});*/
-			if (this.search.length > 0){
+			});
+			/* if (this.search.length > 0){
 				this.pagination.from = (this.pagination.currentPage-1)*this.pagination.perPage;
 				this.pagination.to = Number(this.pagination.from) + Number(this.pagination.perPage);
 				this.pagination.total = me.data_products.filter((prod) => prod.products_name.toLowerCase().includes(this.search.toLowerCase())).length;
@@ -312,7 +312,7 @@ export default {
 				this.pagination.total = me.data_products.length;
 			}
 			return me.data_products.filter((prod) => prod.products_name.toLowerCase().includes(this.search.toLowerCase())).slice(this.pagination.from,this.pagination.to);
-		}
+	 */	}
 	},
 
    mounted() {
